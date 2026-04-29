@@ -1,0 +1,42 @@
+{
+  "output_path": "C:\\SVNProjects\\Algoding\\output\\pdf\\deepseek_daily_overlay_vs_baseline_dark.pdf",
+  "artifact_path": "C:\\SVNProjects\\Algoding\\reports\\research\\llm_news_sentiment_deepseek_stocks_daily_run_full.json",
+  "timeframe": "day",
+  "regular_hours_only": false,
+  "baseline_vs_overlay_summary": {
+    "symbol_window_pairs": 48,
+    "entry_filter_better": 19,
+    "exit_filter_better": 25,
+    "combo_better": 17
+  },
+  "better_assets": 11,
+  "worse_assets": 5,
+  "baseline_return_stats": {
+    "mean": 0.164444,
+    "variance": 0.037492,
+    "stddev": 0.193628,
+    "min": -0.142676,
+    "max": 0.567559
+  },
+  "overlay_return_stats": {
+    "mean": 0.19139,
+    "variance": 0.047966,
+    "stddev": 0.219011,
+    "min": -0.093901,
+    "max": 0.621561
+  },
+  "baseline_drawdown_stats": {
+    "mean": -0.116811,
+    "variance": 0.003733,
+    "stddev": 0.061095,
+    "min": -0.217251,
+    "max": -0.027833
+  },
+  "overlay_drawdown_stats": {
+    "mean": -0.097203,
+    "variance": 0.004129,
+    "stddev": 0.064254,
+    "min": -0.217046,
+    "max": -0.02857
+  }
+}

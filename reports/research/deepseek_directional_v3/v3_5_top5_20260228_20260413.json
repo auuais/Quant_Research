@@ -1,0 +1,957 @@
+{
+  "version": "V3-5",
+  "policy": {
+    "minimum_strength": "medium",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.01,
+    "no_same_day_reentry": true
+  },
+  "window": {
+    "start_date": "2026-02-28",
+    "end_date": "2026-04-13"
+  },
+  "rows": [
+    {
+      "symbol": "AVGO",
+      "period": "2026-03-02 -> 2026-04-10 (29 days)",
+      "total_return": 0.346339,
+      "max_drawdown": -0.006391,
+      "trades": 14,
+      "win_rate": 0.857143,
+      "latest_signal": "long",
+      "exit_reasons": {
+        "risk_exit": 14
+      },
+      "bars_tested": 29
+    },
+    {
+      "symbol": "XOM",
+      "period": "2026-03-02 -> 2026-04-10 (29 days)",
+      "total_return": 0.209369,
+      "max_drawdown": -0.000185,
+      "trades": 14,
+      "win_rate": 0.928571,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 14
+      },
+      "bars_tested": 29
+    },
+    {
+      "symbol": "TSLA",
+      "period": "2026-03-02 -> 2026-04-10 (29 days)",
+      "total_return": 0.205348,
+      "max_drawdown": -0.002629,
+      "trades": 13,
+      "win_rate": 0.846154,
+      "latest_signal": "long",
+      "exit_reasons": {
+        "risk_exit": 13
+      },
+      "bars_tested": 29
+    },
+    {
+      "symbol": "GOOGL",
+      "period": "2026-03-02 -> 2026-04-10 (29 days)",
+      "total_return": 0.152602,
+      "max_drawdown": -0.005034,
+      "trades": 14,
+      "win_rate": 0.785714,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 14
+      },
+      "bars_tested": 29
+    },
+    {
+      "symbol": "NVDA",
+      "period": "2026-03-02 -> 2026-04-10 (29 days)",
+      "total_return": 0.148398,
+      "max_drawdown": -0.007136,
+      "trades": 13,
+      "win_rate": 0.692308,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 13
+      },
+      "bars_tested": 29
+    }
+  ],
+  "aggregate": {
+    "start_date": "2026-02-28",
+    "end_date": "2026-04-13",
+    "symbols": 5,
+    "mean_total_return": 0.212411,
+    "mean_max_drawdown": -0.004275,
+    "mean_trades": 13.6
+  },
+  "details": [
+    {
+      "symbol": "AVGO",
+      "summary": {
+        "strategy_name": "avgo_v3_5_20260228_20260413",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "long",
+        "total_return": 0.346339,
+        "annualized_return": 13.534152,
+        "annualized_volatility": 0.327195,
+        "max_drawdown": -0.006391,
+        "trades": 14,
+        "win_rate": 0.857143,
+        "profit_factor": 33.393736,
+        "score": 0.488858,
+        "bars_tested": 29,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 14
+        }
+      },
+      "events": [
+        {
+          "timestamp": "2026-03-02T05:00:00+00:00",
+          "event": "buy",
+          "price": 318.21,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-03T05:00:00+00:00",
+          "event": "sell",
+          "price": 316.1763,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-04T05:00:00+00:00",
+          "event": "buy",
+          "price": 316.46,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-05T05:00:00+00:00",
+          "event": "sell",
+          "price": 332.0262,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-06T05:00:00+00:00",
+          "event": "buy",
+          "price": 329.82,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-09T04:00:00+00:00",
+          "event": "sell",
+          "price": 344.2329,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-10T04:00:00+00:00",
+          "event": "buy",
+          "price": 341.82,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-11T04:00:00+00:00",
+          "event": "sell",
+          "price": 348.8859,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-12T04:00:00+00:00",
+          "event": "buy",
+          "price": 335.27,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-13T04:00:00+00:00",
+          "event": "sell",
+          "price": 335.6694,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-16T04:00:00+00:00",
+          "event": "buy",
+          "price": 324.35,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-17T04:00:00+00:00",
+          "event": "sell",
+          "price": 325.2447,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-18T04:00:00+00:00",
+          "event": "buy",
+          "price": 315.18,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-19T04:00:00+00:00",
+          "event": "sell",
+          "price": 321.4827,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-20T04:00:00+00:00",
+          "event": "buy",
+          "price": 310.08,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-23T04:00:00+00:00",
+          "event": "sell",
+          "price": 323.1855,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-24T04:00:00+00:00",
+          "event": "buy",
+          "price": 318.31,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-25T04:00:00+00:00",
+          "event": "sell",
+          "price": 320.9877,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-26T04:00:00+00:00",
+          "event": "buy",
+          "price": 309.67,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-27T04:00:00+00:00",
+          "event": "sell",
+          "price": 313.6617,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        }
+      ],
+      "events_count": 29
+    },
+    {
+      "symbol": "NVDA",
+      "summary": {
+        "strategy_name": "nvda_v3_5_20260228_20260413",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "flat",
+        "total_return": 0.148398,
+        "annualized_return": 2.474029,
+        "annualized_volatility": 0.188407,
+        "max_drawdown": -0.007136,
+        "trades": 13,
+        "win_rate": 0.692308,
+        "profit_factor": 12.672731,
+        "score": 0.274061,
+        "bars_tested": 29,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 13
+        }
+      },
+      "events": [
+        {
+          "timestamp": "2026-03-02T05:00:00+00:00",
+          "event": "buy",
+          "price": 182.39,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-03T05:00:00+00:00",
+          "event": "sell",
+          "price": 181.6155,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-04T05:00:00+00:00",
+          "event": "buy",
+          "price": 182.96,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-05T05:00:00+00:00",
+          "event": "sell",
+          "price": 182.8431,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-06T05:00:00+00:00",
+          "event": "buy",
+          "price": 177.69,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-09T04:00:00+00:00",
+          "event": "sell",
+          "price": 181.0413,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-10T04:00:00+00:00",
+          "event": "buy",
+          "price": 184.76,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-11T04:00:00+00:00",
+          "event": "sell",
+          "price": 185.724,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-12T04:00:00+00:00",
+          "event": "buy",
+          "price": 183.11,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-13T04:00:00+00:00",
+          "event": "sell",
+          "price": 184.1796,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-16T04:00:00+00:00",
+          "event": "buy",
+          "price": 183.17,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-17T04:00:00+00:00",
+          "event": "sell",
+          "price": 186.9417,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-18T04:00:00+00:00",
+          "event": "buy",
+          "price": 180.375,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-19T04:00:00+00:00",
+          "event": "sell",
+          "price": 181.5363,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-23T04:00:00+00:00",
+          "event": "buy",
+          "price": 175.605,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-24T04:00:00+00:00",
+          "event": "sell",
+          "price": 176.5665,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-26T04:00:00+00:00",
+          "event": "buy",
+          "price": 171.225,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-27T04:00:00+00:00",
+          "event": "sell",
+          "price": 174.735,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-30T04:00:00+00:00",
+          "event": "buy",
+          "price": 165.18,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-31T04:00:00+00:00",
+          "event": "sell",
+          "price": 172.8639,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        }
+      ],
+      "events_count": 26
+    },
+    {
+      "symbol": "TSLA",
+      "summary": {
+        "strategy_name": "tsla_v3_5_20260228_20260413",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "long",
+        "total_return": 0.205348,
+        "annualized_return": 4.370454,
+        "annualized_volatility": 0.196129,
+        "max_drawdown": -0.002629,
+        "trades": 13,
+        "win_rate": 0.846154,
+        "profit_factor": 56.695206,
+        "score": 0.348649,
+        "bars_tested": 29,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 13
+        }
+      },
+      "events": [
+        {
+          "timestamp": "2026-03-03T05:00:00+00:00",
+          "event": "buy",
+          "price": 392.625,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-04T05:00:00+00:00",
+          "event": "sell",
+          "price": 404.2368,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-05T05:00:00+00:00",
+          "event": "buy",
+          "price": 405.59,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-06T05:00:00+00:00",
+          "event": "sell",
+          "price": 404.5239,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-09T04:00:00+00:00",
+          "event": "buy",
+          "price": 398.63,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-10T04:00:00+00:00",
+          "event": "sell",
+          "price": 402.47955,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-11T04:00:00+00:00",
+          "event": "buy",
+          "price": 407.84,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-12T04:00:00+00:00",
+          "event": "sell",
+          "price": 412.0974,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-13T04:00:00+00:00",
+          "event": "buy",
+          "price": 391.13,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-16T04:00:00+00:00",
+          "event": "sell",
+          "price": 399.6333,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-17T04:00:00+00:00",
+          "event": "buy",
+          "price": 399.275,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-18T04:00:00+00:00",
+          "event": "sell",
+          "price": 398.97,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-19T04:00:00+00:00",
+          "event": "buy",
+          "price": 380.25,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-20T04:00:00+00:00",
+          "event": "sell",
+          "price": 383.33295,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-23T04:00:00+00:00",
+          "event": "buy",
+          "price": 380.79,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-24T04:00:00+00:00",
+          "event": "sell",
+          "price": 383.5161,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-25T04:00:00+00:00",
+          "event": "buy",
+          "price": 385.97,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-26T04:00:00+00:00",
+          "event": "sell",
+          "price": 392.2677,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-27T04:00:00+00:00",
+          "event": "buy",
+          "price": 361.79,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-30T04:00:00+00:00",
+          "event": "sell",
+          "price": 366.102,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        }
+      ],
+      "events_count": 27
+    },
+    {
+      "symbol": "GOOGL",
+      "summary": {
+        "strategy_name": "googl_v3_5_20260228_20260413",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "flat",
+        "total_return": 0.152602,
+        "annualized_return": 2.590177,
+        "annualized_volatility": 0.182024,
+        "max_drawdown": -0.005034,
+        "trades": 14,
+        "win_rate": 0.785714,
+        "profit_factor": 27.757661,
+        "score": 0.288657,
+        "bars_tested": 29,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 14
+        }
+      },
+      "events": [
+        {
+          "timestamp": "2026-03-02T05:00:00+00:00",
+          "event": "buy",
+          "price": 306.03,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-03T05:00:00+00:00",
+          "event": "sell",
+          "price": 305.1972,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-04T05:00:00+00:00",
+          "event": "buy",
+          "price": 302.89,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-05T05:00:00+00:00",
+          "event": "sell",
+          "price": 302.1876,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-06T05:00:00+00:00",
+          "event": "buy",
+          "price": 298.35,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-09T04:00:00+00:00",
+          "event": "sell",
+          "price": 303.7221,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-10T04:00:00+00:00",
+          "event": "buy",
+          "price": 307.09,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-11T04:00:00+00:00",
+          "event": "sell",
+          "price": 308.286,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-12T04:00:00+00:00",
+          "event": "buy",
+          "price": 303.47,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-13T04:00:00+00:00",
+          "event": "sell",
+          "price": 305.7714,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-16T04:00:00+00:00",
+          "event": "buy",
+          "price": 305.67,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-17T04:00:00+00:00",
+          "event": "sell",
+          "price": 308.2662,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-18T04:00:00+00:00",
+          "event": "buy",
+          "price": 307.77,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-19T04:00:00+00:00",
+          "event": "sell",
+          "price": 309.2859,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-20T04:00:00+00:00",
+          "event": "buy",
+          "price": 300.775,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-23T04:00:00+00:00",
+          "event": "sell",
+          "price": 302.7618,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-25T04:00:00+00:00",
+          "event": "buy",
+          "price": 290.98,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-26T04:00:00+00:00",
+          "event": "sell",
+          "price": 293.0202,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-27T04:00:00+00:00",
+          "event": "buy",
+          "price": 274.36,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-30T04:00:00+00:00",
+          "event": "sell",
+          "price": 276.5169,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        }
+      ],
+      "events_count": 28
+    },
+    {
+      "symbol": "XOM",
+      "summary": {
+        "strategy_name": "xom_v3_5_20260228_20260413",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "flat",
+        "total_return": 0.209369,
+        "annualized_return": 4.533881,
+        "annualized_volatility": 0.179651,
+        "max_drawdown": -0.000185,
+        "trades": 14,
+        "win_rate": 0.928571,
+        "profit_factor": 1038.104158,
+        "score": 0.362134,
+        "bars_tested": 29,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 14
+        }
+      },
+      "events": [
+        {
+          "timestamp": "2026-03-03T05:00:00+00:00",
+          "event": "buy",
+          "price": 151.76,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-04T05:00:00+00:00",
+          "event": "sell",
+          "price": 154.3212,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-05T05:00:00+00:00",
+          "event": "buy",
+          "price": 150.76,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-06T05:00:00+00:00",
+          "event": "sell",
+          "price": 152.2521,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-09T04:00:00+00:00",
+          "event": "buy",
+          "price": 150.33,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-10T04:00:00+00:00",
+          "event": "sell",
+          "price": 152.33625,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-11T04:00:00+00:00",
+          "event": "buy",
+          "price": 151.53,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-12T04:00:00+00:00",
+          "event": "sell",
+          "price": 153.45,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-13T04:00:00+00:00",
+          "event": "buy",
+          "price": 156.14,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-16T04:00:00+00:00",
+          "event": "sell",
+          "price": 156.2022,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-17T04:00:00+00:00",
+          "event": "buy",
+          "price": 158.865,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-18T04:00:00+00:00",
+          "event": "sell",
+          "price": 158.8356,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-19T04:00:00+00:00",
+          "event": "buy",
+          "price": 158.115,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-20T04:00:00+00:00",
+          "event": "sell",
+          "price": 160.81065,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-23T04:00:00+00:00",
+          "event": "buy",
+          "price": 161.16,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-24T04:00:00+00:00",
+          "event": "sell",
+          "price": 165.7854,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-25T04:00:00+00:00",
+          "event": "buy",
+          "price": 163.22,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-26T04:00:00+00:00",
+          "event": "sell",
+          "price": 163.9935,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-27T04:00:00+00:00",
+          "event": "buy",
+          "price": 171.0,
+          "reason": "directional_entry",
+          "fraction": 1.0
+        },
+        {
+          "timestamp": "2026-03-30T04:00:00+00:00",
+          "event": "sell",
+          "price": 174.636,
+          "reason": "risk_exit",
+          "fraction": 1.0
+        }
+      ],
+      "events_count": 28
+    }
+  ]
+}

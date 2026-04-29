@@ -1,0 +1,589 @@
+{
+  "symbol": "SLV",
+  "strategy_name": "slv_momentum_daily",
+  "timeframe": "hour",
+  "session": "regular_hours_only",
+  "assumptions": {
+    "starting_capital": 100000.0,
+    "commission_per_order": 0.0,
+    "quoted_spread_bps": 1.0,
+    "market_impact_bps": 1.0,
+    "stop_extra_slippage_bps": 2.0,
+    "max_bar_participation_rate": 0.0005,
+    "max_bar_shares": 4000,
+    "sec_fee_per_million_sell": 0.0,
+    "finra_taf_per_share_sell": 0.000195,
+    "finra_taf_cap_per_trade": 9.79
+  },
+  "sweep": [
+    {
+      "trailing_stop_pct": 0.01,
+      "results": [
+        {
+          "window": "3m",
+          "bars_tested": 352,
+          "total_return": 0.010086,
+          "annualized_return": 0.050984,
+          "annualized_volatility": 0.489625,
+          "max_drawdown": -0.200878,
+          "trades": 40,
+          "win_rate": 0.325,
+          "profit_factor": 1.001488,
+          "partial_fill_events": 0,
+          "total_fees_paid": 10.677958,
+          "total_slippage_cost": 49302.251911,
+          "final_equity": 101008.567474,
+          "exit_reasons": {
+            "trailing_stop": 40
+          }
+        },
+        {
+          "window": "6m",
+          "bars_tested": 736,
+          "total_return": 0.169587,
+          "annualized_return": 0.45197,
+          "annualized_volatility": 0.408923,
+          "max_drawdown": -0.200878,
+          "trades": 87,
+          "win_rate": 0.310345,
+          "profit_factor": 1.195759,
+          "partial_fill_events": 0,
+          "total_fees_paid": 28.9035,
+          "total_slippage_cost": 73643.185945,
+          "final_equity": 116958.692079,
+          "exit_reasons": {
+            "trailing_stop": 83,
+            "signal_exit": 4
+          }
+        },
+        {
+          "window": "9m",
+          "bars_tested": 1149,
+          "total_return": 0.179999,
+          "annualized_return": 0.287889,
+          "annualized_volatility": 0.332135,
+          "max_drawdown": -0.200878,
+          "trades": 107,
+          "win_rate": 0.327103,
+          "profit_factor": 1.190044,
+          "partial_fill_events": 0,
+          "total_fees_paid": 38.435341,
+          "total_slippage_cost": 78649.416643,
+          "final_equity": 117999.905949,
+          "exit_reasons": {
+            "signal_exit": 16,
+            "trailing_stop": 91
+          }
+        },
+        {
+          "window": "1y",
+          "bars_tested": 1530,
+          "total_return": 0.209153,
+          "annualized_return": 0.243198,
+          "annualized_volatility": 0.289054,
+          "max_drawdown": -0.200878,
+          "trades": 119,
+          "win_rate": 0.336134,
+          "profit_factor": 1.214343,
+          "partial_fill_events": 0,
+          "total_fees_paid": 46.583532,
+          "total_slippage_cost": 81397.187265,
+          "final_equity": 120915.256078,
+          "exit_reasons": {
+            "signal_exit": 23,
+            "trailing_stop": 96
+          }
+        },
+        {
+          "window": "2y",
+          "bars_tested": 3177,
+          "total_return": 0.221067,
+          "annualized_return": 0.116465,
+          "annualized_volatility": 0.211314,
+          "max_drawdown": -0.200878,
+          "trades": 164,
+          "win_rate": 0.329268,
+          "profit_factor": 1.189533,
+          "partial_fill_events": 0,
+          "total_fees_paid": 78.594579,
+          "total_slippage_cost": 91586.411974,
+          "final_equity": 122106.70443,
+          "exit_reasons": {
+            "trailing_stop": 120,
+            "signal_exit": 44
+          }
+        },
+        {
+          "window": "3y",
+          "bars_tested": 4892,
+          "total_return": 0.375897,
+          "annualized_return": 0.121213,
+          "annualized_volatility": 0.174718,
+          "max_drawdown": -0.200878,
+          "trades": 209,
+          "win_rate": 0.339713,
+          "profit_factor": 1.270627,
+          "partial_fill_events": 67,
+          "total_fees_paid": 122.757647,
+          "total_slippage_cost": 106264.954823,
+          "final_equity": 137589.718072,
+          "exit_reasons": {
+            "trailing_stop": 145,
+            "signal_exit": 64
+          }
+        }
+      ],
+      "summary": {
+        "average_total_return": 0.194298,
+        "average_annualized_return": 0.211953,
+        "average_max_drawdown": -0.200878,
+        "average_trades": 121,
+        "average_profit_factor": 1.176966,
+        "average_fees_paid": 54.325426,
+        "average_slippage_cost": 80140.568093,
+        "windows_profitable": 6,
+        "score": 0.364661
+      }
+    },
+    {
+      "trailing_stop_pct": 0.015,
+      "results": [
+        {
+          "window": "3m",
+          "bars_tested": 352,
+          "total_return": 0.012167,
+          "annualized_return": 0.061759,
+          "annualized_volatility": 0.496161,
+          "max_drawdown": -0.205153,
+          "trades": 33,
+          "win_rate": 0.30303,
+          "profit_factor": 0.967077,
+          "partial_fill_events": 0,
+          "total_fees_paid": 8.550941,
+          "total_slippage_cost": 39709.564594,
+          "final_equity": 101216.708751,
+          "exit_reasons": {
+            "signal_exit": 2,
+            "trailing_stop": 31
+          }
+        },
+        {
+          "window": "6m",
+          "bars_tested": 736,
+          "total_return": 0.200783,
+          "annualized_return": 0.54587,
+          "annualized_volatility": 0.431242,
+          "max_drawdown": -0.205153,
+          "trades": 66,
+          "win_rate": 0.378788,
+          "profit_factor": 1.215162,
+          "partial_fill_events": 0,
+          "total_fees_paid": 21.953265,
+          "total_slippage_cost": 65285.421466,
+          "final_equity": 120078.335503,
+          "exit_reasons": {
+            "trailing_stop": 60,
+            "signal_exit": 6
+          }
+        },
+        {
+          "window": "9m",
+          "bars_tested": 1149,
+          "total_return": 0.245645,
+          "annualized_return": 0.399008,
+          "annualized_volatility": 0.350724,
+          "max_drawdown": -0.205153,
+          "trades": 83,
+          "win_rate": 0.39759,
+          "profit_factor": 1.244999,
+          "partial_fill_events": 0,
+          "total_fees_paid": 30.825084,
+          "total_slippage_cost": 70910.759271,
+          "final_equity": 124564.516506,
+          "exit_reasons": {
+            "signal_exit": 19,
+            "trailing_stop": 64
+          }
+        },
+        {
+          "window": "1y",
+          "bars_tested": 1530,
+          "total_return": 0.270412,
+          "annualized_return": 0.315653,
+          "annualized_volatility": 0.305551,
+          "max_drawdown": -0.205153,
+          "trades": 93,
+          "win_rate": 0.408602,
+          "profit_factor": 1.263208,
+          "partial_fill_events": 0,
+          "total_fees_paid": 37.419087,
+          "total_slippage_cost": 72663.643122,
+          "final_equity": 127041.155375,
+          "exit_reasons": {
+            "signal_exit": 27,
+            "trailing_stop": 66
+          }
+        },
+        {
+          "window": "2y",
+          "bars_tested": 3177,
+          "total_return": 0.292219,
+          "annualized_return": 0.151894,
+          "annualized_volatility": 0.222959,
+          "max_drawdown": -0.205153,
+          "trades": 132,
+          "win_rate": 0.401515,
+          "profit_factor": 1.238594,
+          "partial_fill_events": 0,
+          "total_fees_paid": 65.494737,
+          "total_slippage_cost": 79971.69247,
+          "final_equity": 129221.937465,
+          "exit_reasons": {
+            "trailing_stop": 78,
+            "signal_exit": 54
+          }
+        },
+        {
+          "window": "3y",
+          "bars_tested": 4892,
+          "total_return": 0.488138,
+          "annualized_return": 0.153185,
+          "annualized_volatility": 0.184031,
+          "max_drawdown": -0.205153,
+          "trades": 169,
+          "win_rate": 0.39645,
+          "profit_factor": 1.333273,
+          "partial_fill_events": 64,
+          "total_fees_paid": 103.009615,
+          "total_slippage_cost": 93236.483854,
+          "final_equity": 148813.845549,
+          "exit_reasons": {
+            "signal_exit": 79,
+            "trailing_stop": 90
+          }
+        }
+      ],
+      "summary": {
+        "average_total_return": 0.251561,
+        "average_annualized_return": 0.271228,
+        "average_max_drawdown": -0.205153,
+        "average_trades": 96,
+        "average_profit_factor": 1.210386,
+        "average_fees_paid": 44.542122,
+        "average_slippage_cost": 70296.260796,
+        "windows_profitable": 6,
+        "score": 0.480732
+      }
+    },
+    {
+      "trailing_stop_pct": 0.02,
+      "results": [
+        {
+          "window": "3m",
+          "bars_tested": 352,
+          "total_return": -0.10614,
+          "annualized_return": -0.426507,
+          "annualized_volatility": 0.571321,
+          "max_drawdown": -0.288987,
+          "trades": 30,
+          "win_rate": 0.333333,
+          "profit_factor": 0.728851,
+          "partial_fill_events": 0,
+          "total_fees_paid": 6.980547,
+          "total_slippage_cost": 40208.636091,
+          "final_equity": 89386.001116,
+          "exit_reasons": {
+            "signal_exit": 4,
+            "trailing_stop": 26
+          }
+        },
+        {
+          "window": "6m",
+          "bars_tested": 736,
+          "total_return": 0.053945,
+          "annualized_return": 0.133236,
+          "annualized_volatility": 0.476136,
+          "max_drawdown": -0.288987,
+          "trades": 56,
+          "win_rate": 0.428571,
+          "profit_factor": 1.032311,
+          "partial_fill_events": 0,
+          "total_fees_paid": 17.52876,
+          "total_slippage_cost": 62401.40489,
+          "final_equity": 105394.526298,
+          "exit_reasons": {
+            "trailing_stop": 46,
+            "signal_exit": 10
+          }
+        },
+        {
+          "window": "9m",
+          "bars_tested": 1149,
+          "total_return": 0.086544,
+          "annualized_return": 0.135278,
+          "annualized_volatility": 0.386603,
+          "max_drawdown": -0.288987,
+          "trades": 73,
+          "win_rate": 0.410959,
+          "profit_factor": 1.064144,
+          "partial_fill_events": 0,
+          "total_fees_paid": 26.117827,
+          "total_slippage_cost": 66425.909665,
+          "final_equity": 108654.4242,
+          "exit_reasons": {
+            "signal_exit": 24,
+            "trailing_stop": 49
+          }
+        },
+        {
+          "window": "1y",
+          "bars_tested": 1530,
+          "total_return": 0.102405,
+          "annualized_return": 0.118231,
+          "annualized_volatility": 0.336638,
+          "max_drawdown": -0.288987,
+          "trades": 83,
+          "win_rate": 0.421687,
+          "profit_factor": 1.078275,
+          "partial_fill_events": 0,
+          "total_fees_paid": 32.462394,
+          "total_slippage_cost": 67716.96163,
+          "final_equity": 110240.490023,
+          "exit_reasons": {
+            "signal_exit": 33,
+            "trailing_stop": 50
+          }
+        },
+        {
+          "window": "2y",
+          "bars_tested": 3177,
+          "total_return": 0.107552,
+          "annualized_return": 0.057964,
+          "annualized_volatility": 0.24368,
+          "max_drawdown": -0.288987,
+          "trades": 121,
+          "win_rate": 0.413223,
+          "profit_factor": 1.070574,
+          "partial_fill_events": 0,
+          "total_fees_paid": 58.935962,
+          "total_slippage_cost": 72267.72232,
+          "final_equity": 110755.159632,
+          "exit_reasons": {
+            "trailing_stop": 56,
+            "signal_exit": 65
+          }
+        },
+        {
+          "window": "3y",
+          "bars_tested": 4892,
+          "total_return": 0.259367,
+          "annualized_return": 0.086196,
+          "annualized_volatility": 0.201231,
+          "max_drawdown": -0.288987,
+          "trades": 157,
+          "win_rate": 0.407643,
+          "profit_factor": 1.164308,
+          "partial_fill_events": 54,
+          "total_fees_paid": 94.435633,
+          "total_slippage_cost": 83210.193143,
+          "final_equity": 125936.650195,
+          "exit_reasons": {
+            "signal_exit": 95,
+            "trailing_stop": 62
+          }
+        }
+      ],
+      "summary": {
+        "average_total_return": 0.083946,
+        "average_annualized_return": 0.0174,
+        "average_max_drawdown": -0.288987,
+        "average_trades": 86.67,
+        "average_profit_factor": 1.023077,
+        "average_fees_paid": 39.410187,
+        "average_slippage_cost": 65371.804623,
+        "windows_profitable": 5,
+        "score": 0.008006
+      }
+    },
+    {
+      "trailing_stop_pct": 0.03,
+      "results": [
+        {
+          "window": "3m",
+          "bars_tested": 352,
+          "total_return": -0.208708,
+          "annualized_return": -0.686503,
+          "annualized_volatility": 0.599311,
+          "max_drawdown": -0.349018,
+          "trades": 27,
+          "win_rate": 0.259259,
+          "profit_factor": 0.572113,
+          "partial_fill_events": 0,
+          "total_fees_paid": 5.93139,
+          "total_slippage_cost": 33839.1467,
+          "final_equity": 79129.225139,
+          "exit_reasons": {
+            "signal_exit": 7,
+            "trailing_stop": 20
+          }
+        },
+        {
+          "window": "6m",
+          "bars_tested": 736,
+          "total_return": 0.052291,
+          "annualized_return": 0.129007,
+          "annualized_volatility": 0.502504,
+          "max_drawdown": -0.349018,
+          "trades": 44,
+          "win_rate": 0.431818,
+          "profit_factor": 1.031293,
+          "partial_fill_events": 0,
+          "total_fees_paid": 14.31046,
+          "total_slippage_cost": 56153.138912,
+          "final_equity": 105229.110659,
+          "exit_reasons": {
+            "signal_exit": 17,
+            "trailing_stop": 27
+          }
+        },
+        {
+          "window": "9m",
+          "bars_tested": 1149,
+          "total_return": 0.07077,
+          "annualized_return": 0.110181,
+          "annualized_volatility": 0.408464,
+          "max_drawdown": -0.349018,
+          "trades": 61,
+          "win_rate": 0.409836,
+          "profit_factor": 1.048542,
+          "partial_fill_events": 0,
+          "total_fees_paid": 22.589815,
+          "total_slippage_cost": 57710.280456,
+          "final_equity": 107077.046284,
+          "exit_reasons": {
+            "signal_exit": 32,
+            "trailing_stop": 29
+          }
+        },
+        {
+          "window": "1y",
+          "bars_tested": 1530,
+          "total_return": 0.094918,
+          "annualized_return": 0.109531,
+          "annualized_volatility": 0.355459,
+          "max_drawdown": -0.349018,
+          "trades": 70,
+          "win_rate": 0.428571,
+          "profit_factor": 1.072796,
+          "partial_fill_events": 0,
+          "total_fees_paid": 28.488818,
+          "total_slippage_cost": 59284.988724,
+          "final_equity": 109491.82079,
+          "exit_reasons": {
+            "signal_exit": 41,
+            "trailing_stop": 29
+          }
+        },
+        {
+          "window": "2y",
+          "bars_tested": 3177,
+          "total_return": 0.083838,
+          "annualized_return": 0.045409,
+          "annualized_volatility": 0.257255,
+          "max_drawdown": -0.349018,
+          "trades": 107,
+          "win_rate": 0.411215,
+          "profit_factor": 1.051317,
+          "partial_fill_events": 0,
+          "total_fees_paid": 53.555025,
+          "total_slippage_cost": 61594.054187,
+          "final_equity": 108383.771951,
+          "exit_reasons": {
+            "trailing_stop": 32,
+            "signal_exit": 75
+          }
+        },
+        {
+          "window": "3y",
+          "bars_tested": 4892,
+          "total_return": 0.241461,
+          "annualized_return": 0.080634,
+          "annualized_volatility": 0.21237,
+          "max_drawdown": -0.349018,
+          "trades": 142,
+          "win_rate": 0.415493,
+          "profit_factor": 1.153474,
+          "partial_fill_events": 54,
+          "total_fees_paid": 88.057721,
+          "total_slippage_cost": 71477.037293,
+          "final_equity": 124146.097308,
+          "exit_reasons": {
+            "signal_exit": 108,
+            "trailing_stop": 34
+          }
+        }
+      ],
+      "summary": {
+        "average_total_return": 0.055762,
+        "average_annualized_return": -0.03529,
+        "average_max_drawdown": -0.349018,
+        "average_trades": 75.17,
+        "average_profit_factor": 0.988256,
+        "average_fees_paid": 35.488872,
+        "average_slippage_cost": 56676.441045,
+        "windows_profitable": 5,
+        "score": -0.104625
+      }
+    }
+  ],
+  "ranking": [
+    {
+      "trailing_stop_pct": 0.015,
+      "average_total_return": 0.251561,
+      "average_annualized_return": 0.271228,
+      "average_max_drawdown": -0.205153,
+      "average_trades": 96,
+      "average_profit_factor": 1.210386,
+      "average_fees_paid": 44.542122,
+      "average_slippage_cost": 70296.260796,
+      "windows_profitable": 6,
+      "score": 0.480732
+    },
+    {
+      "trailing_stop_pct": 0.01,
+      "average_total_return": 0.194298,
+      "average_annualized_return": 0.211953,
+      "average_max_drawdown": -0.200878,
+      "average_trades": 121,
+      "average_profit_factor": 1.176966,
+      "average_fees_paid": 54.325426,
+      "average_slippage_cost": 80140.568093,
+      "windows_profitable": 6,
+      "score": 0.364661
+    },
+    {
+      "trailing_stop_pct": 0.02,
+      "average_total_return": 0.083946,
+      "average_annualized_return": 0.0174,
+      "average_max_drawdown": -0.288987,
+      "average_trades": 86.67,
+      "average_profit_factor": 1.023077,
+      "average_fees_paid": 39.410187,
+      "average_slippage_cost": 65371.804623,
+      "windows_profitable": 5,
+      "score": 0.008006
+    },
+    {
+      "trailing_stop_pct": 0.03,
+      "average_total_return": 0.055762,
+      "average_annualized_return": -0.03529,
+      "average_max_drawdown": -0.349018,
+      "average_trades": 75.17,
+      "average_profit_factor": 0.988256,
+      "average_fees_paid": 35.488872,
+      "average_slippage_cost": 56676.441045,
+      "windows_profitable": 5,
+      "score": -0.104625
+    }
+  ]
+}

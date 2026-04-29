@@ -1,0 +1,497 @@
+{
+  "version": "V3-3",
+  "policy": {
+    "minimum_strength": "medium",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.01
+  },
+  "rows": [
+    {
+      "symbol": "AVGO",
+      "test_period": "2025-02-24 -> 2026-04-06 (280 days)",
+      "trade_summary": {
+        "strategy_name": "avgo_v3_3_trailing_1pct",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional_execution_aware",
+        "latest_signal": "long",
+        "total_return": 3.708242,
+        "annualized_return": 3.052691,
+        "annualized_volatility": 0.254152,
+        "max_drawdown": -0.014274,
+        "trades": 149,
+        "win_rate": 0.852349,
+        "profit_factor": 44.681817,
+        "score": 3.84634,
+        "bars_tested": 280,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 243
+        },
+        "source_run_type": "historical_deepseek_directional",
+        "execution_assumptions": {
+          "starting_capital": 100000.0,
+          "commission_per_order": 0.0,
+          "buy_fee_bps": 0.0,
+          "sell_fee_bps": 0.0,
+          "quoted_spread_bps": 1.0,
+          "market_impact_bps": 1.0,
+          "stop_extra_slippage_bps": 2.0,
+          "max_bar_participation_rate": 0.0005,
+          "max_bar_shares": null,
+          "sec_fee_per_million_sell": 0.0,
+          "finra_taf_per_share_sell": 0.000195,
+          "finra_taf_cap_per_trade": 9.79
+        },
+        "partial_fill_events": 237,
+        "total_fees_paid": 11.026906,
+        "total_slippage_cost": 4848.096309,
+        "final_equity": 470824.236176
+      },
+      "chart_path": "reports\\research\\deepseek_directional_v3\\v33_sentiment_analysis\\avgo_v33_trailing_1pct_sentiment_chart.html",
+      "stats": {
+        "sentiment_vs_price_level": {
+          "pearson": 0.33139579314921774,
+          "pearson_p": 1.332316745176951e-08,
+          "spearman": 0.3694156504690757,
+          "spearman_p": 1.759553962442768e-10,
+          "beta": 0.2917628153604519,
+          "r2": 0.109823171716999
+        },
+        "sentiment_vs_same_day_return": {
+          "pearson": 0.030910605725280888,
+          "pearson_p": 0.6065232344982533,
+          "spearman": 0.05700641085950991,
+          "spearman_p": 0.3419062240388001,
+          "beta": 0.0014168858263214274,
+          "r2": 0.0009554655463037659
+        },
+        "sentiment_vs_next_day_return": {
+          "pearson": 0.0052135214920434195,
+          "pearson_p": 0.9309158562347518,
+          "spearman": -0.06944263931421511,
+          "spearman_p": 0.24763641710866993,
+          "beta": 0.00023907482100664264,
+          "r2": 2.718080634799866e-05
+        },
+        "sentiment_vs_next_3d_return": {
+          "pearson": -0.03318555087686932,
+          "pearson_p": 0.5823388845216606,
+          "spearman": -0.07772821221854685,
+          "spearman_p": 0.19713489406733584,
+          "beta": -0.0025814951505036573,
+          "r2": 0.0011012807870012804
+        },
+        "sentiment_vs_next_5d_return": {
+          "pearson": -0.046086571248253674,
+          "pearson_p": 0.44654795971755684,
+          "spearman": -0.07039139582379711,
+          "spearman_p": 0.2446527008737856,
+          "beta": -0.0044465565588502785,
+          "r2": 0.0021239720494203623
+        },
+        "lagged_next_day_return_correlations": [
+          {
+            "lag_days": 0,
+            "pearson": 0.005100982907716575,
+            "pearson_p": 0.932281675451595,
+            "spearman": -0.06976056752293461,
+            "spearman_p": 0.24462118525834933,
+            "beta": 0.00023381975903307247,
+            "r2": 2.6020026624816682e-05
+          },
+          {
+            "lag_days": 1,
+            "pearson": -0.07231949713157647,
+            "pearson_p": 0.22854018407690097,
+            "spearman": -0.04529043402795077,
+            "spearman_p": 0.45115564425237176,
+            "beta": -0.00331152210948114,
+            "r2": 0.005230109665364101
+          },
+          {
+            "lag_days": 2,
+            "pearson": 0.008729468040270125,
+            "pearson_p": 0.8847927690382045,
+            "spearman": -0.030918869212750087,
+            "spearman_p": 0.6077271302819729,
+            "beta": 0.0003985178188359113,
+            "r2": 7.620361226609738e-05
+          },
+          {
+            "lag_days": 3,
+            "pearson": 0.036738857503044516,
+            "pearson_p": 0.5425926938605351,
+            "spearman": 0.010216809647764662,
+            "spearman_p": 0.8655786987511072,
+            "beta": 0.0016638401644483065,
+            "r2": 0.0013497436506290097
+          },
+          {
+            "lag_days": 4,
+            "pearson": -0.07241799097225247,
+            "pearson_p": 0.23044513939368722,
+            "spearman": -0.037712091887800385,
+            "spearman_p": 0.5326939979401171,
+            "beta": -0.003294983368131691,
+            "r2": 0.005244365416457243
+          },
+          {
+            "lag_days": 5,
+            "pearson": -0.01751160689256592,
+            "pearson_p": 0.7725074841728087,
+            "spearman": -0.011903379859985934,
+            "spearman_p": 0.8442164436387122,
+            "beta": -0.0007909162733580898,
+            "r2": 0.0003066563759597621
+          }
+        ],
+        "conditional_forward_returns": {
+          "bullish_count": 102,
+          "neutral_count": 27,
+          "bearish_count": 151,
+          "bullish_mean_1d": 0.0027027037844837352,
+          "neutral_mean_1d": 0.004383897956626283,
+          "bearish_mean_1d": 0.0010803339346318914,
+          "bullish_mean_5d": 0.005832974017125226,
+          "neutral_mean_5d": 0.015295370382408802,
+          "bearish_mean_5d": 0.011599472799600422
+        }
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "test_period": "2025-02-24 -> 2026-04-06 (280 days)",
+      "trade_summary": {
+        "strategy_name": "nvda_v3_3_trailing_1pct",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional_execution_aware",
+        "latest_signal": "long",
+        "total_return": 3.511469,
+        "annualized_return": 2.899392,
+        "annualized_volatility": 0.24026,
+        "max_drawdown": -0.015341,
+        "trades": 104,
+        "win_rate": 0.798077,
+        "profit_factor": 19.337512,
+        "score": 3.643607,
+        "bars_tested": 280,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 132
+        },
+        "source_run_type": "historical_deepseek_directional",
+        "execution_assumptions": {
+          "starting_capital": 100000.0,
+          "commission_per_order": 0.0,
+          "buy_fee_bps": 0.0,
+          "sell_fee_bps": 0.0,
+          "quoted_spread_bps": 1.0,
+          "market_impact_bps": 1.0,
+          "stop_extra_slippage_bps": 2.0,
+          "max_bar_participation_rate": 0.0005,
+          "max_bar_shares": null,
+          "sec_fee_per_million_sell": 0.0,
+          "finra_taf_per_share_sell": 0.000195,
+          "finra_taf_cap_per_trade": 9.79
+        },
+        "partial_fill_events": 52,
+        "total_fees_paid": 29.733223,
+        "total_slippage_cost": 7674.243132,
+        "final_equity": 451146.93714
+      },
+      "chart_path": "reports\\research\\deepseek_directional_v3\\v33_sentiment_analysis\\nvda_v33_trailing_1pct_sentiment_chart.html",
+      "stats": {
+        "sentiment_vs_price_level": {
+          "pearson": 0.17052526854991967,
+          "pearson_p": 0.004214317968431015,
+          "spearman": 0.2950329775488865,
+          "spearman_p": 4.979402834332758e-07,
+          "beta": 0.09250367634432598,
+          "r2": 0.029078867214022232
+        },
+        "sentiment_vs_same_day_return": {
+          "pearson": 0.019757024250653468,
+          "pearson_p": 0.7420412134717659,
+          "spearman": 0.02478550156633135,
+          "spearman_p": 0.6796440664642274,
+          "beta": 0.0008121002327232782,
+          "r2": 0.00039034000724091005
+        },
+        "sentiment_vs_next_day_return": {
+          "pearson": 0.023221765108234094,
+          "pearson_p": 0.699355494408763,
+          "spearman": -0.014801949864676322,
+          "spearman_p": 0.8055701513282024,
+          "beta": 0.0009546160006184883,
+          "r2": 0.0005392503747419981
+        },
+        "sentiment_vs_next_3d_return": {
+          "pearson": -0.08491493158365383,
+          "pearson_p": 0.15871039544352866,
+          "spearman": -0.10576198878680204,
+          "spearman_p": 0.07888339503330538,
+          "beta": -0.005857866010734982,
+          "r2": 0.0072105456058566275
+        },
+        "sentiment_vs_next_5d_return": {
+          "pearson": -0.12265879346183965,
+          "pearson_p": 0.04210490989837277,
+          "spearman": -0.15222223006566232,
+          "spearman_p": 0.011485541330294861,
+          "beta": -0.010074551460722172,
+          "r2": 0.015045179613514238
+        },
+        "lagged_next_day_return_correlations": [
+          {
+            "lag_days": 0,
+            "pearson": 0.02317121709183368,
+            "pearson_p": 0.6994626278068365,
+            "spearman": -0.014787389978074205,
+            "spearman_p": 0.8054136977922128,
+            "beta": 0.0009524385127045288,
+            "r2": 0.0005369053015168843
+          },
+          {
+            "lag_days": 1,
+            "pearson": -0.09055260349460102,
+            "pearson_p": 0.13134031479927816,
+            "spearman": -0.10695682850544125,
+            "spearman_p": 0.07448376376815438,
+            "beta": -0.003714143361918977,
+            "r2": 0.008199773999650429
+          },
+          {
+            "lag_days": 2,
+            "pearson": -0.07649280849793681,
+            "pearson_p": 0.20354829921557982,
+            "spearman": -0.04641978768520515,
+            "spearman_p": 0.44076568257740767,
+            "beta": -0.0031384561281302087,
+            "r2": 0.005851149751902023
+          },
+          {
+            "lag_days": 3,
+            "pearson": -0.03791712046853231,
+            "pearson_p": 0.5297164026204704,
+            "spearman": -0.06556392420383703,
+            "spearman_p": 0.27684365364010255,
+            "beta": -0.001528571501681358,
+            "r2": 0.0014377080246251901
+          },
+          {
+            "lag_days": 4,
+            "pearson": -0.0645361746501264,
+            "pearson_p": 0.2853384608732158,
+            "spearman": -0.08567312513040061,
+            "spearman_p": 0.1557648667044115,
+            "beta": -0.002596109191371705,
+            "r2": 0.004164917838471628
+          },
+          {
+            "lag_days": 5,
+            "pearson": 0.03719096984562346,
+            "pearson_p": 0.5391190371839569,
+            "spearman": 0.01330772198489836,
+            "spearman_p": 0.826114057124453,
+            "beta": 0.0014657207615937473,
+            "r2": 0.0013831682380580723
+          }
+        ],
+        "conditional_forward_returns": {
+          "bullish_count": 186,
+          "neutral_count": 26,
+          "bearish_count": 68,
+          "bullish_mean_1d": 0.0015661754534752324,
+          "neutral_mean_1d": 0.0062901903171022665,
+          "bearish_mean_1d": -0.0006044477078786705,
+          "bullish_mean_5d": 0.0034666405701134005,
+          "neutral_mean_5d": 0.00485351665201321,
+          "bearish_mean_5d": 0.018597234765082127
+        }
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "test_period": "2025-02-24 -> 2026-04-06 (280 days)",
+      "trade_summary": {
+        "strategy_name": "tsla_v3_3_trailing_1pct",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional_execution_aware",
+        "latest_signal": "long",
+        "total_return": 4.612619,
+        "annualized_return": 3.749694,
+        "annualized_volatility": 0.30977,
+        "max_drawdown": -0.014922,
+        "trades": 104,
+        "win_rate": 0.894231,
+        "profit_factor": 57.095903,
+        "score": 4.754581,
+        "bars_tested": 280,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 158
+        },
+        "source_run_type": "historical_deepseek_directional",
+        "execution_assumptions": {
+          "starting_capital": 100000.0,
+          "commission_per_order": 0.0,
+          "buy_fee_bps": 0.0,
+          "sell_fee_bps": 0.0,
+          "quoted_spread_bps": 1.0,
+          "market_impact_bps": 1.0,
+          "stop_extra_slippage_bps": 2.0,
+          "max_bar_participation_rate": 0.0005,
+          "max_bar_shares": null,
+          "sec_fee_per_million_sell": 0.0,
+          "finra_taf_per_share_sell": 0.000195,
+          "finra_taf_cap_per_trade": 9.79
+        },
+        "partial_fill_events": 143,
+        "total_fees_paid": 9.957261,
+        "total_slippage_cost": 5549.054803,
+        "final_equity": 561261.887479
+      },
+      "chart_path": "reports\\research\\deepseek_directional_v3\\v33_sentiment_analysis\\tsla_v33_trailing_1pct_sentiment_chart.html",
+      "stats": {
+        "sentiment_vs_price_level": {
+          "pearson": 0.01674123094430305,
+          "pearson_p": 0.7803209958765515,
+          "spearman": 0.014785643698924045,
+          "spearman_p": 0.8054362184155458,
+          "beta": 0.008731945181245619,
+          "r2": 0.0002802688135304906
+        },
+        "sentiment_vs_same_day_return": {
+          "pearson": 0.11940993007039574,
+          "pearson_p": 0.04589910248871504,
+          "spearman": 0.15483111983226988,
+          "spearman_p": 0.009461935641236131,
+          "beta": 0.006423433021971895,
+          "r2": 0.014258731399416831
+        },
+        "sentiment_vs_next_day_return": {
+          "pearson": 0.046858737133307723,
+          "pearson_p": 0.4356206883012498,
+          "spearman": 0.048941709138722034,
+          "spearman_p": 0.4154698628143846,
+          "beta": 0.0025237999699711322,
+          "r2": 0.0021957412457284313
+        },
+        "sentiment_vs_next_3d_return": {
+          "pearson": 0.05212204190607161,
+          "pearson_p": 0.38750636035083497,
+          "spearman": 0.05792732001702569,
+          "spearman_p": 0.33677854281076147,
+          "beta": 0.004605755960686749,
+          "r2": 0.002716707252458284
+        },
+        "sentiment_vs_next_5d_return": {
+          "pearson": 0.08978072630728073,
+          "pearson_p": 0.13752691525537536,
+          "spearman": 0.12059064053618476,
+          "spearman_p": 0.045721267292912926,
+          "beta": 0.009554505522420853,
+          "r2": 0.008060578816262853
+        },
+        "lagged_next_day_return_correlations": [
+          {
+            "lag_days": 0,
+            "pearson": 0.04672693350910848,
+            "pearson_p": 0.43608641052096864,
+            "spearman": 0.049093234111270784,
+            "spearman_p": 0.41318272424654534,
+            "beta": 0.002513587668470671,
+            "r2": 0.0021834063151646415
+          },
+          {
+            "lag_days": 1,
+            "pearson": 0.0984208056658515,
+            "pearson_p": 0.10088955013268748,
+            "spearman": 0.08688910605379656,
+            "spearman_p": 0.1477408757120853,
+            "beta": 0.005251072366606068,
+            "r2": 0.009686654987915296
+          },
+          {
+            "lag_days": 2,
+            "pearson": -0.056920352116225495,
+            "pearson_p": 0.34438194396106386,
+            "spearman": -0.018716703781997975,
+            "spearman_p": 0.7560355913083999,
+            "beta": -0.0030365188425222427,
+            "r2": 0.003239926485035094
+          },
+          {
+            "lag_days": 3,
+            "pearson": 0.06392632632129447,
+            "pearson_p": 0.2890446619431399,
+            "spearman": 0.07075099633117438,
+            "spearman_p": 0.24052411167721666,
+            "beta": 0.003406712932198344,
+            "r2": 0.00408657519693663
+          },
+          {
+            "lag_days": 4,
+            "pearson": 0.03622393973465016,
+            "pearson_p": 0.5489976683837458,
+            "spearman": 0.05808952309536173,
+            "spearman_p": 0.3363068908974234,
+            "beta": 0.0019359418311484988,
+            "r2": 0.0013121738098995676
+          },
+          {
+            "lag_days": 5,
+            "pearson": 0.03751941239080908,
+            "pearson_p": 0.5355388161558157,
+            "spearman": 0.07670637024222185,
+            "spearman_p": 0.2047600009177435,
+            "beta": 0.0020043761289445777,
+            "r2": 0.0014077063061515966
+          }
+        ],
+        "conditional_forward_returns": {
+          "bullish_count": 154,
+          "neutral_count": 23,
+          "bearish_count": 103,
+          "bullish_mean_1d": 0.003915081143936186,
+          "neutral_mean_1d": -0.011314314276778393,
+          "bearish_mean_1d": -0.0008066219448586502,
+          "bullish_mean_5d": 0.008931880514184358,
+          "neutral_mean_5d": 0.034810420664244605,
+          "bearish_mean_5d": -0.004210682782261877
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "mean_trade_return": 3.94411,
+    "mean_trade_drawdown": -0.014845666666666667,
+    "mean_level_pearson": 0.1728874308811468,
+    "mean_next_day_pearson": 0.02509800791119508,
+    "mean_next_3d_pearson": -0.021992813518150512,
+    "mean_next_5d_pearson": -0.026321546134270863
+  }
+}

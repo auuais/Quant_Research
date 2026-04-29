@@ -1,0 +1,511 @@
+{
+  "version": "V3-5-Hourly",
+  "timeframe": "hour",
+  "policy": {
+    "minimum_strength": "medium",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.01,
+    "no_same_day_reentry": true
+  },
+  "training_symbols": [
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "AMZN",
+    "META",
+    "GOOGL",
+    "TSLA",
+    "AVGO",
+    "AMD",
+    "NFLX",
+    "JPM",
+    "XOM",
+    "ORCL",
+    "CRM",
+    "WMT",
+    "COST"
+  ],
+  "evaluation_symbols": [
+    "AVGO",
+    "NVDA",
+    "TSLA",
+    "GOOGL",
+    "XOM"
+  ],
+  "base_model_path": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B",
+  "max_bars": 3500,
+  "training_config": {
+    "num_train_epochs": 1.0,
+    "max_train_samples": 1200,
+    "max_eval_samples": 300,
+    "scoring_batch_size": 4
+  },
+  "date_splits": {
+    "train": "2024-07-30T14:00:00+00:00 -> 2025-08-14T20:00:00+00:00 (2100 bars)",
+    "validation": "2025-08-15T12:00:00+00:00 -> 2025-12-09T21:00:00+00:00 (700 bars)",
+    "test": "2025-12-10T13:00:00+00:00 -> 2026-04-07T18:00:00+00:00 (700 bars)"
+  },
+  "dataset_sizes": {
+    "train_examples": 10471,
+    "validation_examples": 3522,
+    "test_examples": 3419
+  },
+  "training_result": {
+    "output_dir": "reports\\research\\deepseek_directional_v3_hourly\\deepseek_directional_lora",
+    "train_examples": 1200,
+    "eval_examples": 300,
+    "train_runtime_seconds": 0.0,
+    "train_loss": 0.0,
+    "reused_existing_adapter": true
+  },
+  "comparison_rows": [
+    {
+      "symbol": "AVGO",
+      "test_metrics": {
+        "samples": 189,
+        "direction_accuracy": 0.285714,
+        "direction_balanced_accuracy": 0.333333,
+        "direction_macro_precision": 0.095238,
+        "direction_macro_recall": 0.333333,
+        "direction_macro_f1": 0.148148,
+        "direction_confusion_matrix": [
+          [
+            0,
+            0,
+            55
+          ],
+          [
+            0,
+            0,
+            80
+          ],
+          [
+            0,
+            0,
+            54
+          ]
+        ],
+        "relative_accuracy": 0.227513,
+        "relative_balanced_accuracy": 0.323102,
+        "relative_macro_precision": 0.247669,
+        "relative_macro_recall": 0.323102,
+        "relative_macro_f1": 0.152047,
+        "relative_confusion_matrix": [
+          [
+            0,
+            2,
+            46
+          ],
+          [
+            0,
+            7,
+            94
+          ],
+          [
+            0,
+            4,
+            36
+          ]
+        ],
+        "joint_accuracy": 0.179894,
+        "predicted_direction_distribution": {
+          "bullish": 189
+        },
+        "actual_direction_distribution": {
+          "bullish": 54,
+          "bearish": 55,
+          "neutral": 80
+        }
+      },
+      "test_trade_summary": {
+        "strategy_name": "avgo_v3_5_hour",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "flat",
+        "total_return": 0.233611,
+        "annualized_return": 0.939333,
+        "annualized_volatility": 0.158133,
+        "max_drawdown": -0.037698,
+        "trades": 72,
+        "win_rate": 0.541667,
+        "profit_factor": 2.2667,
+        "score": 0.314263,
+        "bars_tested": 653,
+        "periods_per_year": 2056.95,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 62,
+          "prediction_exit": 10
+        }
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "test_metrics": {
+        "samples": 361,
+        "direction_accuracy": 0.296399,
+        "direction_balanced_accuracy": 0.338531,
+        "direction_macro_precision": 0.254246,
+        "direction_macro_recall": 0.338531,
+        "direction_macro_f1": 0.188171,
+        "direction_confusion_matrix": [
+          [
+            0,
+            7,
+            93
+          ],
+          [
+            0,
+            12,
+            148
+          ],
+          [
+            0,
+            6,
+            95
+          ]
+        ],
+        "relative_accuracy": 0.263158,
+        "relative_balanced_accuracy": 0.330609,
+        "relative_macro_precision": 0.259917,
+        "relative_macro_recall": 0.330609,
+        "relative_macro_f1": 0.186512,
+        "relative_confusion_matrix": [
+          [
+            0,
+            10,
+            66
+          ],
+          [
+            0,
+            27,
+            179
+          ],
+          [
+            0,
+            11,
+            68
+          ]
+        ],
+        "joint_accuracy": 0.207756,
+        "predicted_direction_distribution": {
+          "bullish": 336,
+          "neutral": 25
+        },
+        "actual_direction_distribution": {
+          "bearish": 100,
+          "bullish": 101,
+          "neutral": 160
+        }
+      },
+      "test_trade_summary": {
+        "strategy_name": "nvda_v3_5_hour",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "flat",
+        "total_return": 0.07067,
+        "annualized_return": 0.240381,
+        "annualized_volatility": 0.109528,
+        "max_drawdown": -0.03418,
+        "trades": 57,
+        "win_rate": 0.508772,
+        "profit_factor": 1.574864,
+        "score": 0.135954,
+        "bars_tested": 668,
+        "periods_per_year": 2104.2,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 52,
+          "prediction_exit": 5
+        }
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "test_metrics": {
+        "samples": 350,
+        "direction_accuracy": 0.294286,
+        "direction_balanced_accuracy": 0.329746,
+        "direction_macro_precision": 0.226255,
+        "direction_macro_recall": 0.329746,
+        "direction_macro_f1": 0.184538,
+        "direction_confusion_matrix": [
+          [
+            0,
+            6,
+            109
+          ],
+          [
+            0,
+            9,
+            124
+          ],
+          [
+            0,
+            8,
+            94
+          ]
+        ],
+        "relative_accuracy": 0.257143,
+        "relative_balanced_accuracy": 0.317938,
+        "relative_macro_precision": 0.216152,
+        "relative_macro_recall": 0.317938,
+        "relative_macro_f1": 0.183203,
+        "relative_confusion_matrix": [
+          [
+            0,
+            14,
+            86
+          ],
+          [
+            0,
+            20,
+            146
+          ],
+          [
+            0,
+            14,
+            70
+          ]
+        ],
+        "joint_accuracy": 0.214286,
+        "predicted_direction_distribution": {
+          "neutral": 23,
+          "bullish": 327
+        },
+        "actual_direction_distribution": {
+          "neutral": 133,
+          "bearish": 115,
+          "bullish": 102
+        }
+      },
+      "test_trade_summary": {
+        "strategy_name": "tsla_v3_5_hour",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "flat",
+        "total_return": 0.031267,
+        "annualized_return": 0.102005,
+        "annualized_volatility": 0.108687,
+        "max_drawdown": -0.058513,
+        "trades": 71,
+        "win_rate": 0.507042,
+        "profit_factor": 1.173746,
+        "score": 0.07619,
+        "bars_tested": 655,
+        "periods_per_year": 2063.25,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "risk_exit": 66,
+          "prediction_exit": 5
+        }
+      }
+    },
+    {
+      "symbol": "GOOGL",
+      "test_metrics": {
+        "samples": 55,
+        "direction_accuracy": 0.272727,
+        "direction_balanced_accuracy": 0.350877,
+        "direction_macro_precision": 0.254717,
+        "direction_macro_recall": 0.350877,
+        "direction_macro_f1": 0.17105,
+        "direction_confusion_matrix": [
+          [
+            0,
+            1,
+            21
+          ],
+          [
+            0,
+            1,
+            18
+          ],
+          [
+            0,
+            0,
+            14
+          ]
+        ],
+        "relative_accuracy": 0.218182,
+        "relative_balanced_accuracy": 0.328671,
+        "relative_macro_precision": 0.286325,
+        "relative_macro_recall": 0.328671,
+        "relative_macro_f1": 0.151797,
+        "relative_confusion_matrix": [
+          [
+            0,
+            0,
+            18
+          ],
+          [
+            0,
+            2,
+            24
+          ],
+          [
+            0,
+            1,
+            10
+          ]
+        ],
+        "joint_accuracy": 0.181818,
+        "predicted_direction_distribution": {
+          "neutral": 2,
+          "bullish": 53
+        },
+        "actual_direction_distribution": {
+          "bearish": 22,
+          "neutral": 19,
+          "bullish": 14
+        }
+      },
+      "test_trade_summary": {
+        "strategy_name": "googl_v3_5_hour",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "flat",
+        "total_return": -8e-05,
+        "annualized_return": -0.000252,
+        "annualized_volatility": 0.024455,
+        "max_drawdown": -0.019481,
+        "trades": 12,
+        "win_rate": 0.416667,
+        "profit_factor": 1.002187,
+        "score": 0.05189,
+        "bars_tested": 604,
+        "periods_per_year": 1902.6,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "prediction_exit": 3,
+          "risk_exit": 9
+        }
+      }
+    },
+    {
+      "symbol": "XOM",
+      "test_metrics": {
+        "samples": 149,
+        "direction_accuracy": 0.389262,
+        "direction_balanced_accuracy": 0.327684,
+        "direction_macro_precision": 0.130631,
+        "direction_macro_recall": 0.327684,
+        "direction_macro_f1": 0.186795,
+        "direction_confusion_matrix": [
+          [
+            0,
+            0,
+            31
+          ],
+          [
+            0,
+            0,
+            59
+          ],
+          [
+            0,
+            1,
+            58
+          ]
+        ],
+        "relative_accuracy": 0.389262,
+        "relative_balanced_accuracy": 0.313118,
+        "relative_macro_precision": 0.181422,
+        "relative_macro_recall": 0.313118,
+        "relative_macro_f1": 0.19797,
+        "relative_confusion_matrix": [
+          [
+            0,
+            1,
+            36
+          ],
+          [
+            0,
+            1,
+            49
+          ],
+          [
+            0,
+            5,
+            57
+          ]
+        ],
+        "joint_accuracy": 0.328859,
+        "predicted_direction_distribution": {
+          "bullish": 148,
+          "neutral": 1
+        },
+        "actual_direction_distribution": {
+          "neutral": 59,
+          "bearish": 31,
+          "bullish": 59
+        }
+      },
+      "test_trade_summary": {
+        "strategy_name": "xom_v3_5_hour",
+        "strategy_family": "deepseek_directional",
+        "run_type": "historical_deepseek_directional",
+        "latest_signal": "flat",
+        "total_return": 0.114508,
+        "annualized_return": 0.407916,
+        "annualized_volatility": 0.081496,
+        "max_drawdown": -0.010723,
+        "trades": 62,
+        "win_rate": 0.532258,
+        "profit_factor": 2.457613,
+        "score": 0.211525,
+        "bars_tested": 562,
+        "periods_per_year": 1770.3,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.01,
+          "no_same_day_reentry": true,
+          "minimum_strength": "medium",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "exit_reasons": {
+          "prediction_exit": 26,
+          "risk_exit": 36
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "mean_direction_accuracy": 0.307678,
+    "mean_direction_macro_f1": 0.17574,
+    "mean_total_return": 0.089995,
+    "mean_max_drawdown": -0.032119,
+    "mean_trades": 54.8
+  }
+}

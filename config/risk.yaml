@@ -1,0 +1,10 @@
+max_position_risk_bps: 50
+max_daily_loss_bps: 150
+max_gross_exposure: 1.0
+max_turnover_per_day: 0.25
+heartbeat_timeout_seconds: 30
+stale_data_threshold_seconds: 15
+stop_loss_pct: 0.05
+trailing_stop_pct: 0.07
+max_live_positions: 5
+max_promoted_position_pct: 0.02

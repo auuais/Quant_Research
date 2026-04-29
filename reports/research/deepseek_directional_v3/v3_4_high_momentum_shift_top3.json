@@ -1,0 +1,62 @@
+{
+  "version": "V3-4",
+  "baseline_version": "V3-3",
+  "policy": {
+    "minimum_strength": "high",
+    "entry_mode": "momentum_shift",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.015
+  },
+  "rows": [
+    {
+      "symbol": "AVGO",
+      "test_period": "2025-02-24 -> 2026-04-06 (280 days)",
+      "direction_accuracy": 0.305556,
+      "direction_macro_f1": 0.174306,
+      "return": 0.107854,
+      "max_drawdown": -0.018076,
+      "trades": 11,
+      "win_rate": 0.909091,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 13
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "test_period": "2025-02-24 -> 2026-04-06 (280 days)",
+      "direction_accuracy": 0.356808,
+      "direction_macro_f1": 0.270227,
+      "return": -0.044957,
+      "max_drawdown": -0.048301,
+      "trades": 7,
+      "win_rate": 0.142857,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 7
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "test_period": "2025-02-24 -> 2026-04-06 (280 days)",
+      "direction_accuracy": 0.366935,
+      "direction_macro_f1": 0.28419,
+      "return": 0.195931,
+      "max_drawdown": -0.015091,
+      "trades": 7,
+      "win_rate": 0.857143,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 9
+      }
+    }
+  ],
+  "aggregate": {
+    "mean_direction_accuracy": 0.3431,
+    "mean_direction_macro_f1": 0.242908,
+    "mean_return": 0.086276,
+    "mean_max_drawdown": -0.027156
+  }
+}

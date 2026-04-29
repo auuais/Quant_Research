@@ -1,0 +1,151 @@
+{
+  "plan": {
+    "improved_plan": [
+      "Label news bundles with future excess returns instead of manual sentiment only.",
+      "Fine-tune DeepSeek with QLoRA for structured finance outputs on chronological train data.",
+      "Convert fine-tuned outputs into numeric features and combine them with price/volume state.",
+      "Train a separate numeric meta-model on train data and tune thresholds on validation data.",
+      "Evaluate strictly on later test dates with the same execution-aware replay used elsewhere in the repo."
+    ]
+  },
+  "training_symbols": [
+    "AAPL",
+    "MSFT",
+    "NVDA"
+  ],
+  "evaluation_symbols": [
+    "NVDA"
+  ],
+  "date_splits": {
+    "train": "2025-07-17 -> 2025-12-17 (108 days)",
+    "validation": "2025-12-18 -> 2026-02-10 (36 days)",
+    "test": "2026-02-11 -> 2026-04-02 (36 days)"
+  },
+  "datasets": {
+    "train_jsonl": "reports\\research\\deepseek_news_price_meta_smoke2\\datasets\\train.jsonl",
+    "validation_jsonl": "reports\\research\\deepseek_news_price_meta_smoke2\\datasets\\validation.jsonl",
+    "test_jsonl": "reports\\research\\deepseek_news_price_meta_smoke2\\datasets\\test.jsonl",
+    "train_examples": 230,
+    "validation_examples": 91,
+    "test_examples": 91
+  },
+  "training_result": {
+    "output_dir": "reports\\research\\deepseek_news_price_meta_smoke2\\deepseek_news_lora",
+    "train_examples": 230,
+    "eval_examples": 91,
+    "train_runtime_seconds": 152.234,
+    "train_loss": 0.245215
+  },
+  "comparison_rows": [
+    {
+      "symbol": "NVDA",
+      "split": "test",
+      "meta_strategy": {
+        "strategy_name": "nvda_deepseek_meta",
+        "strategy_family": "deepseek_news_price_meta",
+        "run_type": "historical_deepseek_meta_execution_aware",
+        "latest_signal": "flat",
+        "total_return": 0.0,
+        "annualized_return": 0.0,
+        "annualized_volatility": 0.0,
+        "max_drawdown": 0.0,
+        "trades": 0,
+        "win_rate": 0.0,
+        "profit_factor": 0.0,
+        "score": 0.0,
+        "bars_tested": 36,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.015,
+          "entry_probability": 0.55,
+          "exit_probability": 0.35
+        },
+        "exit_reasons": {},
+        "source_run_type": "historical_deepseek_meta",
+        "execution_assumptions": {
+          "starting_capital": 100000.0,
+          "commission_per_order": 0.0,
+          "buy_fee_bps": 0.0,
+          "sell_fee_bps": 0.0,
+          "quoted_spread_bps": 1.0,
+          "market_impact_bps": 1.0,
+          "stop_extra_slippage_bps": 2.0,
+          "max_bar_participation_rate": 0.0005,
+          "max_bar_shares": null,
+          "sec_fee_per_million_sell": 0.0,
+          "finra_taf_per_share_sell": 0.000195,
+          "finra_taf_cap_per_trade": 9.79
+        },
+        "partial_fill_events": 0,
+        "total_fees_paid": 0.0,
+        "total_slippage_cost": 0.0,
+        "final_equity": 100000.0
+      },
+      "prompt_overlay_strategy": {
+        "strategy_name": "nvda_momentum_llm_entry_filter",
+        "strategy_family": "llm_news_overlay",
+        "symbol": "NVDA",
+        "market": "stocks",
+        "window_name": "strict_test",
+        "run_type": "historical_llm_news_execution_aware",
+        "lookback": 20,
+        "threshold": 0.02,
+        "latest_signal": "flat",
+        "total_return": 0.0,
+        "annualized_return": 0.0,
+        "annualized_volatility": 0.0,
+        "max_drawdown": 0.0,
+        "trades": 0,
+        "win_rate": 0.0,
+        "profit_factor": 0.0,
+        "exposure_ratio": 0.0,
+        "score": 0.0,
+        "bars_tested": 36,
+        "periods_per_year": 252.0,
+        "risk": {
+          "stop_loss_pct": 0.05,
+          "trailing_stop_pct": 0.015,
+          "entry_sentiment_min": 1.0,
+          "exit_sentiment_max": null,
+          "break_even_trigger_pct": null,
+          "time_stop_bars": null,
+          "reentry_cooldown_bars": 0,
+          "sentiment_freshness_days": 1,
+          "no_trade_weak_neutral_cluster": false,
+          "profit_lock_trigger_pct": null,
+          "profit_lock_trailing_stop_pct": null,
+          "partial_take_profit_fraction": null,
+          "partial_take_profit_trigger_pct": null
+        },
+        "exit_reasons": {},
+        "source_run_type": "historical_llm_news",
+        "execution_assumptions": {
+          "starting_capital": 100000.0,
+          "commission_per_order": 0.0,
+          "buy_fee_bps": 0.0,
+          "sell_fee_bps": 0.0,
+          "quoted_spread_bps": 1.0,
+          "market_impact_bps": 1.0,
+          "stop_extra_slippage_bps": 2.0,
+          "max_bar_participation_rate": 0.0005,
+          "max_bar_shares": null,
+          "sec_fee_per_million_sell": 0.0,
+          "finra_taf_per_share_sell": 0.000195,
+          "finra_taf_cap_per_trade": 9.79
+        },
+        "partial_fill_events": 0,
+        "total_fees_paid": 0.0,
+        "total_slippage_cost": 0.0,
+        "final_equity": 100000.0
+      }
+    }
+  ],
+  "aggregate": {
+    "meta_mean_total_return": 0.0,
+    "meta_mean_max_drawdown": 0.0,
+    "prompt_mean_total_return": 0.0,
+    "prompt_mean_max_drawdown": 0.0,
+    "symbols_meta_better": 0
+  }
+}

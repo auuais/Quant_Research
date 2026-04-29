@@ -1,0 +1,26 @@
+[
+  {
+    "market": "stocks",
+    "symbol": "META",
+    "strategy_name": "meta_mean_reversion_daily",
+    "notional": 1000.0,
+    "active": true,
+    "promoted_at": "2026-03-30T14:15:00.823362+00:00",
+    "high_water_mark": 570.185,
+    "last_exit_reason": null,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.07
+  },
+  {
+    "market": "gold",
+    "symbol": "GLD",
+    "strategy_name": "gld_momentum_aggressive",
+    "notional": 1000.0,
+    "active": true,
+    "promoted_at": "2026-03-30T14:15:00.829890+00:00",
+    "high_water_mark": 426.67,
+    "last_exit_reason": null,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.07
+  }
+]

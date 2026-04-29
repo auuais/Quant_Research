@@ -1,0 +1,175 @@
+{
+  "output_path": "C:\\SVNProjects\\Algoding\\output\\pdf\\research_strategy_comparison_dark.pdf",
+  "records_compared": 118,
+  "best_overall": {
+    "branch": "DL",
+    "experiment": "hourly cost-aware, no-same-day OFF",
+    "market": "commodities",
+    "symbol": "SLV",
+    "strategy_name": "slv_torch_cnn_dl",
+    "windows_tested": [
+      "1m_hour_rth",
+      "1y_hour_rth",
+      "2y_hour_rth",
+      "3m_hour_rth",
+      "3y_hour_rth",
+      "6m_hour_rth",
+      "9m_hour_rth"
+    ],
+    "profitable_windows": 5,
+    "avg_total_return": 0.439977,
+    "avg_annualized_return": 0.418339,
+    "avg_max_drawdown": -0.148691,
+    "avg_profit_factor": 1.272502,
+    "report_score": 0.46251,
+    "note": ""
+  },
+  "best_dl_without_rule": {
+    "branch": "DL",
+    "experiment": "hourly cost-aware, no-same-day OFF",
+    "market": "commodities",
+    "symbol": "SLV",
+    "strategy_name": "slv_torch_cnn_dl",
+    "windows_tested": [
+      "1m_hour_rth",
+      "1y_hour_rth",
+      "2y_hour_rth",
+      "3m_hour_rth",
+      "3y_hour_rth",
+      "6m_hour_rth",
+      "9m_hour_rth"
+    ],
+    "profitable_windows": 5,
+    "avg_total_return": 0.439977,
+    "avg_annualized_return": 0.418339,
+    "avg_max_drawdown": -0.148691,
+    "avg_profit_factor": 1.272502,
+    "report_score": 0.46251,
+    "note": ""
+  },
+  "branch_leaders": [
+    {
+      "branch": "DL / hourly cost-aware, no-same-day OFF",
+      "record": {
+        "branch": "DL",
+        "experiment": "hourly cost-aware, no-same-day OFF",
+        "market": "commodities",
+        "symbol": "SLV",
+        "strategy_name": "slv_torch_cnn_dl",
+        "windows_tested": [
+          "1m_hour_rth",
+          "1y_hour_rth",
+          "2y_hour_rth",
+          "3m_hour_rth",
+          "3y_hour_rth",
+          "6m_hour_rth",
+          "9m_hour_rth"
+        ],
+        "profitable_windows": 5,
+        "avg_total_return": 0.439977,
+        "avg_annualized_return": 0.418339,
+        "avg_max_drawdown": -0.148691,
+        "avg_profit_factor": 1.272502,
+        "report_score": 0.46251,
+        "note": ""
+      }
+    },
+    {
+      "branch": "DL / hourly cost-aware, no-same-day ON",
+      "record": {
+        "branch": "DL",
+        "experiment": "hourly cost-aware, no-same-day ON",
+        "market": "commodities",
+        "symbol": "SLV",
+        "strategy_name": "slv_torch_lstm_dl",
+        "windows_tested": [
+          "1y_hour_rth",
+          "2y_hour_rth",
+          "3y_hour_rth"
+        ],
+        "profitable_windows": 3,
+        "avg_total_return": 0.266351,
+        "avg_annualized_return": 0.194908,
+        "avg_max_drawdown": -0.109843,
+        "avg_profit_factor": 1.493275,
+        "report_score": 0.341295,
+        "note": ""
+      }
+    },
+    {
+      "branch": "ML / hourly cost-aware, no-same-day ON",
+      "record": {
+        "branch": "ML",
+        "experiment": "hourly cost-aware, no-same-day ON",
+        "market": "commodities",
+        "symbol": "SLV",
+        "strategy_name": "slv_mlp_classifier_ml",
+        "windows_tested": [
+          "1y_hour_rth",
+          "2y_hour_rth",
+          "3y_hour_rth"
+        ],
+        "profitable_windows": 3,
+        "avg_total_return": 0.259092,
+        "avg_annualized_return": 0.152406,
+        "avg_max_drawdown": -0.103055,
+        "avg_profit_factor": 1.346935,
+        "report_score": 0.334503,
+        "note": ""
+      }
+    },
+    {
+      "branch": "Rule-based / hourly cost-aware, no-same-day OFF",
+      "record": {
+        "branch": "Rule-based",
+        "experiment": "hourly cost-aware, no-same-day OFF",
+        "market": "commodities",
+        "symbol": "SLV",
+        "strategy_name": "slv_momentum_daily",
+        "windows_tested": [
+          "3m",
+          "6m",
+          "9m",
+          "1y",
+          "2y",
+          "3y"
+        ],
+        "profitable_windows": 6,
+        "avg_total_return": 0.25156066666666665,
+        "avg_annualized_return": 0.27122816666666666,
+        "avg_max_drawdown": -0.205153,
+        "avg_profit_factor": 1.2103855000000001,
+        "report_score": 0.273192,
+        "note": ""
+      }
+    },
+    {
+      "branch": "Rule-based / hourly cost-aware, no-same-day ON",
+      "record": {
+        "branch": "Rule-based",
+        "experiment": "hourly cost-aware, no-same-day ON",
+        "market": "commodities",
+        "symbol": "SLV",
+        "strategy_name": "slv_momentum_aggressive",
+        "windows_tested": [
+          "3m",
+          "6m",
+          "9m",
+          "1y",
+          "2y",
+          "3y"
+        ],
+        "profitable_windows": 6,
+        "avg_total_return": 0.37983083333333334,
+        "avg_annualized_return": 0.5193481666666666,
+        "avg_max_drawdown": -0.116158,
+        "avg_profit_factor": 1.6628696666666667,
+        "report_score": 0.455009,
+        "note": ""
+      }
+    }
+  ],
+  "dl_rule_direction": "improved",
+  "dl_avg_score_with_rule": 0.082276,
+  "dl_avg_score_without_rule": 0.088126
+}

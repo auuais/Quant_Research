@@ -1,0 +1,792 @@
+{
+  "policy": {
+    "version": "V3-4",
+    "entry_mode": "high_confidence_plus_momentum_shift",
+    "exit_mode": "model_predicted_exit_plus_hard_risk",
+    "stop_loss_pct": 0.05,
+    "trailing_stop_candidates_pct": [
+      1.0,
+      1.5,
+      2.0,
+      2.5,
+      3.0,
+      3.5,
+      4.0,
+      4.5,
+      5.0,
+      5.5,
+      6.0,
+      6.5,
+      7.0
+    ]
+  },
+  "results": [
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.01,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": 0.127209,
+        "mean_max_drawdown": -0.018391,
+        "mean_trades": 8.333333,
+        "mean_win_rate": 0.666667,
+        "mean_profit_factor": 18.627272,
+        "composite_score": 0.24468
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.152805,
+          "max_drawdown": -0.020217,
+          "trades": 11,
+          "win_rate": 1.0,
+          "profit_factor": 11.0,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 13
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.0105,
+          "max_drawdown": -0.018945,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.441441,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 7
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.239323,
+          "max_drawdown": -0.016011,
+          "trades": 7,
+          "win_rate": 0.857143,
+          "profit_factor": 44.440376,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 9
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.015,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": 0.086276,
+        "mean_max_drawdown": -0.027156,
+        "mean_trades": 8.333333,
+        "mean_win_rate": 0.636364,
+        "mean_profit_factor": 24.617733,
+        "composite_score": 0.196334
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.107854,
+          "max_drawdown": -0.018076,
+          "trades": 11,
+          "win_rate": 0.909091,
+          "profit_factor": 55.644716,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 13
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.044957,
+          "max_drawdown": -0.048301,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.066489,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 7
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.195931,
+          "max_drawdown": -0.015091,
+          "trades": 7,
+          "win_rate": 0.857143,
+          "profit_factor": 18.141994,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 9
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.02,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": 0.046366,
+        "mean_max_drawdown": -0.037406,
+        "mean_trades": 8.333333,
+        "mean_win_rate": 0.48052,
+        "mean_profit_factor": 5.22731,
+        "composite_score": 0.135715
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.063637,
+          "max_drawdown": -0.015783,
+          "trades": 11,
+          "win_rate": 0.727273,
+          "profit_factor": 7.27836,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 13
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.07838,
+          "max_drawdown": -0.07838,
+          "trades": 7,
+          "win_rate": 0.0,
+          "profit_factor": 0.0,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 7
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.153842,
+          "max_drawdown": -0.018056,
+          "trades": 7,
+          "win_rate": 0.714286,
+          "profit_factor": 8.403571,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 9
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.025,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": 0.026195,
+        "mean_max_drawdown": -0.04962,
+        "mean_trades": 8.333333,
+        "mean_win_rate": 0.419914,
+        "mean_profit_factor": 3.062403,
+        "composite_score": 0.103376
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.047843,
+          "max_drawdown": -0.017005,
+          "trades": 11,
+          "win_rate": 0.545455,
+          "profit_factor": 3.00269,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 13
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.110795,
+          "max_drawdown": -0.110795,
+          "trades": 7,
+          "win_rate": 0.0,
+          "profit_factor": 0.0,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 7
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.141537,
+          "max_drawdown": -0.021059,
+          "trades": 7,
+          "win_rate": 0.714286,
+          "profit_factor": 6.18452,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 8,
+            "prediction_exit": 1
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.03,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": 0.005392,
+        "mean_max_drawdown": -0.065091,
+        "mean_trades": 8.0,
+        "mean_win_rate": 0.371429,
+        "mean_profit_factor": 1.970497,
+        "composite_score": 0.049399
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.051787,
+          "max_drawdown": -0.026124,
+          "trades": 10,
+          "win_rate": 0.4,
+          "profit_factor": 2.083827,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 12,
+            "prediction_exit": 1
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.142229,
+          "max_drawdown": -0.142229,
+          "trades": 7,
+          "win_rate": 0.0,
+          "profit_factor": 0.0,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 7
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.106618,
+          "max_drawdown": -0.026921,
+          "trades": 7,
+          "win_rate": 0.714286,
+          "profit_factor": 3.827664,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 8,
+            "prediction_exit": 1
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.045,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": -0.007632,
+        "mean_max_drawdown": -0.096608,
+        "mean_trades": 8.333333,
+        "mean_win_rate": 0.414286,
+        "mean_profit_factor": 1.642461,
+        "composite_score": 0.018342
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.079737,
+          "max_drawdown": -0.064493,
+          "trades": 10,
+          "win_rate": 0.6,
+          "profit_factor": 2.106839,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 8,
+            "prediction_exit": 4
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.177461,
+          "max_drawdown": -0.177461,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.021851,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 4,
+            "prediction_exit": 3
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.074829,
+          "max_drawdown": -0.047871,
+          "trades": 8,
+          "win_rate": 0.5,
+          "profit_factor": 2.798693,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 5,
+            "prediction_exit": 4
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.055,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": -0.013478,
+        "mean_max_drawdown": -0.110334,
+        "mean_trades": 8.0,
+        "mean_win_rate": 0.441138,
+        "mean_profit_factor": 1.200651,
+        "composite_score": -0.000518
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.1068,
+          "max_drawdown": -0.066748,
+          "trades": 8,
+          "win_rate": 0.625,
+          "profit_factor": 2.176315,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 5,
+            "prediction_exit": 6
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.175869,
+          "max_drawdown": -0.175869,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.022086,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "prediction_exit": 6,
+            "risk_exit": 1
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.028635,
+          "max_drawdown": -0.088385,
+          "trades": 9,
+          "win_rate": 0.555556,
+          "profit_factor": 1.403553,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 4,
+            "prediction_exit": 5
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.035,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": -0.018513,
+        "mean_max_drawdown": -0.09143,
+        "mean_trades": 8.333333,
+        "mean_win_rate": 0.266667,
+        "mean_profit_factor": 1.227067,
+        "composite_score": -0.01302
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.048509,
+          "max_drawdown": -0.064089,
+          "trades": 10,
+          "win_rate": 0.3,
+          "profit_factor": 1.712615,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 11,
+            "prediction_exit": 2
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.172705,
+          "max_drawdown": -0.172705,
+          "trades": 7,
+          "win_rate": 0.0,
+          "profit_factor": 0.0,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 7
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.068657,
+          "max_drawdown": -0.037495,
+          "trades": 8,
+          "win_rate": 0.5,
+          "profit_factor": 1.968585,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 7,
+            "prediction_exit": 2
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.04,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": -0.021993,
+        "mean_max_drawdown": -0.100168,
+        "mean_trades": 8.333333,
+        "mean_win_rate": 0.347619,
+        "mean_profit_factor": 1.082677,
+        "composite_score": -0.015662
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.053698,
+          "max_drawdown": -0.086516,
+          "trades": 10,
+          "win_rate": 0.4,
+          "profit_factor": 1.606758,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 10,
+            "prediction_exit": 3
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.168446,
+          "max_drawdown": -0.168446,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.023239,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 5,
+            "prediction_exit": 2
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.048769,
+          "max_drawdown": -0.045542,
+          "trades": 8,
+          "win_rate": 0.5,
+          "profit_factor": 1.618035,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 6,
+            "prediction_exit": 3
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.05,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": -0.029023,
+        "mean_max_drawdown": -0.104028,
+        "mean_trades": 8.333333,
+        "mean_win_rate": 0.414286,
+        "mean_profit_factor": 1.160729,
+        "composite_score": -0.016394
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.052028,
+          "max_drawdown": -0.071781,
+          "trades": 10,
+          "win_rate": 0.6,
+          "profit_factor": 1.598523,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 8,
+            "prediction_exit": 4
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.187446,
+          "max_drawdown": -0.187446,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.020464,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 3,
+            "prediction_exit": 4
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.04835,
+          "max_drawdown": -0.052856,
+          "trades": 8,
+          "win_rate": 0.5,
+          "profit_factor": 1.8632,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 4,
+            "prediction_exit": 5
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.06,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": -0.026809,
+        "mean_max_drawdown": -0.114638,
+        "mean_trades": 8.0,
+        "mean_win_rate": 0.4041,
+        "mean_profit_factor": 0.988216,
+        "composite_score": -0.023954
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.088404,
+          "max_drawdown": -0.074835,
+          "trades": 8,
+          "win_rate": 0.625,
+          "profit_factor": 1.85824,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 5,
+            "prediction_exit": 6
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.175869,
+          "max_drawdown": -0.175869,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.022086,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "prediction_exit": 6,
+            "risk_exit": 1
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": 0.007037,
+          "max_drawdown": -0.093209,
+          "trades": 9,
+          "win_rate": 0.444444,
+          "profit_factor": 1.084321,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 4,
+            "prediction_exit": 5
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.065,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": -0.03973,
+        "mean_max_drawdown": -0.119789,
+        "mean_trades": 8.0,
+        "mean_win_rate": 0.4041,
+        "mean_profit_factor": 0.832324,
+        "composite_score": -0.042568
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.070897,
+          "max_drawdown": -0.081489,
+          "trades": 8,
+          "win_rate": 0.625,
+          "profit_factor": 1.619862,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 5,
+            "prediction_exit": 6
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.175869,
+          "max_drawdown": -0.175869,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.022086,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "prediction_exit": 6,
+            "risk_exit": 1
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": -0.014219,
+          "max_drawdown": -0.102008,
+          "trades": 9,
+          "win_rate": 0.444444,
+          "profit_factor": 0.855024,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 4,
+            "prediction_exit": 5
+          }
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "trailing_stop_pct": 0.07,
+        "mean_direction_accuracy": 0.3431,
+        "mean_direction_macro_f1": 0.242908,
+        "mean_total_return": -0.050655,
+        "mean_max_drawdown": -0.125769,
+        "mean_trades": 8.0,
+        "mean_win_rate": 0.4041,
+        "mean_profit_factor": 0.732778,
+        "composite_score": -0.058474
+      },
+      "rows": [
+        {
+          "symbol": "AVGO",
+          "direction_accuracy": 0.305556,
+          "direction_macro_f1": 0.174306,
+          "total_return": 0.059042,
+          "max_drawdown": -0.089851,
+          "trades": 8,
+          "win_rate": 0.625,
+          "profit_factor": 1.488762,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 5,
+            "prediction_exit": 6
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "direction_accuracy": 0.356808,
+          "direction_macro_f1": 0.270227,
+          "total_return": -0.175869,
+          "max_drawdown": -0.175869,
+          "trades": 7,
+          "win_rate": 0.142857,
+          "profit_factor": 0.022086,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "prediction_exit": 6,
+            "risk_exit": 1
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "direction_accuracy": 0.366935,
+          "direction_macro_f1": 0.28419,
+          "total_return": -0.035137,
+          "max_drawdown": -0.111587,
+          "trades": 9,
+          "win_rate": 0.444444,
+          "profit_factor": 0.687487,
+          "latest_signal": "flat",
+          "exit_reasons": {
+            "risk_exit": 4,
+            "prediction_exit": 5
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "version": "V3-5",
+  "policy": {
+    "minimum_strength": "medium",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.01,
+    "no_same_day_reentry": true
+  },
+  "rows": [
+    {
+      "symbol": "AVGO",
+      "test_period": "2025-02-25 -> 2026-04-07 (280 days)",
+      "direction_accuracy": 0.305556,
+      "direction_macro_f1": 0.174306,
+      "return": 6.452241,
+      "max_drawdown": -0.010382,
+      "trades": 126,
+      "win_rate": 0.857143,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 126
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "test_period": "2025-02-25 -> 2026-04-07 (280 days)",
+      "direction_accuracy": 0.356808,
+      "direction_macro_f1": 0.270227,
+      "return": 2.709276,
+      "max_drawdown": -0.010696,
+      "trades": 85,
+      "win_rate": 0.835294,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 85
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "test_period": "2025-02-25 -> 2026-04-07 (280 days)",
+      "direction_accuracy": 0.366935,
+      "direction_macro_f1": 0.28419,
+      "return": 7.353981,
+      "max_drawdown": -0.010812,
+      "trades": 101,
+      "win_rate": 0.861386,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 101
+      }
+    },
+    {
+      "symbol": "GOOGL",
+      "test_period": "2025-02-25 -> 2026-04-07 (280 days)",
+      "direction_accuracy": 0.368056,
+      "direction_macro_f1": 0.258938,
+      "return": 0.901157,
+      "max_drawdown": -0.012567,
+      "trades": 63,
+      "win_rate": 0.730159,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 63
+      }
+    },
+    {
+      "symbol": "XOM",
+      "test_period": "2025-02-25 -> 2026-04-07 (280 days)",
+      "direction_accuracy": 0.453659,
+      "direction_macro_f1": 0.21796,
+      "return": 0.866963,
+      "max_drawdown": -0.019408,
+      "trades": 116,
+      "win_rate": 0.646552,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 115,
+        "prediction_exit": 1
+      }
+    }
+  ],
+  "aggregate": {
+    "mean_direction_accuracy": 0.370203,
+    "mean_direction_macro_f1": 0.241124,
+    "mean_return": 3.656724,
+    "mean_max_drawdown": -0.012773,
+    "mean_trades": 98.2
+  }
+}

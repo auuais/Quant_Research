@@ -1,0 +1,1727 @@
+{
+  "version": "C_V-0",
+  "plan": {
+    "objective": "Train a crypto directional DeepSeek branch similar to V3-5 and evaluate it with the same loose-medium strength trade policy.",
+    "workflow": [
+      "Use a broad crypto basket for train/validation/test splits on daily bars.",
+      "Use BTC/USD as the crypto-market benchmark for relative labeling.",
+      "Fine-tune DeepSeek on crypto news bundles and future directional labels.",
+      "Evaluate directional accuracy first, then replay C_V-0 with V3-5-style risk rules.",
+      "Compare base vs fine-tuned DeepSeek on the top crypto evaluation basket."
+    ]
+  },
+  "training_symbols": [
+    "BTC/USD",
+    "ETH/USD",
+    "SOL/USD",
+    "DOGE/USD",
+    "LTC/USD",
+    "BCH/USD",
+    "AVAX/USD",
+    "LINK/USD",
+    "UNI/USD",
+    "AAVE/USD",
+    "XRP/USD"
+  ],
+  "evaluation_symbols": [
+    "BTC/USD",
+    "ETH/USD",
+    "SOL/USD",
+    "DOGE/USD",
+    "XRP/USD"
+  ],
+  "base_model_path": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B",
+  "max_bars": 800,
+  "policy": {
+    "minimum_strength": "medium",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.01,
+    "no_same_day_reentry": true
+  },
+  "training_config": {
+    "num_train_epochs": 1.0,
+    "max_train_samples": 1200,
+    "max_eval_samples": 300,
+    "scoring_batch_size": 4
+  },
+  "date_splits": {
+    "train": "2024-01-30 -> 2025-05-23 (480 days)",
+    "validation": "2025-05-24 -> 2025-10-30 (160 days)",
+    "test": "2025-10-31 -> 2026-04-08 (160 days)"
+  },
+  "dataset_sizes": {
+    "train_examples": 1292,
+    "validation_examples": 518,
+    "test_examples": 671
+  },
+  "training_result": {
+    "output_dir": "reports\\research\\deepseek_directional_crypto_cv0\\deepseek_directional_lora",
+    "train_examples": 1200,
+    "eval_examples": 300,
+    "train_runtime_seconds": 879.536,
+    "train_loss": 0.140483
+  },
+  "comparison_rows": [
+    {
+      "symbol": "BTC/USD",
+      "validation": {
+        "base_metrics": {
+          "samples": 79,
+          "direction_accuracy": 0.443038,
+          "direction_balanced_accuracy": 0.357393,
+          "direction_macro_precision": 0.291005,
+          "direction_macro_recall": 0.357393,
+          "direction_macro_f1": 0.2763,
+          "direction_confusion_matrix": [
+            [
+              0,
+              24,
+              1
+            ],
+            [
+              0,
+              32,
+              3
+            ],
+            [
+              0,
+              16,
+              3
+            ]
+          ],
+          "relative_accuracy": 0.911392,
+          "relative_balanced_accuracy": 0.911392,
+          "relative_macro_precision": 0.333333,
+          "relative_macro_recall": 0.303797,
+          "relative_macro_f1": 0.317881,
+          "relative_confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              72,
+              7
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.405063,
+          "predicted_direction_distribution": {
+            "neutral": 72,
+            "bullish": 7
+          },
+          "actual_direction_distribution": {
+            "bearish": 25,
+            "neutral": 35,
+            "bullish": 19
+          }
+        },
+        "finetuned_metrics": {
+          "samples": 79,
+          "direction_accuracy": 0.329114,
+          "direction_balanced_accuracy": 0.35188,
+          "direction_macro_precision": 0.230063,
+          "direction_macro_recall": 0.35188,
+          "direction_macro_f1": 0.260666,
+          "direction_confusion_matrix": [
+            [
+              0,
+              12,
+              13
+            ],
+            [
+              0,
+              13,
+              22
+            ],
+            [
+              0,
+              6,
+              13
+            ]
+          ],
+          "relative_accuracy": 0.759494,
+          "relative_balanced_accuracy": 0.759494,
+          "relative_macro_precision": 0.333333,
+          "relative_macro_recall": 0.253165,
+          "relative_macro_f1": 0.28777,
+          "relative_confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              60,
+              19
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.240506,
+          "predicted_direction_distribution": {
+            "bullish": 48,
+            "neutral": 31
+          },
+          "actual_direction_distribution": {
+            "bearish": 25,
+            "neutral": 35,
+            "bullish": 19
+          }
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 145,
+          "direction_accuracy": 0.413793,
+          "direction_balanced_accuracy": 0.30303,
+          "direction_macro_precision": 0.148148,
+          "direction_macro_recall": 0.30303,
+          "direction_macro_f1": 0.199005,
+          "direction_confusion_matrix": [
+            [
+              0,
+              45,
+              4
+            ],
+            [
+              0,
+              60,
+              6
+            ],
+            [
+              0,
+              30,
+              0
+            ]
+          ],
+          "relative_accuracy": 0.931034,
+          "relative_balanced_accuracy": 0.931034,
+          "relative_macro_precision": 0.333333,
+          "relative_macro_recall": 0.310345,
+          "relative_macro_f1": 0.321429,
+          "relative_confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              135,
+              10
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.413793,
+          "predicted_direction_distribution": {
+            "neutral": 135,
+            "bullish": 10
+          },
+          "actual_direction_distribution": {
+            "bearish": 49,
+            "bullish": 30,
+            "neutral": 66
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "btc_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.000149,
+          "annualized_return": 0.000237,
+          "annualized_volatility": 0.00015,
+          "max_drawdown": -1.7e-05,
+          "trades": 8,
+          "win_rate": 0.75,
+          "profit_factor": 28.149365,
+          "score": 0.135141,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 10
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 10,
+          "total_fees_paid": 3.673857,
+          "total_slippage_cost": 0.514342,
+          "final_equity": 100014.941834,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        },
+        "finetuned_metrics": {
+          "samples": 145,
+          "direction_accuracy": 0.296552,
+          "direction_balanced_accuracy": 0.344444,
+          "direction_macro_precision": 0.218259,
+          "direction_macro_recall": 0.344444,
+          "direction_macro_f1": 0.238259,
+          "direction_confusion_matrix": [
+            [
+              0,
+              20,
+              29
+            ],
+            [
+              0,
+              22,
+              44
+            ],
+            [
+              0,
+              9,
+              21
+            ]
+          ],
+          "relative_accuracy": 0.786207,
+          "relative_balanced_accuracy": 0.786207,
+          "relative_macro_precision": 0.333333,
+          "relative_macro_recall": 0.262069,
+          "relative_macro_f1": 0.293436,
+          "relative_confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              114,
+              31
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.241379,
+          "predicted_direction_distribution": {
+            "bullish": 94,
+            "neutral": 51
+          },
+          "actual_direction_distribution": {
+            "bearish": 49,
+            "bullish": 30,
+            "neutral": 66
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "btc_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.003284,
+          "annualized_return": 0.005211,
+          "annualized_volatility": 0.002436,
+          "max_drawdown": -0.000606,
+          "trades": 26,
+          "win_rate": 0.846154,
+          "profit_factor": 9.943654,
+          "score": 0.147597,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 59
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 60,
+          "total_fees_paid": 52.01592,
+          "total_slippage_cost": 7.282266,
+          "final_equity": 100328.449782,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        }
+      }
+    },
+    {
+      "symbol": "ETH/USD",
+      "validation": {
+        "base_metrics": {
+          "samples": 1,
+          "direction_accuracy": 0.0,
+          "direction_balanced_accuracy": 0.0,
+          "direction_macro_precision": 0.0,
+          "direction_macro_recall": 0.0,
+          "direction_macro_f1": 0.0,
+          "direction_confusion_matrix": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "relative_accuracy": 0.0,
+          "relative_balanced_accuracy": 0.0,
+          "relative_macro_precision": 0.0,
+          "relative_macro_recall": 0.0,
+          "relative_macro_f1": 0.0,
+          "relative_confusion_matrix": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.0,
+          "predicted_direction_distribution": {
+            "neutral": 1
+          },
+          "actual_direction_distribution": {
+            "bearish": 1
+          }
+        },
+        "finetuned_metrics": {
+          "samples": 1,
+          "direction_accuracy": 0.0,
+          "direction_balanced_accuracy": 0.0,
+          "direction_macro_precision": 0.0,
+          "direction_macro_recall": 0.0,
+          "direction_macro_f1": 0.0,
+          "direction_confusion_matrix": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "relative_accuracy": 0.0,
+          "relative_balanced_accuracy": 0.0,
+          "relative_macro_precision": 0.0,
+          "relative_macro_recall": 0.0,
+          "relative_macro_f1": 0.0,
+          "relative_confusion_matrix": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.0,
+          "predicted_direction_distribution": {
+            "bullish": 1
+          },
+          "actual_direction_distribution": {
+            "bearish": 1
+          }
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 125,
+          "direction_accuracy": 0.4,
+          "direction_balanced_accuracy": 0.305829,
+          "direction_macro_precision": 0.199206,
+          "direction_macro_recall": 0.305829,
+          "direction_macro_f1": 0.233896,
+          "direction_confusion_matrix": [
+            [
+              0,
+              33,
+              6
+            ],
+            [
+              0,
+              47,
+              11
+            ],
+            [
+              0,
+              25,
+              3
+            ]
+          ],
+          "relative_accuracy": 0.68,
+          "relative_balanced_accuracy": 0.313131,
+          "relative_macro_precision": 0.281695,
+          "relative_macro_recall": 0.313131,
+          "relative_macro_f1": 0.295393,
+          "relative_confusion_matrix": [
+            [
+              0,
+              12,
+              3
+            ],
+            [
+              0,
+              84,
+              15
+            ],
+            [
+              0,
+              10,
+              1
+            ]
+          ],
+          "joint_accuracy": 0.384,
+          "predicted_direction_distribution": {
+            "neutral": 105,
+            "bullish": 20
+          },
+          "actual_direction_distribution": {
+            "bearish": 39,
+            "bullish": 28,
+            "neutral": 58
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "eth_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": -3.5e-05,
+          "annualized_return": -5.6e-05,
+          "annualized_volatility": 0.000113,
+          "max_drawdown": -9.1e-05,
+          "trades": 10,
+          "win_rate": 0.5,
+          "profit_factor": 0.466379,
+          "score": 0.059247,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 18
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 18,
+          "total_fees_paid": 2.653184,
+          "total_slippage_cost": 0.371446,
+          "final_equity": 99996.495889,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        },
+        "finetuned_metrics": {
+          "samples": 125,
+          "direction_accuracy": 0.296,
+          "direction_balanced_accuracy": 0.298851,
+          "direction_macro_precision": 0.217866,
+          "direction_macro_recall": 0.298851,
+          "direction_macro_f1": 0.233046,
+          "direction_confusion_matrix": [
+            [
+              0,
+              12,
+              27
+            ],
+            [
+              0,
+              23,
+              35
+            ],
+            [
+              0,
+              14,
+              14
+            ]
+          ],
+          "relative_accuracy": 0.648,
+          "relative_balanced_accuracy": 0.272727,
+          "relative_macro_precision": 0.259615,
+          "relative_macro_recall": 0.272727,
+          "relative_macro_f1": 0.26601,
+          "relative_confusion_matrix": [
+            [
+              0,
+              12,
+              3
+            ],
+            [
+              0,
+              81,
+              18
+            ],
+            [
+              0,
+              11,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.216,
+          "predicted_direction_distribution": {
+            "neutral": 49,
+            "bullish": 76
+          },
+          "actual_direction_distribution": {
+            "bearish": 39,
+            "bullish": 28,
+            "neutral": 58
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "eth_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.00107,
+          "annualized_return": 0.001696,
+          "annualized_volatility": 0.000472,
+          "max_drawdown": -0.000107,
+          "trades": 24,
+          "win_rate": 0.708333,
+          "profit_factor": 13.761362,
+          "score": 0.13185,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 54
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 54,
+          "total_fees_paid": 13.310755,
+          "total_slippage_cost": 1.863521,
+          "final_equity": 100106.969553,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        }
+      }
+    },
+    {
+      "symbol": "SOL/USD",
+      "validation": {
+        "base_metrics": {
+          "samples": 120,
+          "direction_accuracy": 0.366667,
+          "direction_balanced_accuracy": 0.325891,
+          "direction_macro_precision": 0.211538,
+          "direction_macro_recall": 0.325891,
+          "direction_macro_f1": 0.228092,
+          "direction_confusion_matrix": [
+            [
+              0,
+              31,
+              6
+            ],
+            [
+              0,
+              40,
+              6
+            ],
+            [
+              0,
+              33,
+              4
+            ]
+          ],
+          "relative_accuracy": 0.516667,
+          "relative_balanced_accuracy": 0.342312,
+          "relative_macro_precision": 0.269231,
+          "relative_macro_recall": 0.342312,
+          "relative_macro_f1": 0.289466,
+          "relative_confusion_matrix": [
+            [
+              0,
+              23,
+              4
+            ],
+            [
+              0,
+              58,
+              8
+            ],
+            [
+              0,
+              23,
+              4
+            ]
+          ],
+          "joint_accuracy": 0.341667,
+          "predicted_direction_distribution": {
+            "bullish": 16,
+            "neutral": 104
+          },
+          "actual_direction_distribution": {
+            "bearish": 37,
+            "neutral": 46,
+            "bullish": 37
+          }
+        },
+        "finetuned_metrics": {
+          "samples": 120,
+          "direction_accuracy": 0.383333,
+          "direction_balanced_accuracy": 0.395025,
+          "direction_macro_precision": 0.285714,
+          "direction_macro_recall": 0.395025,
+          "direction_macro_f1": 0.280683,
+          "direction_confusion_matrix": [
+            [
+              0,
+              9,
+              28
+            ],
+            [
+              0,
+              11,
+              35
+            ],
+            [
+              0,
+              2,
+              35
+            ]
+          ],
+          "relative_accuracy": 0.466667,
+          "relative_balanced_accuracy": 0.34119,
+          "relative_macro_precision": 0.264426,
+          "relative_macro_recall": 0.34119,
+          "relative_macro_f1": 0.297942,
+          "relative_confusion_matrix": [
+            [
+              0,
+              18,
+              9
+            ],
+            [
+              0,
+              48,
+              18
+            ],
+            [
+              0,
+              19,
+              8
+            ]
+          ],
+          "joint_accuracy": 0.208333,
+          "predicted_direction_distribution": {
+            "bullish": 98,
+            "neutral": 22
+          },
+          "actual_direction_distribution": {
+            "bearish": 37,
+            "neutral": 46,
+            "bullish": 37
+          }
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 99,
+          "direction_accuracy": 0.454545,
+          "direction_balanced_accuracy": 0.39234,
+          "direction_macro_precision": 0.276515,
+          "direction_macro_recall": 0.39234,
+          "direction_macro_f1": 0.310647,
+          "direction_confusion_matrix": [
+            [
+              0,
+              37,
+              2
+            ],
+            [
+              0,
+              41,
+              5
+            ],
+            [
+              0,
+              10,
+              4
+            ]
+          ],
+          "relative_accuracy": 0.69697,
+          "relative_balanced_accuracy": 0.528158,
+          "relative_macro_precision": 0.314394,
+          "relative_macro_recall": 0.528158,
+          "relative_macro_f1": 0.372671,
+          "relative_confusion_matrix": [
+            [
+              0,
+              20,
+              3
+            ],
+            [
+              0,
+              67,
+              6
+            ],
+            [
+              0,
+              1,
+              2
+            ]
+          ],
+          "joint_accuracy": 0.40404,
+          "predicted_direction_distribution": {
+            "neutral": 88,
+            "bullish": 11
+          },
+          "actual_direction_distribution": {
+            "bearish": 39,
+            "bullish": 14,
+            "neutral": 46
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "sol_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.000114,
+          "annualized_return": 0.000181,
+          "annualized_volatility": 6.9e-05,
+          "max_drawdown": -1e-05,
+          "trades": 6,
+          "win_rate": 1.0,
+          "profit_factor": 6.0,
+          "score": 0.160109,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 9
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 10,
+          "total_fees_paid": 1.48994,
+          "total_slippage_cost": 0.20859,
+          "final_equity": 100011.418639,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        },
+        "finetuned_metrics": {
+          "samples": 99,
+          "direction_accuracy": 0.222222,
+          "direction_balanced_accuracy": 0.341615,
+          "direction_macro_precision": 0.182596,
+          "direction_macro_recall": 0.341615,
+          "direction_macro_f1": 0.185374,
+          "direction_confusion_matrix": [
+            [
+              0,
+              14,
+              25
+            ],
+            [
+              0,
+              11,
+              35
+            ],
+            [
+              0,
+              3,
+              11
+            ]
+          ],
+          "relative_accuracy": 0.626263,
+          "relative_balanced_accuracy": 0.38965,
+          "relative_macro_precision": 0.265813,
+          "relative_macro_recall": 0.38965,
+          "relative_macro_f1": 0.295771,
+          "relative_confusion_matrix": [
+            [
+              0,
+              20,
+              3
+            ],
+            [
+              0,
+              61,
+              12
+            ],
+            [
+              0,
+              2,
+              1
+            ]
+          ],
+          "joint_accuracy": 0.212121,
+          "predicted_direction_distribution": {
+            "neutral": 28,
+            "bullish": 71
+          },
+          "actual_direction_distribution": {
+            "bearish": 39,
+            "bullish": 14,
+            "neutral": 46
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "sol_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.000771,
+          "annualized_return": 0.001222,
+          "annualized_volatility": 0.000346,
+          "max_drawdown": -2.2e-05,
+          "trades": 30,
+          "win_rate": 0.9,
+          "profit_factor": 125.099638,
+          "score": 0.15076,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 49
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 50,
+          "total_fees_paid": 6.517564,
+          "total_slippage_cost": 0.912466,
+          "final_equity": 100077.110681,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        }
+      }
+    },
+    {
+      "symbol": "DOGE/USD",
+      "validation": {
+        "base_metrics": {
+          "samples": 130,
+          "direction_accuracy": 0.384615,
+          "direction_balanced_accuracy": 0.311905,
+          "direction_macro_precision": 0.198718,
+          "direction_macro_recall": 0.311905,
+          "direction_macro_f1": 0.235383,
+          "direction_confusion_matrix": [
+            [
+              0,
+              27,
+              12
+            ],
+            [
+              0,
+              46,
+              10
+            ],
+            [
+              0,
+              31,
+              4
+            ]
+          ],
+          "relative_accuracy": 0.476923,
+          "relative_balanced_accuracy": 0.329524,
+          "relative_macro_precision": 0.237179,
+          "relative_macro_recall": 0.329524,
+          "relative_macro_f1": 0.27451,
+          "relative_confusion_matrix": [
+            [
+              0,
+              25,
+              10
+            ],
+            [
+              0,
+              58,
+              12
+            ],
+            [
+              0,
+              21,
+              4
+            ]
+          ],
+          "joint_accuracy": 0.369231,
+          "predicted_direction_distribution": {
+            "neutral": 104,
+            "bullish": 26
+          },
+          "actual_direction_distribution": {
+            "neutral": 56,
+            "bearish": 39,
+            "bullish": 35
+          }
+        },
+        "finetuned_metrics": {
+          "samples": 130,
+          "direction_accuracy": 0.269231,
+          "direction_balanced_accuracy": 0.308333,
+          "direction_macro_precision": 0.188677,
+          "direction_macro_recall": 0.308333,
+          "direction_macro_f1": 0.190527,
+          "direction_confusion_matrix": [
+            [
+              0,
+              9,
+              30
+            ],
+            [
+              0,
+              7,
+              49
+            ],
+            [
+              0,
+              7,
+              28
+            ]
+          ],
+          "relative_accuracy": 0.438462,
+          "relative_balanced_accuracy": 0.288571,
+          "relative_macro_precision": 0.20127,
+          "relative_macro_recall": 0.288571,
+          "relative_macro_f1": 0.23619,
+          "relative_confusion_matrix": [
+            [
+              0,
+              27,
+              8
+            ],
+            [
+              0,
+              55,
+              15
+            ],
+            [
+              0,
+              23,
+              2
+            ]
+          ],
+          "joint_accuracy": 0.107692,
+          "predicted_direction_distribution": {
+            "bullish": 107,
+            "neutral": 23
+          },
+          "actual_direction_distribution": {
+            "neutral": 56,
+            "bearish": 39,
+            "bullish": 35
+          }
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 133,
+          "direction_accuracy": 0.345865,
+          "direction_balanced_accuracy": 0.287126,
+          "direction_macro_precision": 0.172222,
+          "direction_macro_recall": 0.287126,
+          "direction_macro_f1": 0.213605,
+          "direction_confusion_matrix": [
+            [
+              0,
+              40,
+              10
+            ],
+            [
+              0,
+              43,
+              15
+            ],
+            [
+              0,
+              22,
+              3
+            ]
+          ],
+          "relative_accuracy": 0.62406,
+          "relative_balanced_accuracy": 0.35213,
+          "relative_macro_precision": 0.289683,
+          "relative_macro_recall": 0.35213,
+          "relative_macro_f1": 0.314286,
+          "relative_confusion_matrix": [
+            [
+              0,
+              14,
+              10
+            ],
+            [
+              0,
+              80,
+              15
+            ],
+            [
+              0,
+              11,
+              3
+            ]
+          ],
+          "joint_accuracy": 0.323308,
+          "predicted_direction_distribution": {
+            "neutral": 105,
+            "bullish": 28
+          },
+          "actual_direction_distribution": {
+            "bearish": 50,
+            "bullish": 25,
+            "neutral": 58
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "doge_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 3.1e-05,
+          "annualized_return": 4.9e-05,
+          "annualized_volatility": 6.3e-05,
+          "max_drawdown": -3.6e-05,
+          "trades": 13,
+          "win_rate": 0.769231,
+          "profit_factor": 3.738872,
+          "score": 0.136936,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 23
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 24,
+          "total_fees_paid": 0.746247,
+          "total_slippage_cost": 0.104474,
+          "final_equity": 100003.122636,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        },
+        "finetuned_metrics": {
+          "samples": 133,
+          "direction_accuracy": 0.285714,
+          "direction_balanced_accuracy": 0.317011,
+          "direction_macro_precision": 0.213754,
+          "direction_macro_recall": 0.317011,
+          "direction_macro_f1": 0.233276,
+          "direction_confusion_matrix": [
+            [
+              0,
+              15,
+              35
+            ],
+            [
+              0,
+              25,
+              33
+            ],
+            [
+              0,
+              12,
+              13
+            ]
+          ],
+          "relative_accuracy": 0.609023,
+          "relative_balanced_accuracy": 0.324812,
+          "relative_macro_precision": 0.268379,
+          "relative_macro_recall": 0.324812,
+          "relative_macro_f1": 0.292947,
+          "relative_confusion_matrix": [
+            [
+              0,
+              19,
+              5
+            ],
+            [
+              0,
+              79,
+              16
+            ],
+            [
+              0,
+              12,
+              2
+            ]
+          ],
+          "joint_accuracy": 0.240602,
+          "predicted_direction_distribution": {
+            "bullish": 81,
+            "neutral": 52
+          },
+          "actual_direction_distribution": {
+            "bearish": 50,
+            "bullish": 25,
+            "neutral": 58
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "doge_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.000119,
+          "annualized_return": 0.000189,
+          "annualized_volatility": 0.00015,
+          "max_drawdown": -3.8e-05,
+          "trades": 24,
+          "win_rate": 0.625,
+          "profit_factor": 3.135431,
+          "score": 0.1226,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 57
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 58,
+          "total_fees_paid": 2.380339,
+          "total_slippage_cost": 0.333232,
+          "final_equity": 100011.922811,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        }
+      }
+    },
+    {
+      "symbol": "XRP/USD",
+      "validation": {
+        "base_metrics": {
+          "samples": 119,
+          "direction_accuracy": 0.411765,
+          "direction_balanced_accuracy": 0.299309,
+          "direction_macro_precision": 0.211367,
+          "direction_macro_recall": 0.299309,
+          "direction_macro_f1": 0.232483,
+          "direction_confusion_matrix": [
+            [
+              0,
+              27,
+              2
+            ],
+            [
+              0,
+              46,
+              11
+            ],
+            [
+              0,
+              30,
+              3
+            ]
+          ],
+          "relative_accuracy": 0.546218,
+          "relative_balanced_accuracy": 0.270833,
+          "relative_macro_precision": 0.210356,
+          "relative_macro_recall": 0.270833,
+          "relative_macro_f1": 0.236794,
+          "relative_confusion_matrix": [
+            [
+              0,
+              22,
+              1
+            ],
+            [
+              0,
+              65,
+              15
+            ],
+            [
+              0,
+              16,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.352941,
+          "predicted_direction_distribution": {
+            "neutral": 103,
+            "bullish": 16
+          },
+          "actual_direction_distribution": {
+            "bearish": 29,
+            "neutral": 57,
+            "bullish": 33
+          }
+        },
+        "finetuned_metrics": {
+          "samples": 119,
+          "direction_accuracy": 0.302521,
+          "direction_balanced_accuracy": 0.342371,
+          "direction_macro_precision": 0.21746,
+          "direction_macro_recall": 0.342371,
+          "direction_macro_f1": 0.196707,
+          "direction_confusion_matrix": [
+            [
+              0,
+              7,
+              22
+            ],
+            [
+              0,
+              5,
+              52
+            ],
+            [
+              0,
+              2,
+              31
+            ]
+          ],
+          "relative_accuracy": 0.588235,
+          "relative_balanced_accuracy": 0.358333,
+          "relative_macro_precision": 0.287982,
+          "relative_macro_recall": 0.358333,
+          "relative_macro_f1": 0.319263,
+          "relative_confusion_matrix": [
+            [
+              0,
+              20,
+              3
+            ],
+            [
+              0,
+              66,
+              14
+            ],
+            [
+              0,
+              12,
+              4
+            ]
+          ],
+          "joint_accuracy": 0.193277,
+          "predicted_direction_distribution": {
+            "bullish": 105,
+            "neutral": 14
+          },
+          "actual_direction_distribution": {
+            "bearish": 29,
+            "neutral": 57,
+            "bullish": 33
+          }
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 113,
+          "direction_accuracy": 0.442478,
+          "direction_balanced_accuracy": 0.335578,
+          "direction_macro_precision": 0.229678,
+          "direction_macro_recall": 0.335578,
+          "direction_macro_f1": 0.260349,
+          "direction_confusion_matrix": [
+            [
+              0,
+              33,
+              4
+            ],
+            [
+              0,
+              47,
+              7
+            ],
+            [
+              0,
+              19,
+              3
+            ]
+          ],
+          "relative_accuracy": 0.637168,
+          "relative_balanced_accuracy": 0.313014,
+          "relative_macro_precision": 0.262867,
+          "relative_macro_recall": 0.313014,
+          "relative_macro_f1": 0.285185,
+          "relative_confusion_matrix": [
+            [
+              0,
+              13,
+              3
+            ],
+            [
+              0,
+              71,
+              10
+            ],
+            [
+              0,
+              15,
+              1
+            ]
+          ],
+          "joint_accuracy": 0.362832,
+          "predicted_direction_distribution": {
+            "neutral": 99,
+            "bullish": 14
+          },
+          "actual_direction_distribution": {
+            "bearish": 37,
+            "neutral": 54,
+            "bullish": 22
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "xrp_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 2.2e-05,
+          "annualized_return": 3.5e-05,
+          "annualized_volatility": 0.000386,
+          "max_drawdown": -0.000304,
+          "trades": 4,
+          "win_rate": 0.75,
+          "profit_factor": 47.126408,
+          "score": 0.13487,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 13
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 14,
+          "total_fees_paid": 1.569299,
+          "total_slippage_cost": 0.219684,
+          "final_equity": 100002.192986,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        },
+        "finetuned_metrics": {
+          "samples": 113,
+          "direction_accuracy": 0.238938,
+          "direction_balanced_accuracy": 0.265432,
+          "direction_macro_precision": 0.181007,
+          "direction_macro_recall": 0.265432,
+          "direction_macro_f1": 0.190295,
+          "direction_confusion_matrix": [
+            [
+              0,
+              14,
+              23
+            ],
+            [
+              0,
+              16,
+              38
+            ],
+            [
+              0,
+              11,
+              11
+            ]
+          ],
+          "relative_accuracy": 0.628319,
+          "relative_balanced_accuracy": 0.308899,
+          "relative_macro_precision": 0.262663,
+          "relative_macro_recall": 0.308899,
+          "relative_macro_f1": 0.283856,
+          "relative_confusion_matrix": [
+            [
+              0,
+              11,
+              5
+            ],
+            [
+              0,
+              70,
+              11
+            ],
+            [
+              0,
+              15,
+              1
+            ]
+          ],
+          "joint_accuracy": 0.159292,
+          "predicted_direction_distribution": {
+            "neutral": 41,
+            "bullish": 72
+          },
+          "actual_direction_distribution": {
+            "bearish": 37,
+            "neutral": 54,
+            "bullish": 22
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "xrp_usd_c_v_0",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.000249,
+          "annualized_return": 0.000395,
+          "annualized_volatility": 0.000173,
+          "max_drawdown": -4.9e-05,
+          "trades": 22,
+          "win_rate": 0.818182,
+          "profit_factor": 20.035989,
+          "score": 0.142043,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.01,
+            "no_same_day_reentry": true,
+            "minimum_strength": "medium",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 50
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 25.0,
+            "sell_fee_bps": 25.0,
+            "quoted_spread_bps": 3.0,
+            "market_impact_bps": 2.0,
+            "stop_extra_slippage_bps": 6.0,
+            "max_bar_participation_rate": 0.001,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.0,
+            "finra_taf_cap_per_trade": 0.0
+          },
+          "partial_fill_events": 51,
+          "total_fees_paid": 4.260326,
+          "total_slippage_cost": 0.596446,
+          "final_equity": 100024.921071,
+          "market": "crypto",
+          "llm_model_name": "E:\\Deepseek\\models\\DeepSeek-R1-Distill-Qwen-1.5B"
+        }
+      }
+    }
+  ],
+  "aggregates": {
+    "symbols": 5,
+    "base_mean_direction_accuracy": 0.411336,
+    "finetuned_mean_direction_accuracy": 0.267885,
+    "base_mean_return": 5.6e-05,
+    "finetuned_mean_return": 0.001099,
+    "base_mean_max_drawdown": -9.2e-05,
+    "finetuned_mean_max_drawdown": -0.000164,
+    "finetuned_beats_base_on_return": 5
+  }
+}

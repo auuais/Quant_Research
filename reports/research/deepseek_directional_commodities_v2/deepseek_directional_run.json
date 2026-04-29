@@ -1,0 +1,1462 @@
+{
+  "plan": {
+    "objective": "Train DeepSeek for future trend direction correctness first, then map predictions to trades second.",
+    "workflow": [
+      "Create future-direction labels from later realized returns with a volatility-scaled neutral band.",
+      "Fine-tune DeepSeek on those directional labels with chronological train data only.",
+      "Score validation and test on classification correctness before any trading metric.",
+      "Select trade gating rules on validation using prediction hit-rate and coverage.",
+      "Replay the chosen directional policy with the same execution-aware assumptions as the other branches."
+    ]
+  },
+  "training_symbols": [
+    "GLD",
+    "SLV",
+    "USO",
+    "UNG"
+  ],
+  "evaluation_symbols": [
+    "GLD",
+    "SLV",
+    "USO",
+    "UNG"
+  ],
+  "date_splits": {
+    "train": "2023-01-25 -> 2024-12-19 (480 days)",
+    "validation": "2024-12-20 -> 2025-08-13 (160 days)",
+    "test": "2025-08-14 -> 2026-04-02 (160 days)"
+  },
+  "dataset_sizes": {
+    "train_examples": 1497,
+    "validation_examples": 493,
+    "test_examples": 465
+  },
+  "training_result": {
+    "output_dir": "reports\\research\\deepseek_directional_commodities_v2\\deepseek_directional_lora",
+    "train_examples": 1200,
+    "eval_examples": 300,
+    "train_runtime_seconds": 0.0,
+    "train_loss": 0.0,
+    "reused_existing_adapter": true
+  },
+  "comparison_rows": [
+    {
+      "symbol": "GLD",
+      "validation": {
+        "base_metrics": {
+          "samples": 156,
+          "direction_accuracy": 0.467949,
+          "direction_balanced_accuracy": 0.374359,
+          "direction_macro_precision": 0.311878,
+          "direction_macro_recall": 0.374359,
+          "direction_macro_f1": 0.339927,
+          "direction_confusion_matrix": [
+            [
+              0,
+              13,
+              13
+            ],
+            [
+              0,
+              39,
+              26
+            ],
+            [
+              0,
+              31,
+              34
+            ]
+          ],
+          "relative_accuracy": 0.365385,
+          "relative_balanced_accuracy": 0.342088,
+          "relative_macro_precision": 0.24707,
+          "relative_macro_recall": 0.342088,
+          "relative_macro_f1": 0.283661,
+          "relative_confusion_matrix": [
+            [
+              0,
+              28,
+              17
+            ],
+            [
+              0,
+              24,
+              23
+            ],
+            [
+              0,
+              31,
+              33
+            ]
+          ],
+          "joint_accuracy": 0.25,
+          "predicted_direction_distribution": {
+            "bullish": 73,
+            "neutral": 83
+          },
+          "actual_direction_distribution": {
+            "neutral": 65,
+            "bullish": 65,
+            "bearish": 26
+          }
+        },
+        "base_trade_definition": {
+          "name": "gld_deepseek_directional_base_low_norel_nomom",
+          "lookback": 20,
+          "threshold": 0.02,
+          "minimum_strength": "low",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "base_trade_signal_metrics": {
+          "precision": 0.465753,
+          "recall": 0.523077,
+          "coverage": 0.467949
+        },
+        "finetuned_metrics": {
+          "samples": 156,
+          "direction_accuracy": 0.423077,
+          "direction_balanced_accuracy": 0.338462,
+          "direction_macro_precision": 0.307359,
+          "direction_macro_recall": 0.338462,
+          "direction_macro_f1": 0.207819,
+          "direction_confusion_matrix": [
+            [
+              0,
+              1,
+              25
+            ],
+            [
+              0,
+              1,
+              64
+            ],
+            [
+              0,
+              0,
+              65
+            ]
+          ],
+          "relative_accuracy": 0.416667,
+          "relative_balanced_accuracy": 0.368684,
+          "relative_macro_precision": 0.260131,
+          "relative_macro_recall": 0.368684,
+          "relative_macro_f1": 0.302137,
+          "relative_confusion_matrix": [
+            [
+              0,
+              20,
+              25
+            ],
+            [
+              0,
+              16,
+              31
+            ],
+            [
+              0,
+              15,
+              49
+            ]
+          ],
+          "joint_accuracy": 0.282051,
+          "predicted_direction_distribution": {
+            "bullish": 154,
+            "neutral": 2
+          },
+          "actual_direction_distribution": {
+            "neutral": 65,
+            "bullish": 65,
+            "bearish": 26
+          }
+        },
+        "finetuned_trade_definition": {
+          "name": "gld_deepseek_directional_finetuned_low_norel_nomom",
+          "lookback": 20,
+          "threshold": 0.02,
+          "minimum_strength": "low",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "finetuned_trade_signal_metrics": {
+          "precision": 0.422078,
+          "recall": 1.0,
+          "coverage": 0.987179
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 126,
+          "direction_accuracy": 0.436508,
+          "direction_balanced_accuracy": 0.351906,
+          "direction_macro_precision": 0.269414,
+          "direction_macro_recall": 0.351906,
+          "direction_macro_f1": 0.304215,
+          "direction_confusion_matrix": [
+            [
+              0,
+              10,
+              19
+            ],
+            [
+              0,
+              13,
+              18
+            ],
+            [
+              0,
+              24,
+              42
+            ]
+          ],
+          "relative_accuracy": 0.468254,
+          "relative_balanced_accuracy": 0.387205,
+          "relative_macro_precision": 0.310897,
+          "relative_macro_recall": 0.387205,
+          "relative_macro_f1": 0.34317,
+          "relative_confusion_matrix": [
+            [
+              0,
+              8,
+              18
+            ],
+            [
+              0,
+              22,
+              23
+            ],
+            [
+              0,
+              18,
+              37
+            ]
+          ],
+          "joint_accuracy": 0.380952,
+          "predicted_direction_distribution": {
+            "neutral": 47,
+            "bullish": 79
+          },
+          "actual_direction_distribution": {
+            "neutral": 31,
+            "bullish": 66,
+            "bearish": 29
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "gld_deepseek_directional_base_low_norel_nomom",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.325466,
+          "annualized_return": 0.562941,
+          "annualized_volatility": 0.099439,
+          "max_drawdown": -0.013159,
+          "trades": 37,
+          "win_rate": 0.621622,
+          "profit_factor": 7.354629,
+          "score": 0.441049,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.015,
+            "minimum_strength": "low",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "prediction_exit": 15,
+            "risk_exit": 40
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 0.0,
+            "sell_fee_bps": 0.0,
+            "quoted_spread_bps": 1.0,
+            "market_impact_bps": 1.0,
+            "stop_extra_slippage_bps": 2.0,
+            "max_bar_participation_rate": 0.0005,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.000195,
+            "finra_taf_cap_per_trade": 9.79
+          },
+          "partial_fill_events": 45,
+          "total_fees_paid": 1.334148,
+          "total_slippage_cost": 836.667602,
+          "final_equity": 132546.603781
+        },
+        "finetuned_metrics": {
+          "samples": 126,
+          "direction_accuracy": 0.52381,
+          "direction_balanced_accuracy": 0.333333,
+          "direction_macro_precision": 0.176,
+          "direction_macro_recall": 0.333333,
+          "direction_macro_f1": 0.230366,
+          "direction_confusion_matrix": [
+            [
+              0,
+              1,
+              28
+            ],
+            [
+              0,
+              0,
+              31
+            ],
+            [
+              0,
+              0,
+              66
+            ]
+          ],
+          "relative_accuracy": 0.34127,
+          "relative_balanced_accuracy": 0.282155,
+          "relative_macro_precision": 0.224002,
+          "relative_macro_recall": 0.282155,
+          "relative_macro_f1": 0.249736,
+          "relative_confusion_matrix": [
+            [
+              0,
+              13,
+              13
+            ],
+            [
+              0,
+              16,
+              29
+            ],
+            [
+              0,
+              28,
+              27
+            ]
+          ],
+          "joint_accuracy": 0.253968,
+          "predicted_direction_distribution": {
+            "bullish": 125,
+            "neutral": 1
+          },
+          "actual_direction_distribution": {
+            "neutral": 31,
+            "bullish": 66,
+            "bearish": 29
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "gld_deepseek_directional_finetuned_low_norel_nomom",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "long",
+          "total_return": 0.452334,
+          "annualized_return": 0.806593,
+          "annualized_volatility": 0.119124,
+          "max_drawdown": -0.017779,
+          "trades": 44,
+          "win_rate": 0.75,
+          "profit_factor": 7.379044,
+          "score": 0.578445,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.015,
+            "minimum_strength": "low",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "prediction_exit": 8,
+            "risk_exit": 62
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 0.0,
+            "sell_fee_bps": 0.0,
+            "quoted_spread_bps": 1.0,
+            "market_impact_bps": 1.0,
+            "stop_extra_slippage_bps": 2.0,
+            "max_bar_participation_rate": 0.0005,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.000195,
+            "finra_taf_cap_per_trade": 9.79
+          },
+          "partial_fill_events": 52,
+          "total_fees_paid": 1.862,
+          "total_slippage_cost": 1176.532715,
+          "final_equity": 145233.444695
+        }
+      }
+    },
+    {
+      "symbol": "SLV",
+      "validation": {
+        "base_metrics": {
+          "samples": 34,
+          "direction_accuracy": 0.382353,
+          "direction_balanced_accuracy": 0.31891,
+          "direction_macro_precision": 0.266314,
+          "direction_macro_recall": 0.31891,
+          "direction_macro_f1": 0.253623,
+          "direction_confusion_matrix": [
+            [
+              0,
+              4,
+              1
+            ],
+            [
+              0,
+              10,
+              3
+            ],
+            [
+              0,
+              13,
+              3
+            ]
+          ],
+          "relative_accuracy": 0.235294,
+          "relative_balanced_accuracy": 0.205128,
+          "relative_macro_precision": 0.098765,
+          "relative_macro_recall": 0.205128,
+          "relative_macro_f1": 0.133333,
+          "relative_confusion_matrix": [
+            [
+              0,
+              6,
+              2
+            ],
+            [
+              0,
+              8,
+              5
+            ],
+            [
+              0,
+              13,
+              0
+            ]
+          ],
+          "joint_accuracy": 0.147059,
+          "predicted_direction_distribution": {
+            "neutral": 27,
+            "bullish": 7
+          },
+          "actual_direction_distribution": {
+            "bearish": 5,
+            "bullish": 16,
+            "neutral": 13
+          }
+        },
+        "base_trade_definition": {
+          "name": "slv_deepseek_directional_base_low_norel_nomom",
+          "lookback": 20,
+          "threshold": 0.02,
+          "minimum_strength": "low",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "base_trade_signal_metrics": {
+          "precision": 0.428571,
+          "recall": 0.1875,
+          "coverage": 0.205882
+        },
+        "finetuned_metrics": {
+          "samples": 34,
+          "direction_accuracy": 0.470588,
+          "direction_balanced_accuracy": 0.333333,
+          "direction_macro_precision": 0.156863,
+          "direction_macro_recall": 0.333333,
+          "direction_macro_f1": 0.213333,
+          "direction_confusion_matrix": [
+            [
+              0,
+              0,
+              5
+            ],
+            [
+              0,
+              0,
+              13
+            ],
+            [
+              0,
+              0,
+              16
+            ]
+          ],
+          "relative_accuracy": 0.382353,
+          "relative_balanced_accuracy": 0.333333,
+          "relative_macro_precision": 0.240143,
+          "relative_macro_recall": 0.333333,
+          "relative_macro_f1": 0.223485,
+          "relative_confusion_matrix": [
+            [
+              0,
+              1,
+              7
+            ],
+            [
+              0,
+              1,
+              12
+            ],
+            [
+              0,
+              1,
+              12
+            ]
+          ],
+          "joint_accuracy": 0.294118,
+          "predicted_direction_distribution": {
+            "bullish": 34
+          },
+          "actual_direction_distribution": {
+            "bearish": 5,
+            "bullish": 16,
+            "neutral": 13
+          }
+        },
+        "finetuned_trade_definition": {
+          "name": "slv_deepseek_directional_finetuned_high_norel_nomom",
+          "lookback": 20,
+          "threshold": 0.02,
+          "minimum_strength": "high",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "finetuned_trade_signal_metrics": {
+          "precision": 0.484848,
+          "recall": 1.0,
+          "coverage": 0.970588
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 96,
+          "direction_accuracy": 0.34375,
+          "direction_balanced_accuracy": 0.328019,
+          "direction_macro_precision": 0.267544,
+          "direction_macro_recall": 0.328019,
+          "direction_macro_f1": 0.245664,
+          "direction_confusion_matrix": [
+            [
+              0,
+              17,
+              3
+            ],
+            [
+              0,
+              23,
+              7
+            ],
+            [
+              0,
+              36,
+              10
+            ]
+          ],
+          "relative_accuracy": 0.333333,
+          "relative_balanced_accuracy": 0.335648,
+          "relative_macro_precision": 0.275439,
+          "relative_macro_recall": 0.335648,
+          "relative_macro_f1": 0.243765,
+          "relative_confusion_matrix": [
+            [
+              0,
+              18,
+              3
+            ],
+            [
+              0,
+              21,
+              6
+            ],
+            [
+              0,
+              37,
+              11
+            ]
+          ],
+          "joint_accuracy": 0.302083,
+          "predicted_direction_distribution": {
+            "neutral": 76,
+            "bullish": 20
+          },
+          "actual_direction_distribution": {
+            "bullish": 46,
+            "neutral": 30,
+            "bearish": 20
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "slv_deepseek_directional_base_low_norel_nomom",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.120789,
+          "annualized_return": 0.198093,
+          "annualized_volatility": 0.11715,
+          "max_drawdown": -0.050063,
+          "trades": 13,
+          "win_rate": 0.615385,
+          "profit_factor": 4.135139,
+          "score": 0.217296,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.015,
+            "minimum_strength": "low",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 21
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 0.0,
+            "sell_fee_bps": 0.0,
+            "quoted_spread_bps": 1.0,
+            "market_impact_bps": 1.0,
+            "stop_extra_slippage_bps": 2.0,
+            "max_bar_participation_rate": 0.0005,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.000195,
+            "finra_taf_cap_per_trade": 9.79
+          },
+          "partial_fill_events": 19,
+          "total_fees_paid": 2.424571,
+          "total_slippage_cost": 245.205988,
+          "final_equity": 112078.872487
+        },
+        "finetuned_metrics": {
+          "samples": 96,
+          "direction_accuracy": 0.479167,
+          "direction_balanced_accuracy": 0.333333,
+          "direction_macro_precision": 0.159722,
+          "direction_macro_recall": 0.333333,
+          "direction_macro_f1": 0.215962,
+          "direction_confusion_matrix": [
+            [
+              0,
+              0,
+              20
+            ],
+            [
+              0,
+              0,
+              30
+            ],
+            [
+              0,
+              0,
+              46
+            ]
+          ],
+          "relative_accuracy": 0.447917,
+          "relative_balanced_accuracy": 0.341821,
+          "relative_macro_precision": 0.270986,
+          "relative_macro_recall": 0.341821,
+          "relative_macro_f1": 0.298643,
+          "relative_confusion_matrix": [
+            [
+              0,
+              4,
+              17
+            ],
+            [
+              0,
+              8,
+              19
+            ],
+            [
+              0,
+              13,
+              35
+            ]
+          ],
+          "joint_accuracy": 0.364583,
+          "predicted_direction_distribution": {
+            "bullish": 96
+          },
+          "actual_direction_distribution": {
+            "bullish": 46,
+            "neutral": 30,
+            "bearish": 20
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "slv_deepseek_directional_finetuned_high_norel_nomom",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "long",
+          "total_return": 0.995193,
+          "annualized_return": 1.988463,
+          "annualized_volatility": 0.2134,
+          "max_drawdown": -0.02071,
+          "trades": 53,
+          "win_rate": 0.773585,
+          "profit_factor": 15.481308,
+          "score": 1.122197,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.015,
+            "minimum_strength": "high",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "prediction_exit": 2,
+            "risk_exit": 84
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 0.0,
+            "sell_fee_bps": 0.0,
+            "quoted_spread_bps": 1.0,
+            "market_impact_bps": 1.0,
+            "stop_extra_slippage_bps": 2.0,
+            "max_bar_participation_rate": 0.0005,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.000195,
+            "finra_taf_cap_per_trade": 9.79
+          },
+          "partial_fill_events": 80,
+          "total_fees_paid": 9.560106,
+          "total_slippage_cost": 1035.87466,
+          "final_equity": 199519.347878
+        }
+      }
+    },
+    {
+      "symbol": "USO",
+      "validation": {
+        "base_metrics": {
+          "samples": 154,
+          "direction_accuracy": 0.383117,
+          "direction_balanced_accuracy": 0.349708,
+          "direction_macro_precision": 0.251933,
+          "direction_macro_recall": 0.349708,
+          "direction_macro_f1": 0.29096,
+          "direction_confusion_matrix": [
+            [
+              0,
+              21,
+              21
+            ],
+            [
+              0,
+              37,
+              20
+            ],
+            [
+              0,
+              33,
+              22
+            ]
+          ],
+          "relative_accuracy": 0.37013,
+          "relative_balanced_accuracy": 0.331349,
+          "relative_macro_precision": 0.238079,
+          "relative_macro_recall": 0.331349,
+          "relative_macro_f1": 0.276833,
+          "relative_confusion_matrix": [
+            [
+              0,
+              23,
+              20
+            ],
+            [
+              0,
+              39,
+              24
+            ],
+            [
+              0,
+              30,
+              18
+            ]
+          ],
+          "joint_accuracy": 0.253247,
+          "predicted_direction_distribution": {
+            "bullish": 63,
+            "neutral": 91
+          },
+          "actual_direction_distribution": {
+            "bullish": 55,
+            "neutral": 57,
+            "bearish": 42
+          }
+        },
+        "base_trade_definition": {
+          "name": "uso_deepseek_directional_base_low_norel_nomom",
+          "lookback": 20,
+          "threshold": 0.02,
+          "minimum_strength": "low",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "base_trade_signal_metrics": {
+          "precision": 0.349206,
+          "recall": 0.4,
+          "coverage": 0.409091
+        },
+        "finetuned_metrics": {
+          "samples": 154,
+          "direction_accuracy": 0.344156,
+          "direction_balanced_accuracy": 0.320787,
+          "direction_macro_precision": 0.225976,
+          "direction_macro_recall": 0.320787,
+          "direction_macro_f1": 0.188652,
+          "direction_confusion_matrix": [
+            [
+              0,
+              0,
+              42
+            ],
+            [
+              0,
+              2,
+              55
+            ],
+            [
+              0,
+              4,
+              51
+            ]
+          ],
+          "relative_accuracy": 0.350649,
+          "relative_balanced_accuracy": 0.318783,
+          "relative_macro_precision": 0.229952,
+          "relative_macro_recall": 0.318783,
+          "relative_macro_f1": 0.267113,
+          "relative_confusion_matrix": [
+            [
+              0,
+              23,
+              20
+            ],
+            [
+              0,
+              34,
+              29
+            ],
+            [
+              0,
+              28,
+              20
+            ]
+          ],
+          "joint_accuracy": 0.194805,
+          "predicted_direction_distribution": {
+            "bullish": 148,
+            "neutral": 6
+          },
+          "actual_direction_distribution": {
+            "bullish": 55,
+            "neutral": 57,
+            "bearish": 42
+          }
+        },
+        "finetuned_trade_definition": {
+          "name": "uso_deepseek_directional_finetuned_low_norel_nomom",
+          "lookback": 20,
+          "threshold": 0.02,
+          "minimum_strength": "low",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "finetuned_trade_signal_metrics": {
+          "precision": 0.344595,
+          "recall": 0.927273,
+          "coverage": 0.961039
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 149,
+          "direction_accuracy": 0.395973,
+          "direction_balanced_accuracy": 0.322864,
+          "direction_macro_precision": 0.244988,
+          "direction_macro_recall": 0.322864,
+          "direction_macro_f1": 0.265504,
+          "direction_confusion_matrix": [
+            [
+              0,
+              18,
+              12
+            ],
+            [
+              0,
+              47,
+              15
+            ],
+            [
+              0,
+              45,
+              12
+            ]
+          ],
+          "relative_accuracy": 0.355705,
+          "relative_balanced_accuracy": 0.270362,
+          "relative_macro_precision": 0.199223,
+          "relative_macro_recall": 0.270362,
+          "relative_macro_f1": 0.223567,
+          "relative_confusion_matrix": [
+            [
+              0,
+              19,
+              10
+            ],
+            [
+              0,
+              46,
+              22
+            ],
+            [
+              0,
+              45,
+              7
+            ]
+          ],
+          "joint_accuracy": 0.261745,
+          "predicted_direction_distribution": {
+            "neutral": 110,
+            "bullish": 39
+          },
+          "actual_direction_distribution": {
+            "bullish": 57,
+            "neutral": 62,
+            "bearish": 30
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "uso_deepseek_directional_base_low_norel_nomom",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "flat",
+          "total_return": 0.09708,
+          "annualized_return": 0.158174,
+          "annualized_volatility": 0.045136,
+          "max_drawdown": -0.006204,
+          "trades": 21,
+          "win_rate": 0.619048,
+          "profit_factor": 30.949726,
+          "score": 0.215883,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.015,
+            "minimum_strength": "low",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "prediction_exit": 12,
+            "risk_exit": 26
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 0.0,
+            "sell_fee_bps": 0.0,
+            "quoted_spread_bps": 1.0,
+            "market_impact_bps": 1.0,
+            "stop_extra_slippage_bps": 2.0,
+            "max_bar_participation_rate": 0.0005,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.000195,
+            "finra_taf_cap_per_trade": 9.79
+          },
+          "partial_fill_events": 38,
+          "total_fees_paid": 0.282426,
+          "total_slippage_cost": 36.346254,
+          "final_equity": 109707.983864
+        },
+        "finetuned_metrics": {
+          "samples": 149,
+          "direction_accuracy": 0.38255,
+          "direction_balanced_accuracy": 0.332862,
+          "direction_macro_precision": 0.293651,
+          "direction_macro_recall": 0.332862,
+          "direction_macro_f1": 0.193423,
+          "direction_confusion_matrix": [
+            [
+              0,
+              0,
+              30
+            ],
+            [
+              0,
+              1,
+              61
+            ],
+            [
+              0,
+              1,
+              56
+            ]
+          ],
+          "relative_accuracy": 0.395973,
+          "relative_balanced_accuracy": 0.334465,
+          "relative_macro_precision": 0.269718,
+          "relative_macro_recall": 0.334465,
+          "relative_macro_f1": 0.29251,
+          "relative_confusion_matrix": [
+            [
+              0,
+              12,
+              17
+            ],
+            [
+              0,
+              29,
+              39
+            ],
+            [
+              0,
+              22,
+              30
+            ]
+          ],
+          "joint_accuracy": 0.187919,
+          "predicted_direction_distribution": {
+            "bullish": 147,
+            "neutral": 2
+          },
+          "actual_direction_distribution": {
+            "bullish": 57,
+            "neutral": 62,
+            "bearish": 30
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "uso_deepseek_directional_finetuned_low_norel_nomom",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "long",
+          "total_return": 0.407215,
+          "annualized_return": 0.718452,
+          "annualized_volatility": 0.173498,
+          "max_drawdown": -0.002492,
+          "trades": 63,
+          "win_rate": 0.666667,
+          "profit_factor": 34.845977,
+          "score": 0.532636,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.015,
+            "minimum_strength": "low",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 113,
+            "prediction_exit": 2
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 0.0,
+            "sell_fee_bps": 0.0,
+            "quoted_spread_bps": 1.0,
+            "market_impact_bps": 1.0,
+            "stop_extra_slippage_bps": 2.0,
+            "max_bar_participation_rate": 0.0005,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.000195,
+            "finra_taf_cap_per_trade": 9.79
+          },
+          "partial_fill_events": 116,
+          "total_fees_paid": 1.822311,
+          "total_slippage_cost": 287.449329,
+          "final_equity": 140721.503719
+        }
+      }
+    },
+    {
+      "symbol": "UNG",
+      "validation": {
+        "base_metrics": {
+          "samples": 149,
+          "direction_accuracy": 0.308725,
+          "direction_balanced_accuracy": 0.333333,
+          "direction_macro_precision": 0.202263,
+          "direction_macro_recall": 0.333333,
+          "direction_macro_f1": 0.247573,
+          "direction_confusion_matrix": [
+            [
+              0,
+              26,
+              30
+            ],
+            [
+              0,
+              16,
+              32
+            ],
+            [
+              0,
+              15,
+              30
+            ]
+          ],
+          "relative_accuracy": 0.308725,
+          "relative_balanced_accuracy": 0.337753,
+          "relative_macro_precision": 0.204488,
+          "relative_macro_recall": 0.337753,
+          "relative_macro_f1": 0.250093,
+          "relative_confusion_matrix": [
+            [
+              0,
+              25,
+              32
+            ],
+            [
+              0,
+              17,
+              31
+            ],
+            [
+              0,
+              15,
+              29
+            ]
+          ],
+          "joint_accuracy": 0.248322,
+          "predicted_direction_distribution": {
+            "bullish": 92,
+            "neutral": 57
+          },
+          "actual_direction_distribution": {
+            "bullish": 45,
+            "neutral": 48,
+            "bearish": 56
+          }
+        },
+        "base_trade_definition": {
+          "name": "ung_deepseek_directional_base_low_norel_nomom",
+          "lookback": 20,
+          "threshold": 0.02,
+          "minimum_strength": "low",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "base_trade_signal_metrics": {
+          "precision": 0.326087,
+          "recall": 0.666667,
+          "coverage": 0.61745
+        },
+        "finetuned_metrics": {
+          "samples": 149,
+          "direction_accuracy": 0.295302,
+          "direction_balanced_accuracy": 0.325926,
+          "direction_macro_precision": 0.099773,
+          "direction_macro_recall": 0.325926,
+          "direction_macro_f1": 0.152778,
+          "direction_confusion_matrix": [
+            [
+              0,
+              1,
+              55
+            ],
+            [
+              0,
+              0,
+              48
+            ],
+            [
+              0,
+              1,
+              44
+            ]
+          ],
+          "relative_accuracy": 0.268456,
+          "relative_balanced_accuracy": 0.292929,
+          "relative_macro_precision": 0.180524,
+          "relative_macro_recall": 0.292929,
+          "relative_macro_f1": 0.219234,
+          "relative_confusion_matrix": [
+            [
+              0,
+              21,
+              36
+            ],
+            [
+              0,
+              16,
+              32
+            ],
+            [
+              0,
+              20,
+              24
+            ]
+          ],
+          "joint_accuracy": 0.147651,
+          "predicted_direction_distribution": {
+            "bullish": 147,
+            "neutral": 2
+          },
+          "actual_direction_distribution": {
+            "bullish": 45,
+            "neutral": 48,
+            "bearish": 56
+          }
+        },
+        "finetuned_trade_definition": {
+          "name": "ung_deepseek_directional_finetuned_low_norel_nomom",
+          "lookback": 20,
+          "threshold": 0.02,
+          "minimum_strength": "low",
+          "require_relative_confirmation": false,
+          "require_momentum_confirmation": false
+        },
+        "finetuned_trade_signal_metrics": {
+          "precision": 0.29932,
+          "recall": 0.977778,
+          "coverage": 0.986577
+        }
+      },
+      "test": {
+        "base_metrics": {
+          "samples": 94,
+          "direction_accuracy": 0.340426,
+          "direction_balanced_accuracy": 0.334009,
+          "direction_macro_precision": 0.223457,
+          "direction_macro_recall": 0.334009,
+          "direction_macro_f1": 0.267457,
+          "direction_confusion_matrix": [
+            [
+              0,
+              17,
+              14
+            ],
+            [
+              0,
+              20,
+              14
+            ],
+            [
+              0,
+              17,
+              12
+            ]
+          ],
+          "relative_accuracy": 0.329787,
+          "relative_balanced_accuracy": 0.311133,
+          "relative_macro_precision": 0.215123,
+          "relative_macro_recall": 0.311133,
+          "relative_macro_f1": 0.254363,
+          "relative_confusion_matrix": [
+            [
+              0,
+              17,
+              12
+            ],
+            [
+              0,
+              20,
+              17
+            ],
+            [
+              0,
+              17,
+              11
+            ]
+          ],
+          "joint_accuracy": 0.287234,
+          "predicted_direction_distribution": {
+            "bullish": 40,
+            "neutral": 54
+          },
+          "actual_direction_distribution": {
+            "neutral": 34,
+            "bearish": 31,
+            "bullish": 29
+          }
+        },
+        "base_trade_summary": {
+          "strategy_name": "ung_deepseek_directional_base_low_norel_nomom",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "long",
+          "total_return": 0.018965,
+          "annualized_return": 0.030224,
+          "annualized_volatility": 0.01202,
+          "max_drawdown": -0.001337,
+          "trades": 26,
+          "win_rate": 0.653846,
+          "profit_factor": 13.744199,
+          "score": 0.143681,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.015,
+            "minimum_strength": "low",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 42
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 0.0,
+            "sell_fee_bps": 0.0,
+            "quoted_spread_bps": 1.0,
+            "market_impact_bps": 1.0,
+            "stop_extra_slippage_bps": 2.0,
+            "max_bar_participation_rate": 0.0005,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.000195,
+            "finra_taf_cap_per_trade": 9.79
+          },
+          "partial_fill_events": 43,
+          "total_fees_paid": 0.956145,
+          "total_slippage_cost": 19.798421,
+          "final_equity": 101896.521407
+        },
+        "finetuned_metrics": {
+          "samples": 94,
+          "direction_accuracy": 0.308511,
+          "direction_balanced_accuracy": 0.333333,
+          "direction_macro_precision": 0.102837,
+          "direction_macro_recall": 0.333333,
+          "direction_macro_f1": 0.157182,
+          "direction_confusion_matrix": [
+            [
+              0,
+              0,
+              31
+            ],
+            [
+              0,
+              0,
+              34
+            ],
+            [
+              0,
+              0,
+              29
+            ]
+          ],
+          "relative_accuracy": 0.297872,
+          "relative_balanced_accuracy": 0.324646,
+          "relative_macro_precision": 0.238643,
+          "relative_macro_recall": 0.324646,
+          "relative_macro_f1": 0.190382,
+          "relative_confusion_matrix": [
+            [
+              0,
+              1,
+              28
+            ],
+            [
+              0,
+              3,
+              34
+            ],
+            [
+              0,
+              3,
+              25
+            ]
+          ],
+          "joint_accuracy": 0.244681,
+          "predicted_direction_distribution": {
+            "bullish": 94
+          },
+          "actual_direction_distribution": {
+            "neutral": 34,
+            "bearish": 31,
+            "bullish": 29
+          }
+        },
+        "finetuned_trade_summary": {
+          "strategy_name": "ung_deepseek_directional_finetuned_low_norel_nomom",
+          "strategy_family": "deepseek_directional",
+          "run_type": "historical_deepseek_directional_execution_aware",
+          "latest_signal": "long",
+          "total_return": 0.028994,
+          "annualized_return": 0.046341,
+          "annualized_volatility": 0.010458,
+          "max_drawdown": -0.001831,
+          "trades": 60,
+          "win_rate": 0.783333,
+          "profit_factor": 10.850547,
+          "score": 0.166412,
+          "bars_tested": 160,
+          "periods_per_year": 252.0,
+          "risk": {
+            "stop_loss_pct": 0.05,
+            "trailing_stop_pct": 0.015,
+            "minimum_strength": "low",
+            "require_relative_confirmation": false,
+            "require_momentum_confirmation": false
+          },
+          "exit_reasons": {
+            "risk_exit": 97
+          },
+          "source_run_type": "historical_deepseek_directional",
+          "execution_assumptions": {
+            "starting_capital": 100000.0,
+            "commission_per_order": 0.0,
+            "buy_fee_bps": 0.0,
+            "sell_fee_bps": 0.0,
+            "quoted_spread_bps": 1.0,
+            "market_impact_bps": 1.0,
+            "stop_extra_slippage_bps": 2.0,
+            "max_bar_participation_rate": 0.0005,
+            "max_bar_shares": null,
+            "sec_fee_per_million_sell": 0.0,
+            "finra_taf_per_share_sell": 0.000195,
+            "finra_taf_cap_per_trade": 9.79
+          },
+          "partial_fill_events": 98,
+          "total_fees_paid": 1.970419,
+          "total_slippage_cost": 40.647748,
+          "final_equity": 102899.39015
+        }
+      }
+    }
+  ],
+  "aggregates": {
+    "base_direction_accuracy_mean": 0.379164,
+    "finetuned_direction_accuracy_mean": 0.423509,
+    "base_direction_macro_f1_mean": 0.27071,
+    "finetuned_direction_macro_f1_mean": 0.199233,
+    "base_trade_return_mean": 0.140575,
+    "finetuned_trade_return_mean": 0.470934,
+    "base_trade_drawdown_mean": -0.017691,
+    "finetuned_trade_drawdown_mean": -0.010703,
+    "finetuned_beats_base_accuracy": 2,
+    "finetuned_beats_base_return": 4
+  }
+}

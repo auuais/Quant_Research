@@ -1,0 +1,27 @@
+{
+  "version": "V3-5",
+  "strategy_name": "v3_5_paper_top3",
+  "symbols": [
+    "TSLA",
+    "AVGO",
+    "NVDA"
+  ],
+  "generated_at": "2026-04-07T17:40:36.623471+00:00",
+  "period": {
+    "started_at": "2026-04-07T17:28:40.330677+00:00",
+    "ends_at": "2026-07-06T17:28:40.330677+00:00"
+  },
+  "equity": 100055.35,
+  "cash": 80084.73,
+  "weekly_return": -0.00029355127400543246,
+  "since_start_return": -0.00029355127400543246,
+  "positions": [
+    {
+      "symbol": "TSLA",
+      "qty": 58.233577917,
+      "market_value": 19971.782059,
+      "unrealized_pl": -28.217954
+    }
+  ],
+  "snapshot_count": 2
+}

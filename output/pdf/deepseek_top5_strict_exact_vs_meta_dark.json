@@ -1,0 +1,20 @@
+{
+  "output_path": "C:\\SVNProjects\\Algoding\\output\\pdf\\deepseek_top5_strict_exact_vs_meta_dark.pdf",
+  "comparison_artifact": "C:\\SVNProjects\\Algoding\\reports\\research\\deepseek_top5_strict_exact_vs_meta.json",
+  "rows": 5,
+  "aggregates": {
+    "previous_window_average": {
+      "mean_total_return": 0.445973,
+      "mean_max_drawdown": -0.109062
+    },
+    "strict_exact_prompt_variant": {
+      "mean_total_return": 0.104292,
+      "mean_max_drawdown": -0.031147
+    },
+    "strict_meta_model": {
+      "mean_total_return": 0.010561,
+      "mean_max_drawdown": -0.000253
+    },
+    "strict_prompt_beats_meta": 5
+  }
+}

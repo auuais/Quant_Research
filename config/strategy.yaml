@@ -1,0 +1,17 @@
+strategy_name: etf_momentum_v1
+universe:
+  - SPY
+  - QQQ
+  - IWM
+  - TLT
+  - GLD
+  - XLF
+  - XLE
+  - XLV
+  - SMH
+rebalance_frequency: weekly
+lookback_windows:
+  momentum_fast_days: 63
+  momentum_slow_days: 252
+selection_count: 3
+cash_proxy: BIL

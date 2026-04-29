@@ -1,0 +1,537 @@
+{
+  "markets": [
+    "commodities",
+    "etfs",
+    "stocks"
+  ],
+  "symbols": [
+    "SLV",
+    "GLD",
+    "USO",
+    "SMH",
+    "XLE",
+    "NVDA"
+  ],
+  "models": [
+    "torch_cnn",
+    "torch_gru",
+    "torch_transformer",
+    "torch_transformer_gru"
+  ],
+  "timeframe": "day",
+  "regular_hours_only": false,
+  "no_same_day_reentry": false,
+  "train_bars": 3528,
+  "test_bars": 252,
+  "stop_loss_pct": 0.05,
+  "trailing_stop_pct": 0.015,
+  "runs_recorded": 24,
+  "skipped_runs": [],
+  "leaderboard": [
+    {
+      "market": "commodities",
+      "symbol": "SLV",
+      "strategy_name": "slv_torch_transformer_dl",
+      "strategy_family": "dl_sequence_transformer",
+      "model_name": "torch_transformer",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.263567,
+      "avg_annualized_return": 0.264746,
+      "avg_max_drawdown": -0.112157,
+      "avg_win_rate": 0.52381,
+      "avg_profit_factor": 2.24883,
+      "avg_score": 0.304847,
+      "composite_score": 0.404847,
+      "best_window_return": 0.263567,
+      "worst_window_return": 0.263567,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "etfs",
+      "symbol": "SMH",
+      "strategy_name": "smh_torch_transformer_gru_dl",
+      "strategy_family": "dl_sequence_transformer_gru",
+      "model_name": "torch_transformer_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.168005,
+      "avg_annualized_return": 0.168728,
+      "avg_max_drawdown": -0.034927,
+      "avg_win_rate": 0.571429,
+      "avg_profit_factor": 3.185689,
+      "avg_score": 0.267684,
+      "composite_score": 0.367684,
+      "best_window_return": 0.168005,
+      "worst_window_return": 0.168005,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "commodities",
+      "symbol": "GLD",
+      "strategy_name": "gld_torch_transformer_gru_dl",
+      "strategy_family": "dl_sequence_transformer_gru",
+      "model_name": "torch_transformer_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.217838,
+      "avg_annualized_return": 0.218795,
+      "avg_max_drawdown": -0.106212,
+      "avg_win_rate": 0.666667,
+      "avg_profit_factor": 1.722011,
+      "avg_score": 0.265839,
+      "composite_score": 0.365839,
+      "best_window_return": 0.217838,
+      "worst_window_return": 0.217838,
+      "latest_signal": "long"
+    },
+    {
+      "market": "commodities",
+      "symbol": "GLD",
+      "strategy_name": "gld_torch_cnn_dl",
+      "strategy_family": "dl_sequence_cnn",
+      "model_name": "torch_cnn",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.225203,
+      "avg_annualized_return": 0.226195,
+      "avg_max_drawdown": -0.098279,
+      "avg_win_rate": 0.516129,
+      "avg_profit_factor": 1.780462,
+      "avg_score": 0.263286,
+      "composite_score": 0.363286,
+      "best_window_return": 0.225203,
+      "worst_window_return": 0.225203,
+      "latest_signal": "long"
+    },
+    {
+      "market": "commodities",
+      "symbol": "GLD",
+      "strategy_name": "gld_torch_transformer_dl",
+      "strategy_family": "dl_sequence_transformer",
+      "model_name": "torch_transformer",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.156204,
+      "avg_annualized_return": 0.156873,
+      "avg_max_drawdown": -0.069718,
+      "avg_win_rate": 0.571429,
+      "avg_profit_factor": 2.906966,
+      "avg_score": 0.236627,
+      "composite_score": 0.336627,
+      "best_window_return": 0.156204,
+      "worst_window_return": 0.156204,
+      "latest_signal": "long"
+    },
+    {
+      "market": "stocks",
+      "symbol": "NVDA",
+      "strategy_name": "nvda_torch_transformer_dl",
+      "strategy_family": "dl_sequence_transformer",
+      "model_name": "torch_transformer",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.159693,
+      "avg_annualized_return": 0.160377,
+      "avg_max_drawdown": -0.071101,
+      "avg_win_rate": 0.5,
+      "avg_profit_factor": 2.082571,
+      "avg_score": 0.215793,
+      "composite_score": 0.315793,
+      "best_window_return": 0.159693,
+      "worst_window_return": 0.159693,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "commodities",
+      "symbol": "SLV",
+      "strategy_name": "slv_torch_cnn_dl",
+      "strategy_family": "dl_sequence_cnn",
+      "model_name": "torch_cnn",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.178372,
+      "avg_annualized_return": 0.179143,
+      "avg_max_drawdown": -0.112157,
+      "avg_win_rate": 0.478261,
+      "avg_profit_factor": 1.707368,
+      "avg_score": 0.204267,
+      "composite_score": 0.304267,
+      "best_window_return": 0.178372,
+      "worst_window_return": 0.178372,
+      "latest_signal": "long"
+    },
+    {
+      "market": "stocks",
+      "symbol": "NVDA",
+      "strategy_name": "nvda_torch_gru_dl",
+      "strategy_family": "dl_sequence_gru",
+      "model_name": "torch_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.051048,
+      "avg_annualized_return": 0.051257,
+      "avg_max_drawdown": -0.001034,
+      "avg_win_rate": 0.833333,
+      "avg_profit_factor": 56.671865,
+      "avg_score": 0.193865,
+      "composite_score": 0.293865,
+      "best_window_return": 0.051048,
+      "worst_window_return": 0.051048,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "commodities",
+      "symbol": "USO",
+      "strategy_name": "uso_torch_gru_dl",
+      "strategy_family": "dl_sequence_gru",
+      "model_name": "torch_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.033818,
+      "avg_annualized_return": 0.033955,
+      "avg_max_drawdown": -0.00015,
+      "avg_win_rate": 1.0,
+      "avg_profit_factor": 1.0,
+      "avg_score": 0.153743,
+      "composite_score": 0.253743,
+      "best_window_return": 0.033818,
+      "worst_window_return": 0.033818,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "commodities",
+      "symbol": "SLV",
+      "strategy_name": "slv_torch_transformer_gru_dl",
+      "strategy_family": "dl_sequence_transformer_gru",
+      "model_name": "torch_transformer_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.040095,
+      "avg_annualized_return": 0.040258,
+      "avg_max_drawdown": -0.022231,
+      "avg_win_rate": 0.5,
+      "avg_profit_factor": 2.462565,
+      "avg_score": 0.128231,
+      "composite_score": 0.228231,
+      "best_window_return": 0.040095,
+      "worst_window_return": 0.040095,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "etfs",
+      "symbol": "SMH",
+      "strategy_name": "smh_torch_transformer_dl",
+      "strategy_family": "dl_sequence_transformer",
+      "model_name": "torch_transformer",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.030181,
+      "avg_annualized_return": 0.030303,
+      "avg_max_drawdown": -0.037942,
+      "avg_win_rate": 0.5,
+      "avg_profit_factor": 1.799654,
+      "avg_score": 0.097203,
+      "composite_score": 0.197203,
+      "best_window_return": 0.030181,
+      "worst_window_return": 0.030181,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "commodities",
+      "symbol": "GLD",
+      "strategy_name": "gld_torch_gru_dl",
+      "strategy_family": "dl_sequence_gru",
+      "model_name": "torch_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.044864,
+      "avg_annualized_return": 0.045047,
+      "avg_max_drawdown": -0.119872,
+      "avg_win_rate": 0.571429,
+      "avg_profit_factor": 1.146301,
+      "avg_score": 0.064997,
+      "composite_score": 0.164997,
+      "best_window_return": 0.044864,
+      "worst_window_return": 0.044864,
+      "latest_signal": "long"
+    },
+    {
+      "market": "etfs",
+      "symbol": "XLE",
+      "strategy_name": "xle_torch_cnn_dl",
+      "strategy_family": "dl_sequence_cnn",
+      "model_name": "torch_cnn",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.036567,
+      "avg_annualized_return": 0.036715,
+      "avg_max_drawdown": -0.07865,
+      "avg_win_rate": 0.388889,
+      "avg_profit_factor": 1.374509,
+      "avg_score": 0.063621,
+      "composite_score": 0.163621,
+      "best_window_return": 0.036567,
+      "worst_window_return": 0.036567,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "etfs",
+      "symbol": "XLE",
+      "strategy_name": "xle_torch_transformer_gru_dl",
+      "strategy_family": "dl_sequence_transformer_gru",
+      "model_name": "torch_transformer_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.013615,
+      "avg_annualized_return": 0.01367,
+      "avg_max_drawdown": -0.050679,
+      "avg_win_rate": 0.464286,
+      "avg_profit_factor": 1.084156,
+      "avg_score": 0.056387,
+      "composite_score": 0.156387,
+      "best_window_return": 0.013615,
+      "worst_window_return": 0.013615,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "commodities",
+      "symbol": "USO",
+      "strategy_name": "uso_torch_cnn_dl",
+      "strategy_family": "dl_sequence_cnn",
+      "model_name": "torch_cnn",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.008739,
+      "avg_annualized_return": 0.008774,
+      "avg_max_drawdown": -0.024357,
+      "avg_win_rate": 0.25,
+      "avg_profit_factor": 1.360973,
+      "avg_score": 0.04878,
+      "composite_score": 0.14878,
+      "best_window_return": 0.008739,
+      "worst_window_return": 0.008739,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "etfs",
+      "symbol": "XLE",
+      "strategy_name": "xle_torch_gru_dl",
+      "strategy_family": "dl_sequence_gru",
+      "model_name": "torch_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.007874,
+      "avg_annualized_return": 0.007906,
+      "avg_max_drawdown": -0.06399,
+      "avg_win_rate": 0.4375,
+      "avg_profit_factor": 1.081911,
+      "avg_score": 0.041268,
+      "composite_score": 0.141268,
+      "best_window_return": 0.007874,
+      "worst_window_return": 0.007874,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "etfs",
+      "symbol": "SMH",
+      "strategy_name": "smh_torch_gru_dl",
+      "strategy_family": "dl_sequence_gru",
+      "model_name": "torch_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 1,
+      "avg_total_return": 0.033698,
+      "avg_annualized_return": 0.033835,
+      "avg_max_drawdown": -0.112129,
+      "avg_win_rate": 0.347826,
+      "avg_profit_factor": 1.139377,
+      "avg_score": 0.035204,
+      "composite_score": 0.135204,
+      "best_window_return": 0.033698,
+      "worst_window_return": 0.033698,
+      "latest_signal": "long"
+    },
+    {
+      "market": "commodities",
+      "symbol": "USO",
+      "strategy_name": "uso_torch_transformer_dl",
+      "strategy_family": "dl_sequence_transformer",
+      "model_name": "torch_transformer",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 0,
+      "avg_total_return": -0.003456,
+      "avg_annualized_return": -0.00347,
+      "avg_max_drawdown": -0.078511,
+      "avg_win_rate": 0.5,
+      "avg_profit_factor": 0.951152,
+      "avg_score": 0.026311,
+      "composite_score": 0.026311,
+      "best_window_return": -0.003456,
+      "worst_window_return": -0.003456,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "stocks",
+      "symbol": "NVDA",
+      "strategy_name": "nvda_torch_transformer_gru_dl",
+      "strategy_family": "dl_sequence_transformer_gru",
+      "model_name": "torch_transformer_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 0,
+      "avg_total_return": -0.029945,
+      "avg_annualized_return": -0.030062,
+      "avg_max_drawdown": -0.074147,
+      "avg_win_rate": 0.428571,
+      "avg_profit_factor": 0.901665,
+      "avg_score": -0.006128,
+      "composite_score": -0.006128,
+      "best_window_return": -0.029945,
+      "worst_window_return": -0.029945,
+      "latest_signal": "long"
+    },
+    {
+      "market": "etfs",
+      "symbol": "XLE",
+      "strategy_name": "xle_torch_transformer_dl",
+      "strategy_family": "dl_sequence_transformer",
+      "model_name": "torch_transformer",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 0,
+      "avg_total_return": -0.009318,
+      "avg_annualized_return": -0.009355,
+      "avg_max_drawdown": -0.110641,
+      "avg_win_rate": 0.3,
+      "avg_profit_factor": 0.933753,
+      "avg_score": -0.015963,
+      "composite_score": -0.015963,
+      "best_window_return": -0.009318,
+      "worst_window_return": -0.009318,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "etfs",
+      "symbol": "SMH",
+      "strategy_name": "smh_torch_cnn_dl",
+      "strategy_family": "dl_sequence_cnn",
+      "model_name": "torch_cnn",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 0,
+      "avg_total_return": -0.048575,
+      "avg_annualized_return": -0.048763,
+      "avg_max_drawdown": -0.048575,
+      "avg_win_rate": 0.0,
+      "avg_profit_factor": 0.0,
+      "avg_score": -0.072862,
+      "composite_score": -0.072862,
+      "best_window_return": -0.048575,
+      "worst_window_return": -0.048575,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "commodities",
+      "symbol": "USO",
+      "strategy_name": "uso_torch_transformer_gru_dl",
+      "strategy_family": "dl_sequence_transformer_gru",
+      "model_name": "torch_transformer_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 0,
+      "avg_total_return": -0.054656,
+      "avg_annualized_return": -0.054867,
+      "avg_max_drawdown": -0.162744,
+      "avg_win_rate": 0.391304,
+      "avg_profit_factor": 0.759708,
+      "avg_score": -0.081703,
+      "composite_score": -0.081703,
+      "best_window_return": -0.054656,
+      "worst_window_return": -0.054656,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "stocks",
+      "symbol": "NVDA",
+      "strategy_name": "nvda_torch_cnn_dl",
+      "strategy_family": "dl_sequence_cnn",
+      "model_name": "torch_cnn",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 0,
+      "avg_total_return": -0.089894,
+      "avg_annualized_return": -0.090236,
+      "avg_max_drawdown": -0.111553,
+      "avg_win_rate": 0.363636,
+      "avg_profit_factor": 0.411951,
+      "avg_score": -0.101068,
+      "composite_score": -0.101068,
+      "best_window_return": -0.089894,
+      "worst_window_return": -0.089894,
+      "latest_signal": "flat"
+    },
+    {
+      "market": "commodities",
+      "symbol": "SLV",
+      "strategy_name": "slv_torch_gru_dl",
+      "strategy_family": "dl_sequence_gru",
+      "model_name": "torch_gru",
+      "windows_tested": [
+        "train14y_test1y_day"
+      ],
+      "profitable_windows": 0,
+      "avg_total_return": -0.150212,
+      "avg_annualized_return": -0.150763,
+      "avg_max_drawdown": -0.2036,
+      "avg_win_rate": 0.28,
+      "avg_profit_factor": 0.572875,
+      "avg_score": -0.212555,
+      "composite_score": -0.212555,
+      "best_window_return": -0.150212,
+      "worst_window_return": -0.150212,
+      "latest_signal": "long"
+    }
+  ],
+  "elapsed_seconds": 85.39
+}
