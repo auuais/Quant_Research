@@ -35,6 +35,7 @@ def build_directional_examples(
     horizon_bars: int = 5,
     minimum_threshold: float = 0.01,
     volatility_multiplier: float = 0.5,
+    label_mode: str = "band",
 ) -> list[DirectionalNewsExample]:
     closes_by_day = {datetime.fromisoformat(bar.timestamp).date().isoformat(): float(bar.close) for bar in bars}
     benchmark_by_day = (
@@ -68,7 +69,16 @@ def build_directional_examples(
         )
         scaled_vol = realized_vol * (horizon_bars ** 0.5)
         threshold = max(minimum_threshold, scaled_vol * volatility_multiplier)
-        direction, strength = _direction_from_return(forward_return=forward_return, threshold=threshold)
+        # Strength is taken from the realized-move magnitude either way; only the direction
+        # rule differs. Triple-barrier labels by the first barrier touched along the path
+        # (Lopez de Prado), which is closer to how a stop/target trade actually resolves.
+        _, strength = _direction_from_return(forward_return=forward_return, threshold=threshold)
+        if label_mode == "triple_barrier":
+            direction = _triple_barrier_direction(
+                bars=bars, day_index=day_index, horizon=horizon_bars, entry=start_close, threshold=threshold
+            )
+        else:
+            direction, strength = _direction_from_return(forward_return=forward_return, threshold=threshold)
         relative_to_spy = _relative_to_market(excess_return=excess_return, threshold=threshold)
         prompt = build_directional_prompt(bundle)
         completion = build_directional_completion(
@@ -138,6 +148,26 @@ def build_directional_completion(
         f"\"horizon\":\"{horizon_days}d\""
         "}"
     )
+
+
+def _triple_barrier_direction(
+    *, bars: list[BacktestBar], day_index: int, horizon: int, entry: float, threshold: float
+) -> str:
+    if entry <= 0:
+        return "neutral"
+    upper = entry * (1 + threshold)
+    lower = entry * (1 - threshold)
+    for offset in range(1, horizon + 1):
+        bar = bars[day_index + offset]
+        touch_up = float(bar.high) >= upper
+        touch_down = float(bar.low) <= lower
+        if touch_up and touch_down:
+            return "bullish" if float(bar.close) >= entry else "bearish"
+        if touch_up:
+            return "bullish"
+        if touch_down:
+            return "bearish"
+    return "neutral"
 
 
 def _direction_from_return(*, forward_return: float, threshold: float) -> tuple[str, str]:

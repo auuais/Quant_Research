@@ -1,0 +1,3151 @@
+{
+  "version": "V3-Q3E",
+  "model_name": "Qwen/Qwen3-Embedding-4B",
+  "model_role": "frozen Qwen3 embedding encoder + downstream logistic directional classifiers",
+  "cuda_used": true,
+  "encoder_settings": {
+    "model_name": "Qwen/Qwen3-Embedding-4B",
+    "max_length": 768,
+    "batch_size": 4,
+    "quantization": "4bit"
+  },
+  "training_symbols": [
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "AMZN",
+    "META",
+    "GOOGL",
+    "TSLA",
+    "AVGO",
+    "AMD",
+    "NFLX",
+    "JPM",
+    "XOM",
+    "ORCL",
+    "CRM",
+    "WMT",
+    "COST",
+    "UNH",
+    "V",
+    "MA",
+    "HD",
+    "ABBV",
+    "MRK",
+    "PG",
+    "PEP",
+    "KO",
+    "CVX",
+    "BAC",
+    "CSCO",
+    "IBM",
+    "QCOM",
+    "GE",
+    "PLTR",
+    "ADBE",
+    "INTC"
+  ],
+  "evaluation_symbols": [
+    "AVGO",
+    "NVDA",
+    "TSLA",
+    "GOOGL",
+    "XOM"
+  ],
+  "max_bars": 1400,
+  "evaluation_window_end": "2026-06-26",
+  "evaluation_window_note": "Window capped at the last day present in the V3-5 score cache so the baseline and V3-Q3E are scored on the identical test window.",
+  "label": {
+    "horizon_bars": 5,
+    "classes": [
+      "bearish",
+      "neutral",
+      "bullish"
+    ],
+    "label_mode": "band",
+    "definition": "5-day forward close-to-close return vs volatility-scaled neutral band"
+  },
+  "leakage_controls": {
+    "embargo_days": 5,
+    "purge_applied": "last <embargo_days> train and validation days dropped (label horizon overlap)",
+    "no_same_day_price_leakage": "features and entry both use close[T]; no close[T+k] in features",
+    "news_timing": "bundle[T] uses articles before the 16:00 ET close of day T (news_labeler)"
+  },
+  "date_splits": {
+    "train": "2020-11-27 -> 2024-03-25 (835 days)",
+    "embargo": "2024-03-26 -> 2025-05-14 (10 days)",
+    "validation": "2024-04-03 -> 2025-05-07 (275 days)",
+    "test": "2025-05-15 -> 2026-06-26 (280 days)"
+  },
+  "dataset_sizes": {
+    "rows_total": 24615,
+    "train_rows_available": 11260,
+    "train_rows_used": 10000,
+    "train_class_distribution": {
+      "neutral": 3721,
+      "bullish": 3333,
+      "bearish": 2946
+    },
+    "validation_rows_eval": 996,
+    "test_rows_eval": 1083
+  },
+  "training_config": {
+    "max_train_samples": 10000,
+    "balanced_sampling": true,
+    "classifier": "StandardScaler + LogisticRegression(class_weight=balanced)",
+    "probability_calibration": false,
+    "sentiment_features_used": false,
+    "sentiment_coverage": {
+      "train": 0.114,
+      "validation": 0.154,
+      "test": 0.1572
+    }
+  },
+  "trade_policy": {
+    "exit": "loose: 5% fixed stop, no trailing, exit when model no longer bullish",
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": null,
+    "execution": "market_on_close (decisions and fills at the close; no intraday stop)",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "signal_thresholds": [
+      "medium",
+      "high"
+    ],
+    "primary_threshold": "medium",
+    "conviction_sizing": true,
+    "execution_assumptions": {
+      "starting_capital": 100000.0,
+      "quoted_spread_bps": 0.5,
+      "market_impact_bps": 0.5,
+      "stop_extra_slippage_bps": 0.0,
+      "max_bar_participation_rate": 0.0005,
+      "finra_taf_per_share_sell": 0.000195,
+      "finra_taf_cap_per_trade": 9.79
+    },
+    "note": "Item 1 re-baseline: replaced the 1% intraday trailing stop (stop-market) with a loose MOC-executed exit \u2014 the only Alpaca-executable net-positive config."
+  },
+  "variant_results": {
+    "price_only_baseline": {
+      "per_symbol": [
+        {
+          "symbol": "AVGO",
+          "sector": "semis",
+          "validation_samples": 261,
+          "test_samples": 250,
+          "validation_metrics": {
+            "samples": 261,
+            "direction_accuracy": 0.448276,
+            "balanced_accuracy": 0.409327,
+            "macro_f1": 0.373534,
+            "predicted_distribution": {
+              "neutral": 182,
+              "bearish": 62,
+              "bullish": 17
+            },
+            "actual_distribution": {
+              "bearish": 66,
+              "neutral": 107,
+              "bullish": 88
+            },
+            "confusion_matrix": [
+              [
+                19,
+                45,
+                2
+              ],
+              [
+                18,
+                86,
+                3
+              ],
+              [
+                25,
+                51,
+                12
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 250,
+            "direction_accuracy": 0.392,
+            "balanced_accuracy": 0.378004,
+            "macro_f1": 0.364735,
+            "predicted_distribution": {
+              "neutral": 126,
+              "bearish": 96,
+              "bullish": 28
+            },
+            "actual_distribution": {
+              "neutral": 109,
+              "bullish": 82,
+              "bearish": 59
+            },
+            "confusion_matrix": [
+              [
+                24,
+                32,
+                3
+              ],
+              [
+                42,
+                58,
+                9
+              ],
+              [
+                30,
+                36,
+                16
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.0,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.0,
+              "net_max_drawdown": 0.0,
+              "trades": 0,
+              "win_rate": 0.0,
+              "total_fees_paid": 0.0,
+              "total_slippage_cost": 0.0,
+              "latest_signal": "flat",
+              "exit_reasons": {}
+            },
+            "high": {
+              "gross_return": 0.0,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.0,
+              "net_max_drawdown": 0.0,
+              "trades": 0,
+              "win_rate": 0.0,
+              "total_fees_paid": 0.0,
+              "total_slippage_cost": 0.0,
+              "latest_signal": "flat",
+              "exit_reasons": {}
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "sector": "semis",
+          "validation_samples": 215,
+          "test_samples": 219,
+          "validation_metrics": {
+            "samples": 215,
+            "direction_accuracy": 0.35814,
+            "balanced_accuracy": 0.399868,
+            "macro_f1": 0.31395,
+            "predicted_distribution": {
+              "neutral": 134,
+              "bearish": 71,
+              "bullish": 10
+            },
+            "actual_distribution": {
+              "neutral": 70,
+              "bullish": 93,
+              "bearish": 52
+            },
+            "confusion_matrix": [
+              [
+                23,
+                25,
+                4
+              ],
+              [
+                18,
+                50,
+                2
+              ],
+              [
+                30,
+                59,
+                4
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 219,
+            "direction_accuracy": 0.342466,
+            "balanced_accuracy": 0.381428,
+            "macro_f1": 0.315521,
+            "predicted_distribution": {
+              "neutral": 52,
+              "bearish": 148,
+              "bullish": 19
+            },
+            "actual_distribution": {
+              "neutral": 87,
+              "bearish": 56,
+              "bullish": 76
+            },
+            "confusion_matrix": [
+              [
+                42,
+                11,
+                3
+              ],
+              [
+                56,
+                24,
+                7
+              ],
+              [
+                50,
+                17,
+                9
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.0,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.0,
+              "net_max_drawdown": 0.0,
+              "trades": 0,
+              "win_rate": 0.0,
+              "total_fees_paid": 0.0,
+              "total_slippage_cost": 0.0,
+              "latest_signal": "flat",
+              "exit_reasons": {}
+            },
+            "high": {
+              "gross_return": 0.0,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.0,
+              "net_max_drawdown": 0.0,
+              "trades": 0,
+              "win_rate": 0.0,
+              "total_fees_paid": 0.0,
+              "total_slippage_cost": 0.0,
+              "latest_signal": "flat",
+              "exit_reasons": {}
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "sector": "growth",
+          "validation_samples": 66,
+          "test_samples": 256,
+          "validation_metrics": {
+            "samples": 66,
+            "direction_accuracy": 0.454545,
+            "balanced_accuracy": 0.411667,
+            "macro_f1": 0.342105,
+            "predicted_distribution": {
+              "neutral": 52,
+              "bearish": 13,
+              "bullish": 1
+            },
+            "actual_distribution": {
+              "neutral": 24,
+              "bearish": 25,
+              "bullish": 17
+            },
+            "confusion_matrix": [
+              [
+                9,
+                15,
+                1
+              ],
+              [
+                3,
+                21,
+                0
+              ],
+              [
+                1,
+                16,
+                0
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 256,
+            "direction_accuracy": 0.347656,
+            "balanced_accuracy": 0.345845,
+            "macro_f1": 0.29997,
+            "predicted_distribution": {
+              "neutral": 122,
+              "bearish": 122,
+              "bullish": 12
+            },
+            "actual_distribution": {
+              "bullish": 82,
+              "neutral": 97,
+              "bearish": 77
+            },
+            "confusion_matrix": [
+              [
+                42,
+                32,
+                3
+              ],
+              [
+                49,
+                43,
+                5
+              ],
+              [
+                31,
+                47,
+                4
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.0,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.0,
+              "net_max_drawdown": 0.0,
+              "trades": 0,
+              "win_rate": 0.0,
+              "total_fees_paid": 0.0,
+              "total_slippage_cost": 0.0,
+              "latest_signal": "flat",
+              "exit_reasons": {}
+            },
+            "high": {
+              "gross_return": 0.0,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.0,
+              "net_max_drawdown": 0.0,
+              "trades": 0,
+              "win_rate": 0.0,
+              "total_fees_paid": 0.0,
+              "total_slippage_cost": 0.0,
+              "latest_signal": "flat",
+              "exit_reasons": {}
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "GOOGL",
+          "sector": "growth",
+          "validation_samples": 249,
+          "test_samples": 146,
+          "validation_metrics": {
+            "samples": 249,
+            "direction_accuracy": 0.341365,
+            "balanced_accuracy": 0.35694,
+            "macro_f1": 0.329939,
+            "predicted_distribution": {
+              "bearish": 148,
+              "bullish": 52,
+              "neutral": 49
+            },
+            "actual_distribution": {
+              "neutral": 98,
+              "bullish": 78,
+              "bearish": 73
+            },
+            "confusion_matrix": [
+              [
+                44,
+                13,
+                16
+              ],
+              [
+                59,
+                22,
+                17
+              ],
+              [
+                45,
+                14,
+                19
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 146,
+            "direction_accuracy": 0.308219,
+            "balanced_accuracy": 0.373996,
+            "macro_f1": 0.312076,
+            "predicted_distribution": {
+              "bearish": 81,
+              "neutral": 43,
+              "bullish": 22
+            },
+            "actual_distribution": {
+              "bullish": 76,
+              "neutral": 45,
+              "bearish": 25
+            },
+            "confusion_matrix": [
+              [
+                14,
+                7,
+                4
+              ],
+              [
+                24,
+                17,
+                4
+              ],
+              [
+                43,
+                19,
+                14
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.002246,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.002156,
+              "net_max_drawdown": -3.7e-05,
+              "trades": 1,
+              "win_rate": 1.0,
+              "total_fees_paid": 1.428466,
+              "total_slippage_cost": 7.516278,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 1
+              }
+            },
+            "high": {
+              "gross_return": 0.0,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.0,
+              "net_max_drawdown": 0.0,
+              "trades": 0,
+              "win_rate": 0.0,
+              "total_fees_paid": 0.0,
+              "total_slippage_cost": 0.0,
+              "latest_signal": "flat",
+              "exit_reasons": {}
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "XOM",
+          "sector": "energy",
+          "validation_samples": 205,
+          "test_samples": 212,
+          "validation_metrics": {
+            "samples": 205,
+            "direction_accuracy": 0.317073,
+            "balanced_accuracy": 0.3235,
+            "macro_f1": 0.285763,
+            "predicted_distribution": {
+              "bullish": 121,
+              "bearish": 62,
+              "neutral": 22
+            },
+            "actual_distribution": {
+              "bullish": 68,
+              "neutral": 76,
+              "bearish": 61
+            },
+            "confusion_matrix": [
+              [
+                16,
+                7,
+                38
+              ],
+              [
+                26,
+                8,
+                42
+              ],
+              [
+                20,
+                7,
+                41
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 212,
+            "direction_accuracy": 0.34434,
+            "balanced_accuracy": 0.318704,
+            "macro_f1": 0.310159,
+            "predicted_distribution": {
+              "bullish": 112,
+              "bearish": 71,
+              "neutral": 29
+            },
+            "actual_distribution": {
+              "bearish": 66,
+              "neutral": 58,
+              "bullish": 88
+            },
+            "confusion_matrix": [
+              [
+                21,
+                6,
+                39
+              ],
+              [
+                21,
+                8,
+                29
+              ],
+              [
+                29,
+                15,
+                44
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.006004,
+              "gross_max_drawdown": -0.020958,
+              "net_return": 0.004921,
+              "net_max_drawdown": -0.021168,
+              "trades": 12,
+              "win_rate": 0.5,
+              "total_fees_paid": 17.714919,
+              "total_slippage_cost": 90.401936,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 12
+              }
+            },
+            "high": {
+              "gross_return": 0.0,
+              "gross_max_drawdown": 0.0,
+              "net_return": 0.0,
+              "net_max_drawdown": 0.0,
+              "trades": 0,
+              "win_rate": 0.0,
+              "total_fees_paid": 0.0,
+              "total_slippage_cost": 0.0,
+              "latest_signal": "flat",
+              "exit_reasons": {}
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        }
+      ],
+      "aggregate": {
+        "mean_direction_accuracy": 0.346936,
+        "mean_balanced_accuracy": 0.359595,
+        "mean_macro_f1": 0.320492,
+        "symbols_at_or_above_50pct_accuracy": 0,
+        "medium": {
+          "mean_gross_return": 0.00165,
+          "mean_net_return": 0.001415,
+          "mean_gross_max_drawdown": -0.004192,
+          "mean_net_max_drawdown": -0.004241,
+          "mean_trades": 2.6
+        },
+        "high": {
+          "mean_gross_return": 0.0,
+          "mean_net_return": 0.0,
+          "mean_gross_max_drawdown": 0.0,
+          "mean_net_max_drawdown": 0.0,
+          "mean_trades": 0.0
+        }
+      }
+    },
+    "q3e_text_only": {
+      "per_symbol": [
+        {
+          "symbol": "AVGO",
+          "sector": "semis",
+          "validation_samples": 261,
+          "test_samples": 250,
+          "validation_metrics": {
+            "samples": 261,
+            "direction_accuracy": 0.32567,
+            "balanced_accuracy": 0.294487,
+            "macro_f1": 0.284832,
+            "predicted_distribution": {
+              "neutral": 145,
+              "bullish": 74,
+              "bearish": 42
+            },
+            "actual_distribution": {
+              "bearish": 66,
+              "neutral": 107,
+              "bullish": 88
+            },
+            "confusion_matrix": [
+              [
+                7,
+                43,
+                16
+              ],
+              [
+                19,
+                54,
+                34
+              ],
+              [
+                16,
+                48,
+                24
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 250,
+            "direction_accuracy": 0.308,
+            "balanced_accuracy": 0.289304,
+            "macro_f1": 0.289084,
+            "predicted_distribution": {
+              "neutral": 111,
+              "bullish": 80,
+              "bearish": 59
+            },
+            "actual_distribution": {
+              "neutral": 109,
+              "bullish": 82,
+              "bearish": 59
+            },
+            "confusion_matrix": [
+              [
+                13,
+                27,
+                19
+              ],
+              [
+                24,
+                44,
+                41
+              ],
+              [
+                22,
+                40,
+                20
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.170085,
+              "gross_max_drawdown": -0.244903,
+              "net_return": 0.160631,
+              "net_max_drawdown": -0.247583,
+              "trades": 51,
+              "win_rate": 0.509804,
+              "total_fees_paid": 154.594698,
+              "total_slippage_cost": 815.849992,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 49,
+                "risk_exit": 2
+              }
+            },
+            "high": {
+              "gross_return": 0.025388,
+              "gross_max_drawdown": -0.328907,
+              "net_return": 0.017553,
+              "net_max_drawdown": -0.332062,
+              "trades": 43,
+              "win_rate": 0.465116,
+              "total_fees_paid": 143.600732,
+              "total_slippage_cost": 758.943294,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 40,
+                "risk_exit": 3
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "sector": "semis",
+          "validation_samples": 215,
+          "test_samples": 219,
+          "validation_metrics": {
+            "samples": 215,
+            "direction_accuracy": 0.344186,
+            "balanced_accuracy": 0.332355,
+            "macro_f1": 0.331844,
+            "predicted_distribution": {
+              "neutral": 68,
+              "bullish": 92,
+              "bearish": 55
+            },
+            "actual_distribution": {
+              "neutral": 70,
+              "bullish": 93,
+              "bearish": 52
+            },
+            "confusion_matrix": [
+              [
+                15,
+                17,
+                20
+              ],
+              [
+                15,
+                21,
+                34
+              ],
+              [
+                25,
+                30,
+                38
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 219,
+            "direction_accuracy": 0.324201,
+            "balanced_accuracy": 0.31301,
+            "macro_f1": 0.31282,
+            "predicted_distribution": {
+              "bearish": 44,
+              "bullish": 94,
+              "neutral": 81
+            },
+            "actual_distribution": {
+              "neutral": 87,
+              "bearish": 56,
+              "bullish": 76
+            },
+            "confusion_matrix": [
+              [
+                12,
+                21,
+                23
+              ],
+              [
+                13,
+                31,
+                43
+              ],
+              [
+                19,
+                29,
+                28
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": -0.018639,
+              "gross_max_drawdown": -0.168995,
+              "net_return": -0.026245,
+              "net_max_drawdown": -0.172818,
+              "trades": 47,
+              "win_rate": 0.553191,
+              "total_fees_paid": 132.608516,
+              "total_slippage_cost": 689.561109,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 45,
+                "risk_exit": 2
+              }
+            },
+            "high": {
+              "gross_return": 0.039573,
+              "gross_max_drawdown": -0.173677,
+              "net_return": 0.030686,
+              "net_max_drawdown": -0.1745,
+              "trades": 48,
+              "win_rate": 0.5625,
+              "total_fees_paid": 155.667613,
+              "total_slippage_cost": 808.710145,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 47,
+                "risk_exit": 1
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "sector": "growth",
+          "validation_samples": 66,
+          "test_samples": 256,
+          "validation_metrics": {
+            "samples": 66,
+            "direction_accuracy": 0.333333,
+            "balanced_accuracy": 0.323987,
+            "macro_f1": 0.326043,
+            "predicted_distribution": {
+              "neutral": 29,
+              "bearish": 16,
+              "bullish": 21
+            },
+            "actual_distribution": {
+              "neutral": 24,
+              "bearish": 25,
+              "bullish": 17
+            },
+            "confusion_matrix": [
+              [
+                8,
+                10,
+                7
+              ],
+              [
+                4,
+                10,
+                10
+              ],
+              [
+                4,
+                9,
+                4
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 256,
+            "direction_accuracy": 0.328125,
+            "balanced_accuracy": 0.31237,
+            "macro_f1": 0.299891,
+            "predicted_distribution": {
+              "bullish": 57,
+              "bearish": 64,
+              "neutral": 135
+            },
+            "actual_distribution": {
+              "bullish": 82,
+              "neutral": 97,
+              "bearish": 77
+            },
+            "confusion_matrix": [
+              [
+                16,
+                40,
+                21
+              ],
+              [
+                23,
+                53,
+                21
+              ],
+              [
+                25,
+                42,
+                15
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": -0.017744,
+              "gross_max_drawdown": -0.186381,
+              "net_return": -0.023674,
+              "net_max_drawdown": -0.18913,
+              "trades": 39,
+              "win_rate": 0.487179,
+              "total_fees_paid": 104.803699,
+              "total_slippage_cost": 555.668291,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 34,
+                "risk_exit": 5
+              }
+            },
+            "high": {
+              "gross_return": -0.080214,
+              "gross_max_drawdown": -0.176394,
+              "net_return": -0.085284,
+              "net_max_drawdown": -0.176603,
+              "trades": 31,
+              "win_rate": 0.548387,
+              "total_fees_paid": 84.275426,
+              "total_slippage_cost": 447.252892,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "risk_exit": 4,
+                "prediction_exit": 27
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "GOOGL",
+          "sector": "growth",
+          "validation_samples": 249,
+          "test_samples": 146,
+          "validation_metrics": {
+            "samples": 249,
+            "direction_accuracy": 0.361446,
+            "balanced_accuracy": 0.361115,
+            "macro_f1": 0.361076,
+            "predicted_distribution": {
+              "bullish": 107,
+              "neutral": 78,
+              "bearish": 64
+            },
+            "actual_distribution": {
+              "neutral": 98,
+              "bullish": 78,
+              "bearish": 73
+            },
+            "confusion_matrix": [
+              [
+                24,
+                15,
+                34
+              ],
+              [
+                21,
+                35,
+                42
+              ],
+              [
+                19,
+                28,
+                31
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 146,
+            "direction_accuracy": 0.328767,
+            "balanced_accuracy": 0.315575,
+            "macro_f1": 0.306175,
+            "predicted_distribution": {
+              "bullish": 54,
+              "bearish": 38,
+              "neutral": 54
+            },
+            "actual_distribution": {
+              "bullish": 76,
+              "neutral": 45,
+              "bearish": 25
+            },
+            "confusion_matrix": [
+              [
+                6,
+                8,
+                11
+              ],
+              [
+                10,
+                17,
+                18
+              ],
+              [
+                22,
+                29,
+                25
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.155669,
+              "gross_max_drawdown": -0.075071,
+              "net_return": 0.149479,
+              "net_max_drawdown": -0.075648,
+              "trades": 36,
+              "win_rate": 0.583333,
+              "total_fees_paid": 94.94387,
+              "total_slippage_cost": 496.680788,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 36
+              }
+            },
+            "high": {
+              "gross_return": 0.056254,
+              "gross_max_drawdown": -0.071421,
+              "net_return": 0.050797,
+              "net_max_drawdown": -0.072083,
+              "trades": 29,
+              "win_rate": 0.517241,
+              "total_fees_paid": 87.397119,
+              "total_slippage_cost": 457.603296,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 29
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "XOM",
+          "sector": "energy",
+          "validation_samples": 205,
+          "test_samples": 212,
+          "validation_metrics": {
+            "samples": 205,
+            "direction_accuracy": 0.287805,
+            "balanced_accuracy": 0.316919,
+            "macro_f1": 0.200132,
+            "predicted_distribution": {
+              "bearish": 177,
+              "bullish": 16,
+              "neutral": 12
+            },
+            "actual_distribution": {
+              "bullish": 68,
+              "neutral": 76,
+              "bearish": 61
+            },
+            "confusion_matrix": [
+              [
+                52,
+                4,
+                5
+              ],
+              [
+                66,
+                3,
+                7
+              ],
+              [
+                59,
+                5,
+                4
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 212,
+            "direction_accuracy": 0.330189,
+            "balanced_accuracy": 0.353927,
+            "macro_f1": 0.235407,
+            "predicted_distribution": {
+              "bearish": 191,
+              "bullish": 8,
+              "neutral": 13
+            },
+            "actual_distribution": {
+              "bearish": 66,
+              "neutral": 58,
+              "bullish": 88
+            },
+            "confusion_matrix": [
+              [
+                61,
+                3,
+                2
+              ],
+              [
+                49,
+                6,
+                3
+              ],
+              [
+                81,
+                4,
+                3
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.050882,
+              "gross_max_drawdown": -0.010307,
+              "net_return": 0.049375,
+              "net_max_drawdown": -0.010559,
+              "trades": 8,
+              "win_rate": 0.75,
+              "total_fees_paid": 23.899413,
+              "total_slippage_cost": 121.574032,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 8
+              }
+            },
+            "high": {
+              "gross_return": 0.050882,
+              "gross_max_drawdown": -0.010307,
+              "net_return": 0.049375,
+              "net_max_drawdown": -0.010559,
+              "trades": 8,
+              "win_rate": 0.75,
+              "total_fees_paid": 23.899413,
+              "total_slippage_cost": 121.574032,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 8
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        }
+      ],
+      "aggregate": {
+        "mean_direction_accuracy": 0.323856,
+        "mean_balanced_accuracy": 0.316837,
+        "mean_macro_f1": 0.288675,
+        "symbols_at_or_above_50pct_accuracy": 0,
+        "medium": {
+          "mean_gross_return": 0.068051,
+          "mean_net_return": 0.061913,
+          "mean_gross_max_drawdown": -0.137131,
+          "mean_net_max_drawdown": -0.139148,
+          "mean_trades": 36.2
+        },
+        "high": {
+          "mean_gross_return": 0.018377,
+          "mean_net_return": 0.012625,
+          "mean_gross_max_drawdown": -0.152141,
+          "mean_net_max_drawdown": -0.153161,
+          "mean_trades": 31.8
+        }
+      }
+    },
+    "q3e_fused": {
+      "per_symbol": [
+        {
+          "symbol": "AVGO",
+          "sector": "semis",
+          "validation_samples": 261,
+          "test_samples": 250,
+          "validation_metrics": {
+            "samples": 261,
+            "direction_accuracy": 0.402299,
+            "balanced_accuracy": 0.354019,
+            "macro_f1": 0.322739,
+            "predicted_distribution": {
+              "neutral": 185,
+              "bearish": 29,
+              "bullish": 47
+            },
+            "actual_distribution": {
+              "bearish": 66,
+              "neutral": 107,
+              "bullish": 88
+            },
+            "confusion_matrix": [
+              [
+                8,
+                46,
+                12
+              ],
+              [
+                9,
+                80,
+                18
+              ],
+              [
+                12,
+                59,
+                17
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 250,
+            "direction_accuracy": 0.336,
+            "balanced_accuracy": 0.307112,
+            "macro_f1": 0.304582,
+            "predicted_distribution": {
+              "neutral": 125,
+              "bullish": 71,
+              "bearish": 54
+            },
+            "actual_distribution": {
+              "neutral": 109,
+              "bullish": 82,
+              "bearish": 59
+            },
+            "confusion_matrix": [
+              [
+                12,
+                29,
+                18
+              ],
+              [
+                22,
+                53,
+                34
+              ],
+              [
+                20,
+                43,
+                19
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": -0.135841,
+              "gross_max_drawdown": -0.342918,
+              "net_return": -0.141912,
+              "net_max_drawdown": -0.3459,
+              "trades": 46,
+              "win_rate": 0.478261,
+              "total_fees_paid": 125.878064,
+              "total_slippage_cost": 666.108388,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 43,
+                "risk_exit": 3
+              }
+            },
+            "high": {
+              "gross_return": -0.124222,
+              "gross_max_drawdown": -0.327323,
+              "net_return": -0.129984,
+              "net_max_drawdown": -0.330197,
+              "trades": 37,
+              "win_rate": 0.378378,
+              "total_fees_paid": 116.180423,
+              "total_slippage_cost": 614.85046,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 35,
+                "risk_exit": 2
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "sector": "semis",
+          "validation_samples": 215,
+          "test_samples": 219,
+          "validation_metrics": {
+            "samples": 215,
+            "direction_accuracy": 0.381395,
+            "balanced_accuracy": 0.368567,
+            "macro_f1": 0.359789,
+            "predicted_distribution": {
+              "neutral": 99,
+              "bullish": 76,
+              "bearish": 40
+            },
+            "actual_distribution": {
+              "neutral": 70,
+              "bullish": 93,
+              "bearish": 52
+            },
+            "confusion_matrix": [
+              [
+                11,
+                21,
+                20
+              ],
+              [
+                11,
+                37,
+                22
+              ],
+              [
+                18,
+                41,
+                34
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 219,
+            "direction_accuracy": 0.342466,
+            "balanced_accuracy": 0.33858,
+            "macro_f1": 0.333849,
+            "predicted_distribution": {
+              "neutral": 58,
+              "bullish": 110,
+              "bearish": 51
+            },
+            "actual_distribution": {
+              "neutral": 87,
+              "bearish": 56,
+              "bullish": 76
+            },
+            "confusion_matrix": [
+              [
+                15,
+                16,
+                25
+              ],
+              [
+                12,
+                25,
+                50
+              ],
+              [
+                24,
+                17,
+                35
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.130295,
+              "gross_max_drawdown": -0.162899,
+              "net_return": 0.12003,
+              "net_max_drawdown": -0.163615,
+              "trades": 56,
+              "win_rate": 0.535714,
+              "total_fees_paid": 162.654744,
+              "total_slippage_cost": 844.677572,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 54,
+                "risk_exit": 2
+              }
+            },
+            "high": {
+              "gross_return": 0.029803,
+              "gross_max_drawdown": -0.173677,
+              "net_return": 0.020452,
+              "net_max_drawdown": -0.1745,
+              "trades": 51,
+              "win_rate": 0.490196,
+              "total_fees_paid": 159.049991,
+              "total_slippage_cost": 826.500732,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 50,
+                "risk_exit": 1
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "sector": "growth",
+          "validation_samples": 66,
+          "test_samples": 256,
+          "validation_metrics": {
+            "samples": 66,
+            "direction_accuracy": 0.439394,
+            "balanced_accuracy": 0.410327,
+            "macro_f1": 0.371852,
+            "predicted_distribution": {
+              "neutral": 48,
+              "bearish": 10,
+              "bullish": 8
+            },
+            "actual_distribution": {
+              "neutral": 24,
+              "bearish": 25,
+              "bullish": 17
+            },
+            "confusion_matrix": [
+              [
+                7,
+                13,
+                5
+              ],
+              [
+                3,
+                20,
+                1
+              ],
+              [
+                0,
+                15,
+                2
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 256,
+            "direction_accuracy": 0.339844,
+            "balanced_accuracy": 0.319901,
+            "macro_f1": 0.298043,
+            "predicted_distribution": {
+              "bullish": 51,
+              "neutral": 148,
+              "bearish": 57
+            },
+            "actual_distribution": {
+              "bullish": 82,
+              "neutral": 97,
+              "bearish": 77
+            },
+            "confusion_matrix": [
+              [
+                15,
+                42,
+                20
+              ],
+              [
+                18,
+                60,
+                19
+              ],
+              [
+                24,
+                46,
+                12
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": -0.183225,
+              "gross_max_drawdown": -0.195532,
+              "net_return": -0.187585,
+              "net_max_drawdown": -0.19588,
+              "trades": 33,
+              "win_rate": 0.515152,
+              "total_fees_paid": 77.306914,
+              "total_slippage_cost": 411.185213,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 28,
+                "risk_exit": 5
+              }
+            },
+            "high": {
+              "gross_return": -0.120838,
+              "gross_max_drawdown": -0.195532,
+              "net_return": -0.125372,
+              "net_max_drawdown": -0.19588,
+              "trades": 29,
+              "win_rate": 0.517241,
+              "total_fees_paid": 76.026258,
+              "total_slippage_cost": 403.95431,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "risk_exit": 4,
+                "prediction_exit": 25
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "GOOGL",
+          "sector": "growth",
+          "validation_samples": 249,
+          "test_samples": 146,
+          "validation_metrics": {
+            "samples": 249,
+            "direction_accuracy": 0.39759,
+            "balanced_accuracy": 0.394057,
+            "macro_f1": 0.395052,
+            "predicted_distribution": {
+              "bullish": 98,
+              "neutral": 83,
+              "bearish": 68
+            },
+            "actual_distribution": {
+              "neutral": 98,
+              "bullish": 78,
+              "bearish": 73
+            },
+            "confusion_matrix": [
+              [
+                26,
+                17,
+                30
+              ],
+              [
+                19,
+                42,
+                37
+              ],
+              [
+                23,
+                24,
+                31
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 146,
+            "direction_accuracy": 0.308219,
+            "balanced_accuracy": 0.308343,
+            "macro_f1": 0.293966,
+            "predicted_distribution": {
+              "bullish": 49,
+              "bearish": 45,
+              "neutral": 52
+            },
+            "actual_distribution": {
+              "bullish": 76,
+              "neutral": 45,
+              "bearish": 25
+            },
+            "confusion_matrix": [
+              [
+                7,
+                9,
+                9
+              ],
+              [
+                11,
+                16,
+                18
+              ],
+              [
+                27,
+                27,
+                22
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.120532,
+              "gross_max_drawdown": -0.075071,
+              "net_return": 0.114938,
+              "net_max_drawdown": -0.075648,
+              "trades": 32,
+              "win_rate": 0.5625,
+              "total_fees_paid": 85.39758,
+              "total_slippage_cost": 446.821896,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 32
+              }
+            },
+            "high": {
+              "gross_return": 0.141795,
+              "gross_max_drawdown": -0.070687,
+              "net_return": 0.136099,
+              "net_max_drawdown": -0.071349,
+              "trades": 28,
+              "win_rate": 0.535714,
+              "total_fees_paid": 85.785307,
+              "total_slippage_cost": 448.823504,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 28
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "XOM",
+          "sector": "energy",
+          "validation_samples": 205,
+          "test_samples": 212,
+          "validation_metrics": {
+            "samples": 205,
+            "direction_accuracy": 0.297561,
+            "balanced_accuracy": 0.326769,
+            "macro_f1": 0.210609,
+            "predicted_distribution": {
+              "bearish": 177,
+              "bullish": 14,
+              "neutral": 14
+            },
+            "actual_distribution": {
+              "bullish": 68,
+              "neutral": 76,
+              "bearish": 61
+            },
+            "confusion_matrix": [
+              [
+                53,
+                5,
+                3
+              ],
+              [
+                65,
+                4,
+                7
+              ],
+              [
+                59,
+                5,
+                4
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 212,
+            "direction_accuracy": 0.330189,
+            "balanced_accuracy": 0.353927,
+            "macro_f1": 0.235407,
+            "predicted_distribution": {
+              "bearish": 191,
+              "bullish": 8,
+              "neutral": 13
+            },
+            "actual_distribution": {
+              "bearish": 66,
+              "neutral": 58,
+              "bullish": 88
+            },
+            "confusion_matrix": [
+              [
+                61,
+                3,
+                2
+              ],
+              [
+                49,
+                6,
+                3
+              ],
+              [
+                81,
+                4,
+                3
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.050882,
+              "gross_max_drawdown": -0.010307,
+              "net_return": 0.049375,
+              "net_max_drawdown": -0.010559,
+              "trades": 8,
+              "win_rate": 0.75,
+              "total_fees_paid": 23.899413,
+              "total_slippage_cost": 121.574032,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 8
+              }
+            },
+            "high": {
+              "gross_return": 0.050882,
+              "gross_max_drawdown": -0.010307,
+              "net_return": 0.049375,
+              "net_max_drawdown": -0.010559,
+              "trades": 8,
+              "win_rate": 0.75,
+              "total_fees_paid": 23.899413,
+              "total_slippage_cost": 121.574032,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 8
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        }
+      ],
+      "aggregate": {
+        "mean_direction_accuracy": 0.331344,
+        "mean_balanced_accuracy": 0.325573,
+        "mean_macro_f1": 0.293169,
+        "symbols_at_or_above_50pct_accuracy": 0,
+        "medium": {
+          "mean_gross_return": -0.003471,
+          "mean_net_return": -0.009031,
+          "mean_gross_max_drawdown": -0.157345,
+          "mean_net_max_drawdown": -0.15832,
+          "mean_trades": 35.0
+        },
+        "high": {
+          "mean_gross_return": -0.004516,
+          "mean_net_return": -0.009886,
+          "mean_gross_max_drawdown": -0.155505,
+          "mean_net_max_drawdown": -0.156497,
+          "mean_trades": 30.6
+        }
+      }
+    },
+    "q3e_sector": {
+      "per_symbol": [
+        {
+          "symbol": "AVGO",
+          "sector": "semis",
+          "validation_samples": 261,
+          "test_samples": 250,
+          "validation_metrics": {
+            "samples": 261,
+            "direction_accuracy": 0.383142,
+            "balanced_accuracy": 0.365949,
+            "macro_f1": 0.365726,
+            "predicted_distribution": {
+              "bearish": 60,
+              "neutral": 112,
+              "bullish": 89
+            },
+            "actual_distribution": {
+              "bearish": 66,
+              "neutral": 107,
+              "bullish": 88
+            },
+            "confusion_matrix": [
+              [
+                17,
+                24,
+                25
+              ],
+              [
+                24,
+                51,
+                32
+              ],
+              [
+                19,
+                37,
+                32
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 250,
+            "direction_accuracy": 0.38,
+            "balanced_accuracy": 0.379757,
+            "macro_f1": 0.375288,
+            "predicted_distribution": {
+              "neutral": 95,
+              "bearish": 79,
+              "bullish": 76
+            },
+            "actual_distribution": {
+              "neutral": 109,
+              "bullish": 82,
+              "bearish": 59
+            },
+            "confusion_matrix": [
+              [
+                22,
+                26,
+                11
+              ],
+              [
+                35,
+                41,
+                33
+              ],
+              [
+                22,
+                28,
+                32
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.584443,
+              "gross_max_drawdown": -0.143925,
+              "net_return": 0.571496,
+              "net_max_drawdown": -0.144382,
+              "trades": 46,
+              "win_rate": 0.652174,
+              "total_fees_paid": 181.811281,
+              "total_slippage_cost": 957.11119,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 44,
+                "risk_exit": 2
+              }
+            },
+            "high": {
+              "gross_return": 0.499297,
+              "gross_max_drawdown": -0.143925,
+              "net_return": 0.48678,
+              "net_max_drawdown": -0.144382,
+              "trades": 47,
+              "win_rate": 0.659574,
+              "total_fees_paid": 178.030247,
+              "total_slippage_cost": 937.698007,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 45,
+                "risk_exit": 2
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "NVDA",
+          "sector": "semis",
+          "validation_samples": 215,
+          "test_samples": 219,
+          "validation_metrics": {
+            "samples": 215,
+            "direction_accuracy": 0.344186,
+            "balanced_accuracy": 0.315398,
+            "macro_f1": 0.313434,
+            "predicted_distribution": {
+              "neutral": 65,
+              "bullish": 109,
+              "bearish": 41
+            },
+            "actual_distribution": {
+              "neutral": 70,
+              "bullish": 93,
+              "bearish": 52
+            },
+            "confusion_matrix": [
+              [
+                9,
+                12,
+                31
+              ],
+              [
+                15,
+                21,
+                34
+              ],
+              [
+                17,
+                32,
+                44
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 219,
+            "direction_accuracy": 0.315068,
+            "balanced_accuracy": 0.310795,
+            "macro_f1": 0.304005,
+            "predicted_distribution": {
+              "bullish": 105,
+              "bearish": 51,
+              "neutral": 63
+            },
+            "actual_distribution": {
+              "neutral": 87,
+              "bearish": 56,
+              "bullish": 76
+            },
+            "confusion_matrix": [
+              [
+                13,
+                18,
+                25
+              ],
+              [
+                19,
+                22,
+                46
+              ],
+              [
+                19,
+                23,
+                34
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.030285,
+              "gross_max_drawdown": -0.26997,
+              "net_return": 0.020199,
+              "net_max_drawdown": -0.273877,
+              "trades": 55,
+              "win_rate": 0.527273,
+              "total_fees_paid": 163.633763,
+              "total_slippage_cost": 849.797193,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 53,
+                "risk_exit": 2
+              }
+            },
+            "high": {
+              "gross_return": 0.047061,
+              "gross_max_drawdown": -0.26184,
+              "net_return": 0.036439,
+              "net_max_drawdown": -0.265922,
+              "trades": 57,
+              "win_rate": 0.526316,
+              "total_fees_paid": 172.583785,
+              "total_slippage_cost": 896.010071,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 55,
+                "risk_exit": 2
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "TSLA",
+          "sector": "growth",
+          "validation_samples": 66,
+          "test_samples": 256,
+          "validation_metrics": {
+            "samples": 66,
+            "direction_accuracy": 0.318182,
+            "balanced_accuracy": 0.324314,
+            "macro_f1": 0.297301,
+            "predicted_distribution": {
+              "bullish": 26,
+              "bearish": 9,
+              "neutral": 31
+            },
+            "actual_distribution": {
+              "neutral": 24,
+              "bearish": 25,
+              "bullish": 17
+            },
+            "confusion_matrix": [
+              [
+                3,
+                9,
+                13
+              ],
+              [
+                5,
+                12,
+                7
+              ],
+              [
+                1,
+                10,
+                6
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 256,
+            "direction_accuracy": 0.3125,
+            "balanced_accuracy": 0.317834,
+            "macro_f1": 0.309157,
+            "predicted_distribution": {
+              "bearish": 110,
+              "neutral": 74,
+              "bullish": 72
+            },
+            "actual_distribution": {
+              "bullish": 82,
+              "neutral": 97,
+              "bearish": 77
+            },
+            "confusion_matrix": [
+              [
+                34,
+                22,
+                21
+              ],
+              [
+                40,
+                26,
+                31
+              ],
+              [
+                36,
+                26,
+                20
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.08055,
+              "gross_max_drawdown": -0.221959,
+              "net_return": 0.071627,
+              "net_max_drawdown": -0.222375,
+              "trades": 50,
+              "win_rate": 0.64,
+              "total_fees_paid": 129.139304,
+              "total_slippage_cost": 683.541209,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 48,
+                "risk_exit": 2
+              }
+            },
+            "high": {
+              "gross_return": 0.17738,
+              "gross_max_drawdown": -0.216722,
+              "net_return": 0.167762,
+              "net_max_drawdown": -0.217619,
+              "trades": 46,
+              "win_rate": 0.608696,
+              "total_fees_paid": 132.222267,
+              "total_slippage_cost": 699.205985,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 45,
+                "risk_exit": 1
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "GOOGL",
+          "sector": "growth",
+          "validation_samples": 249,
+          "test_samples": 146,
+          "validation_metrics": {
+            "samples": 249,
+            "direction_accuracy": 0.277108,
+            "balanced_accuracy": 0.277178,
+            "macro_f1": 0.27617,
+            "predicted_distribution": {
+              "neutral": 86,
+              "bearish": 84,
+              "bullish": 79
+            },
+            "actual_distribution": {
+              "neutral": 98,
+              "bullish": 78,
+              "bearish": 73
+            },
+            "confusion_matrix": [
+              [
+                20,
+                35,
+                18
+              ],
+              [
+                32,
+                27,
+                39
+              ],
+              [
+                32,
+                24,
+                22
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 146,
+            "direction_accuracy": 0.308219,
+            "balanced_accuracy": 0.314035,
+            "macro_f1": 0.289952,
+            "predicted_distribution": {
+              "bearish": 61,
+              "bullish": 51,
+              "neutral": 34
+            },
+            "actual_distribution": {
+              "bullish": 76,
+              "neutral": 45,
+              "bearish": 25
+            },
+            "confusion_matrix": [
+              [
+                10,
+                7,
+                8
+              ],
+              [
+                19,
+                9,
+                17
+              ],
+              [
+                32,
+                18,
+                26
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.233153,
+              "gross_max_drawdown": -0.111964,
+              "net_return": 0.225901,
+              "net_max_drawdown": -0.11261,
+              "trades": 35,
+              "win_rate": 0.542857,
+              "total_fees_paid": 112.275532,
+              "total_slippage_cost": 586.335831,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 34,
+                "risk_exit": 1
+              }
+            },
+            "high": {
+              "gross_return": 0.199323,
+              "gross_max_drawdown": -0.107937,
+              "net_return": 0.192272,
+              "net_max_drawdown": -0.108506,
+              "trades": 33,
+              "win_rate": 0.515152,
+              "total_fees_paid": 108.944711,
+              "total_slippage_cost": 568.89033,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 32,
+                "risk_exit": 1
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        },
+        {
+          "symbol": "XOM",
+          "sector": "energy",
+          "validation_samples": 205,
+          "test_samples": 212,
+          "validation_metrics": {
+            "samples": 205,
+            "direction_accuracy": 0.297561,
+            "balanced_accuracy": 0.326207,
+            "macro_f1": 0.215329,
+            "predicted_distribution": {
+              "bullish": 9,
+              "bearish": 183,
+              "neutral": 13
+            },
+            "actual_distribution": {
+              "bullish": 68,
+              "neutral": 76,
+              "bearish": 61
+            },
+            "confusion_matrix": [
+              [
+                52,
+                6,
+                3
+              ],
+              [
+                71,
+                4,
+                1
+              ],
+              [
+                60,
+                3,
+                5
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "test_metrics": {
+            "samples": 212,
+            "direction_accuracy": 0.311321,
+            "balanced_accuracy": 0.32911,
+            "macro_f1": 0.213536,
+            "predicted_distribution": {
+              "bearish": 191,
+              "neutral": 10,
+              "bullish": 11
+            },
+            "actual_distribution": {
+              "bearish": 66,
+              "neutral": 58,
+              "bullish": 88
+            },
+            "confusion_matrix": [
+              [
+                58,
+                5,
+                3
+              ],
+              [
+                52,
+                3,
+                3
+              ],
+              [
+                81,
+                2,
+                5
+              ]
+            ],
+            "confusion_matrix_labels": [
+              "bearish",
+              "neutral",
+              "bullish"
+            ]
+          },
+          "trade_summary": {
+            "medium": {
+              "gross_return": 0.024615,
+              "gross_max_drawdown": -0.018844,
+              "net_return": 0.023054,
+              "net_max_drawdown": -0.019057,
+              "trades": 11,
+              "win_rate": 0.727273,
+              "total_fees_paid": 25.253729,
+              "total_slippage_cost": 128.581239,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 11
+              }
+            },
+            "high": {
+              "gross_return": 0.029786,
+              "gross_max_drawdown": -0.018844,
+              "net_return": 0.028678,
+              "net_max_drawdown": -0.019093,
+              "trades": 6,
+              "win_rate": 0.833333,
+              "total_fees_paid": 17.816359,
+              "total_slippage_cost": 90.546109,
+              "latest_signal": "flat",
+              "exit_reasons": {
+                "prediction_exit": 6
+              }
+            },
+            "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+          }
+        }
+      ],
+      "aggregate": {
+        "mean_direction_accuracy": 0.325422,
+        "mean_balanced_accuracy": 0.330306,
+        "mean_macro_f1": 0.298388,
+        "symbols_at_or_above_50pct_accuracy": 0,
+        "medium": {
+          "mean_gross_return": 0.190609,
+          "mean_net_return": 0.182455,
+          "mean_gross_max_drawdown": -0.153332,
+          "mean_net_max_drawdown": -0.15446,
+          "mean_trades": 39.4
+        },
+        "high": {
+          "mean_gross_return": 0.190569,
+          "mean_net_return": 0.182386,
+          "mean_gross_max_drawdown": -0.149854,
+          "mean_net_max_drawdown": -0.151104,
+          "mean_trades": 37.8
+        }
+      }
+    }
+  },
+  "v35_baseline": {
+    "source": "DeepSeek V3 finetuned directional cache replayed on the identical test window",
+    "per_symbol": [
+      {
+        "symbol": "AVGO",
+        "sector": "semis",
+        "validation_samples": 261,
+        "test_samples": 250,
+        "validation_metrics": {
+          "samples": 261,
+          "direction_accuracy": 0.337165,
+          "balanced_accuracy": 0.32997,
+          "macro_f1": 0.192205,
+          "predicted_distribution": {
+            "bullish": 249,
+            "neutral": 12
+          },
+          "actual_distribution": {
+            "bearish": 66,
+            "neutral": 107,
+            "bullish": 88
+          },
+          "confusion_matrix": [
+            [
+              0,
+              2,
+              64
+            ],
+            [
+              0,
+              5,
+              102
+            ],
+            [
+              0,
+              5,
+              83
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "test_metrics": {
+          "samples": 250,
+          "direction_accuracy": 0.328,
+          "balanced_accuracy": 0.327292,
+          "macro_f1": 0.191617,
+          "predicted_distribution": {
+            "bullish": 237,
+            "neutral": 13
+          },
+          "actual_distribution": {
+            "neutral": 109,
+            "bullish": 82,
+            "bearish": 59
+          },
+          "confusion_matrix": [
+            [
+              0,
+              1,
+              58
+            ],
+            [
+              0,
+              6,
+              103
+            ],
+            [
+              0,
+              6,
+              76
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "trade_summary": {
+          "medium": {
+            "gross_return": 0.584626,
+            "gross_max_drawdown": -0.250482,
+            "net_return": 0.575604,
+            "net_max_drawdown": -0.250721,
+            "trades": 34,
+            "win_rate": 0.588235,
+            "total_fees_paid": 125.001381,
+            "total_slippage_cost": 656.272283,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 28,
+              "risk_exit": 6
+            }
+          },
+          "high": {
+            "gross_return": 0.145513,
+            "gross_max_drawdown": -0.286875,
+            "net_return": 0.135139,
+            "net_max_drawdown": -0.289288,
+            "trades": 51,
+            "win_rate": 0.509804,
+            "total_fees_paid": 169.993791,
+            "total_slippage_cost": 897.432219,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 43,
+              "risk_exit": 8
+            }
+          },
+          "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+        },
+        "score_coverage": 1.0
+      },
+      {
+        "symbol": "NVDA",
+        "sector": "semis",
+        "validation_samples": 215,
+        "test_samples": 219,
+        "validation_metrics": {
+          "samples": 215,
+          "direction_accuracy": 0.344186,
+          "balanced_accuracy": 0.288786,
+          "macro_f1": 0.247146,
+          "predicted_distribution": {
+            "bullish": 132,
+            "neutral": 83
+          },
+          "actual_distribution": {
+            "neutral": 70,
+            "bullish": 93,
+            "bearish": 52
+          },
+          "confusion_matrix": [
+            [
+              0,
+              24,
+              28
+            ],
+            [
+              0,
+              20,
+              50
+            ],
+            [
+              0,
+              39,
+              54
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "test_metrics": {
+          "samples": 219,
+          "direction_accuracy": 0.383562,
+          "balanced_accuracy": 0.352894,
+          "macro_f1": 0.285236,
+          "predicted_distribution": {
+            "neutral": 64,
+            "bullish": 155
+          },
+          "actual_distribution": {
+            "neutral": 87,
+            "bearish": 56,
+            "bullish": 76
+          },
+          "confusion_matrix": [
+            [
+              0,
+              16,
+              40
+            ],
+            [
+              0,
+              28,
+              59
+            ],
+            [
+              0,
+              20,
+              56
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "trade_summary": {
+          "medium": {
+            "gross_return": 0.073539,
+            "gross_max_drawdown": -0.216715,
+            "net_return": 0.064073,
+            "net_max_drawdown": -0.217135,
+            "trades": 52,
+            "win_rate": 0.596154,
+            "total_fees_paid": 156.250716,
+            "total_slippage_cost": 810.749699,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 47,
+              "risk_exit": 5
+            }
+          },
+          "high": {
+            "gross_return": 0.0185,
+            "gross_max_drawdown": -0.216715,
+            "net_return": 0.008889,
+            "net_max_drawdown": -0.217135,
+            "trades": 53,
+            "win_rate": 0.584906,
+            "total_fees_paid": 167.047346,
+            "total_slippage_cost": 867.356069,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 48,
+              "risk_exit": 5
+            }
+          },
+          "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+        },
+        "score_coverage": 1.0
+      },
+      {
+        "symbol": "TSLA",
+        "sector": "growth",
+        "validation_samples": 66,
+        "test_samples": 256,
+        "validation_metrics": {
+          "samples": 66,
+          "direction_accuracy": 0.378788,
+          "balanced_accuracy": 0.404412,
+          "macro_f1": 0.308468,
+          "predicted_distribution": {
+            "bullish": 32,
+            "neutral": 34
+          },
+          "actual_distribution": {
+            "neutral": 24,
+            "bearish": 25,
+            "bullish": 17
+          },
+          "confusion_matrix": [
+            [
+              0,
+              12,
+              13
+            ],
+            [
+              0,
+              15,
+              9
+            ],
+            [
+              0,
+              7,
+              10
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "test_metrics": {
+          "samples": 256,
+          "direction_accuracy": 0.335938,
+          "balanced_accuracy": 0.330106,
+          "macro_f1": 0.259572,
+          "predicted_distribution": {
+            "bullish": 181,
+            "neutral": 75
+          },
+          "actual_distribution": {
+            "bullish": 82,
+            "neutral": 97,
+            "bearish": 77
+          },
+          "confusion_matrix": [
+            [
+              0,
+              17,
+              60
+            ],
+            [
+              0,
+              31,
+              66
+            ],
+            [
+              0,
+              27,
+              55
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "trade_summary": {
+          "medium": {
+            "gross_return": 0.109437,
+            "gross_max_drawdown": -0.232396,
+            "net_return": 0.098313,
+            "net_max_drawdown": -0.233685,
+            "trades": 58,
+            "win_rate": 0.5,
+            "total_fees_paid": 165.616703,
+            "total_slippage_cost": 876.703148,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 49,
+              "risk_exit": 9
+            }
+          },
+          "high": {
+            "gross_return": 0.27013,
+            "gross_max_drawdown": -0.232396,
+            "net_return": 0.256614,
+            "net_max_drawdown": -0.233685,
+            "trades": 60,
+            "win_rate": 0.516667,
+            "total_fees_paid": 185.18418,
+            "total_slippage_cost": 979.32391,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 51,
+              "risk_exit": 9
+            }
+          },
+          "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+        },
+        "score_coverage": 1.0
+      },
+      {
+        "symbol": "GOOGL",
+        "sector": "growth",
+        "validation_samples": 249,
+        "test_samples": 146,
+        "validation_metrics": {
+          "samples": 249,
+          "direction_accuracy": 0.345382,
+          "balanced_accuracy": 0.342229,
+          "macro_f1": 0.262476,
+          "predicted_distribution": {
+            "bullish": 172,
+            "neutral": 77
+          },
+          "actual_distribution": {
+            "neutral": 98,
+            "bullish": 78,
+            "bearish": 73
+          },
+          "confusion_matrix": [
+            [
+              0,
+              27,
+              46
+            ],
+            [
+              0,
+              29,
+              69
+            ],
+            [
+              0,
+              21,
+              57
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "test_metrics": {
+          "samples": 146,
+          "direction_accuracy": 0.438356,
+          "balanced_accuracy": 0.313938,
+          "macro_f1": 0.280499,
+          "predicted_distribution": {
+            "neutral": 36,
+            "bullish": 110
+          },
+          "actual_distribution": {
+            "bullish": 76,
+            "neutral": 45,
+            "bearish": 25
+          },
+          "confusion_matrix": [
+            [
+              0,
+              2,
+              23
+            ],
+            [
+              0,
+              11,
+              34
+            ],
+            [
+              0,
+              23,
+              53
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "trade_summary": {
+          "medium": {
+            "gross_return": 0.370748,
+            "gross_max_drawdown": -0.108343,
+            "net_return": 0.363902,
+            "net_max_drawdown": -0.108888,
+            "trades": 29,
+            "win_rate": 0.62069,
+            "total_fees_paid": 93.490475,
+            "total_slippage_cost": 485.689148,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 27,
+              "risk_exit": 2
+            }
+          },
+          "high": {
+            "gross_return": 0.387445,
+            "gross_max_drawdown": -0.108343,
+            "net_return": 0.379779,
+            "net_max_drawdown": -0.108888,
+            "trades": 31,
+            "win_rate": 0.580645,
+            "total_fees_paid": 102.923452,
+            "total_slippage_cost": 534.903737,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 29,
+              "risk_exit": 2
+            }
+          },
+          "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+        },
+        "score_coverage": 1.0
+      },
+      {
+        "symbol": "XOM",
+        "sector": "energy",
+        "validation_samples": 205,
+        "test_samples": 212,
+        "validation_metrics": {
+          "samples": 205,
+          "direction_accuracy": 0.341463,
+          "balanced_accuracy": 0.341589,
+          "macro_f1": 0.191681,
+          "predicted_distribution": {
+            "bullish": 199,
+            "neutral": 6
+          },
+          "actual_distribution": {
+            "bullish": 68,
+            "neutral": 76,
+            "bearish": 61
+          },
+          "confusion_matrix": [
+            [
+              0,
+              2,
+              59
+            ],
+            [
+              0,
+              3,
+              73
+            ],
+            [
+              0,
+              1,
+              67
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "test_metrics": {
+          "samples": 212,
+          "direction_accuracy": 0.410377,
+          "balanced_accuracy": 0.331505,
+          "macro_f1": 0.204932,
+          "predicted_distribution": {
+            "bullish": 207,
+            "neutral": 5
+          },
+          "actual_distribution": {
+            "bearish": 66,
+            "neutral": 58,
+            "bullish": 88
+          },
+          "confusion_matrix": [
+            [
+              0,
+              2,
+              64
+            ],
+            [
+              0,
+              1,
+              57
+            ],
+            [
+              0,
+              2,
+              86
+            ]
+          ],
+          "confusion_matrix_labels": [
+            "bearish",
+            "neutral",
+            "bullish"
+          ]
+        },
+        "trade_summary": {
+          "medium": {
+            "gross_return": 0.067439,
+            "gross_max_drawdown": -0.21129,
+            "net_return": 0.059042,
+            "net_max_drawdown": -0.212137,
+            "trades": 46,
+            "win_rate": 0.413043,
+            "total_fees_paid": 131.016957,
+            "total_slippage_cost": 666.900715,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 43,
+              "risk_exit": 3
+            }
+          },
+          "high": {
+            "gross_return": 0.084965,
+            "gross_max_drawdown": -0.19623,
+            "net_return": 0.075467,
+            "net_max_drawdown": -0.197525,
+            "trades": 49,
+            "win_rate": 0.428571,
+            "total_fees_paid": 147.457347,
+            "total_slippage_cost": 751.109528,
+            "latest_signal": "flat",
+            "exit_reasons": {
+              "prediction_exit": 45,
+              "risk_exit": 4
+            }
+          },
+          "test_period": "2025-05-15 -> 2026-06-26 (280 days)"
+        },
+        "score_coverage": 1.0
+      }
+    ],
+    "aggregate": {
+      "mean_direction_accuracy": 0.379247,
+      "mean_balanced_accuracy": 0.331147,
+      "mean_macro_f1": 0.244371,
+      "symbols_at_or_above_50pct_accuracy": 0,
+      "medium": {
+        "mean_gross_return": 0.241158,
+        "mean_net_return": 0.232187,
+        "mean_gross_max_drawdown": -0.203845,
+        "mean_net_max_drawdown": -0.204513,
+        "mean_trades": 43.8
+      },
+      "high": {
+        "mean_gross_return": 0.181311,
+        "mean_net_return": 0.171178,
+        "mean_gross_max_drawdown": -0.208112,
+        "mean_net_max_drawdown": -0.209304,
+        "mean_trades": 48.8
+      }
+    }
+  },
+  "comparison_vs_v35": {
+    "primary_threshold": "medium",
+    "v35": {
+      "mean_direction_accuracy": 0.379247,
+      "mean_balanced_accuracy": 0.331147,
+      "mean_macro_f1": 0.244371,
+      "mean_net_return": 0.232187,
+      "mean_net_max_drawdown": -0.204513
+    },
+    "variants": [
+      {
+        "variant": "price_only_baseline",
+        "mean_direction_accuracy": 0.346936,
+        "mean_balanced_accuracy": 0.359595,
+        "mean_macro_f1": 0.320492,
+        "mean_net_return": 0.001415,
+        "mean_net_max_drawdown": -0.004241,
+        "delta_balanced_accuracy_vs_v35": 0.028448,
+        "delta_net_return_vs_v35": -0.230772
+      },
+      {
+        "variant": "q3e_text_only",
+        "mean_direction_accuracy": 0.323856,
+        "mean_balanced_accuracy": 0.316837,
+        "mean_macro_f1": 0.288675,
+        "mean_net_return": 0.061913,
+        "mean_net_max_drawdown": -0.139148,
+        "delta_balanced_accuracy_vs_v35": -0.01431,
+        "delta_net_return_vs_v35": -0.170274
+      },
+      {
+        "variant": "q3e_fused",
+        "mean_direction_accuracy": 0.331344,
+        "mean_balanced_accuracy": 0.325573,
+        "mean_macro_f1": 0.293169,
+        "mean_net_return": -0.009031,
+        "mean_net_max_drawdown": -0.15832,
+        "delta_balanced_accuracy_vs_v35": -0.005574,
+        "delta_net_return_vs_v35": -0.241218
+      },
+      {
+        "variant": "q3e_sector",
+        "mean_direction_accuracy": 0.325422,
+        "mean_balanced_accuracy": 0.330306,
+        "mean_macro_f1": 0.298388,
+        "mean_net_return": 0.182455,
+        "mean_net_max_drawdown": -0.15446,
+        "delta_balanced_accuracy_vs_v35": -0.000841,
+        "delta_net_return_vs_v35": -0.049732
+      }
+    ]
+  },
+  "best_variant": {
+    "name": "price_only_baseline",
+    "selection_rule": "max mean balanced accuracy, then mean net return at the primary (medium) threshold",
+    "mean_balanced_accuracy": 0.359595,
+    "mean_net_return": 0.001415,
+    "beats_v35_balanced_accuracy": true
+  },
+  "charts": {
+    "enabled": true,
+    "paths": {
+      "returns_by_variant.png": "reports\\research\\qwen_embedding_v3_q3e\\charts\\returns_by_variant.png",
+      "drawdown_by_variant.png": "reports\\research\\qwen_embedding_v3_q3e\\charts\\drawdown_by_variant.png"
+    }
+  }
+}

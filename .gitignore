@@ -18,3 +18,6 @@ cache/
 tmp/
 reports/**/checkpoint-*/
 reports/**/deepseek_*_lora/
+# Embedding caches are large (hundreds of MB) and regenerable; never commit (GitHub 100MB limit).
+**/qwen3_embedding_cache.jsonl
+**/*_embedding_cache.jsonl

@@ -1,0 +1,1110 @@
+{
+  "window": {
+    "train": "2020-11-27 -> 2024-02-07 (803 days)",
+    "embargo": "2024-02-08 -> 2025-03-13 (10 days)",
+    "validation": "2024-02-15 -> 2025-03-06 (264 days)",
+    "test": "2025-03-14 -> 2026-04-10 (270 days)"
+  },
+  "symbols": [
+    "AVGO",
+    "NVDA",
+    "TSLA",
+    "GOOGL",
+    "XOM"
+  ],
+  "evaluation_window_end": "2026-04-10",
+  "cost_model": {
+    "commission_per_order": 0.0,
+    "quoted_spread_bps": 1.0,
+    "market_impact_bps": 1.0,
+    "stop_extra_slippage_bps": 2.0,
+    "finra_taf_per_share_sell": 0.000195,
+    "finra_taf_cap_per_trade": 9.79,
+    "sec_fee_per_million_sell": 27.8,
+    "max_bar_participation_rate": 0.0005,
+    "iex_volume_scale": 30.0,
+    "data_feed": "iex",
+    "median_test_dollar_volume_scaled": {
+      "AVGO": 5115960513.15,
+      "NVDA": 16820508769.65,
+      "TSLA": 9718188994.95,
+      "GOOGL": 7067992162.2,
+      "XOM": 2139280545.15
+    },
+    "note": "Commission-free (Alpaca). Volume scaled x30 to undo IEX under-reporting so the 0.05% participation cap reflects consolidated liquidity; SEC Section 31 sell fee included."
+  },
+  "fixed_stop_loss_pct": 0.05,
+  "random_seeds": 20,
+  "entry_rate_by_symbol": {
+    "AVGO": 0.87037,
+    "NVDA": 0.481481,
+    "TSLA": 0.577778,
+    "GOOGL": 0.337037,
+    "XOM": 0.737037
+  },
+  "per_symbol": {
+    "AVGO": {
+      "buy_and_hold": {
+        "gross_return": 0.921104,
+        "net_return": 0.920816,
+        "gross_max_drawdown": -0.286584,
+        "net_max_drawdown": -0.286584,
+        "trades": 0,
+        "win_rate": 0.0,
+        "total_fees_paid": 0.0,
+        "total_slippage_cost": 14.9977,
+        "partial_fill_events": 0
+      },
+      "always_long_1pct": {
+        "gross_return": 9.32898,
+        "net_return": -0.031498,
+        "gross_max_drawdown": -0.00941,
+        "net_max_drawdown": -0.188958,
+        "trades": 135,
+        "win_rate": 0.466667,
+        "total_fees_paid": 351.4012,
+        "total_slippage_cost": 218976.0246,
+        "partial_fill_events": 0
+      },
+      "random_entry_1pct": {
+        "gross_return": 7.556853,
+        "net_return": 0.1007,
+        "net_return_std": 0.148592,
+        "net_return_p05": -0.259505,
+        "net_return_p95": 0.367982,
+        "net_max_drawdown": -0.16723,
+        "trades": 124.95,
+        "seeds": 20
+      },
+      "v35_model_trail_1pct": {
+        "gross_return": 5.525976,
+        "net_return": 0.077858,
+        "gross_max_drawdown": -0.010398,
+        "net_max_drawdown": -0.161471,
+        "trades": 122,
+        "win_rate": 0.45082,
+        "total_fees_paid": 333.5319,
+        "total_slippage_cost": 174845.4744,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_2pct": {
+        "gross_return": 0.891883,
+        "net_return": -0.301564,
+        "gross_max_drawdown": -0.061519,
+        "net_max_drawdown": -0.354979,
+        "trades": 120,
+        "win_rate": 0.391667,
+        "total_fees_paid": 259.518,
+        "total_slippage_cost": 79750.7167,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_3pct": {
+        "gross_return": 0.321199,
+        "net_return": -0.29719,
+        "gross_max_drawdown": -0.175731,
+        "net_max_drawdown": -0.345748,
+        "trades": 102,
+        "win_rate": 0.254902,
+        "total_fees_paid": 242.0072,
+        "total_slippage_cost": 53133.5605,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_5pct": {
+        "gross_return": 0.055638,
+        "net_return": -0.159132,
+        "gross_max_drawdown": -0.368019,
+        "net_max_drawdown": -0.43971,
+        "trades": 68,
+        "win_rate": 0.323529,
+        "total_fees_paid": 186.6253,
+        "total_slippage_cost": 21170.4786,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_none": {
+        "gross_return": 0.953302,
+        "net_return": 0.920289,
+        "gross_max_drawdown": -0.238215,
+        "net_max_drawdown": -0.243891,
+        "trades": 36,
+        "win_rate": 0.527778,
+        "total_fees_paid": 142.9118,
+        "total_slippage_cost": 2261.3919,
+        "partial_fill_events": 0
+      },
+      "v35_model_exit_only": {
+        "gross_return": 1.069144,
+        "net_return": 1.050564,
+        "gross_max_drawdown": -0.255665,
+        "net_max_drawdown": -0.257374,
+        "trades": 27,
+        "win_rate": 0.592593,
+        "total_fees_paid": 120.2841,
+        "total_slippage_cost": 1281.7445,
+        "partial_fill_events": 0
+      },
+      "entry_expectancy": {
+        "entry_days": 230,
+        "eligible_days": 265,
+        "mean_fwd5_on_entry": 0.011882,
+        "mean_fwd5_unconditional": 0.01341,
+        "edge_fwd5": -0.001528,
+        "hit_rate_on_entry": 0.53913,
+        "hit_rate_unconditional": 0.562264
+      },
+      "moc": {
+        "v35_model_trail_1pct": {
+          "gross_return": 0.631584,
+          "net_return": 0.610628,
+          "gross_max_drawdown": -0.183325,
+          "net_max_drawdown": -0.187599,
+          "trades": 72,
+          "total_fees_paid": 272.9396,
+          "total_slippage_cost": 1445.3568,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_2pct": {
+          "gross_return": 0.416224,
+          "net_return": 0.402281,
+          "gross_max_drawdown": -0.278477,
+          "net_max_drawdown": -0.282253,
+          "trades": 55,
+          "total_fees_paid": 197.7093,
+          "total_slippage_cost": 1048.269,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_3pct": {
+          "gross_return": 0.766041,
+          "net_return": 0.751466,
+          "gross_max_drawdown": -0.233973,
+          "net_max_drawdown": -0.236156,
+          "trades": 46,
+          "total_fees_paid": 180.0247,
+          "total_slippage_cost": 955.4412,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_5pct": {
+          "gross_return": 1.008273,
+          "net_return": 0.994545,
+          "gross_max_drawdown": -0.219531,
+          "net_max_drawdown": -0.221616,
+          "trades": 38,
+          "total_fees_paid": 167.0607,
+          "total_slippage_cost": 887.2388,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_none": {
+          "gross_return": 1.317818,
+          "net_return": 1.304853,
+          "gross_max_drawdown": -0.203606,
+          "net_max_drawdown": -0.204883,
+          "trades": 31,
+          "total_fees_paid": 146.2852,
+          "total_slippage_cost": 777.8328,
+          "partial_fill_events": 0
+        },
+        "v35_model_exit_only": {
+          "gross_return": 1.069144,
+          "net_return": 1.05904,
+          "gross_max_drawdown": -0.255665,
+          "net_max_drawdown": -0.256593,
+          "trades": 27,
+          "total_fees_paid": 120.5598,
+          "total_slippage_cost": 642.3296,
+          "partial_fill_events": 0
+        }
+      }
+    },
+    "NVDA": {
+      "buy_and_hold": {
+        "gross_return": 0.552196,
+        "net_return": 0.551963,
+        "gross_max_drawdown": -0.224273,
+        "net_max_drawdown": -0.224389,
+        "trades": 0,
+        "win_rate": 0.0,
+        "total_fees_paid": 0.0,
+        "total_slippage_cost": 14.9977,
+        "partial_fill_events": 0
+      },
+      "always_long_1pct": {
+        "gross_return": 4.270679,
+        "net_return": -0.096016,
+        "gross_max_drawdown": -0.020927,
+        "net_max_drawdown": -0.228487,
+        "trades": 134,
+        "win_rate": 0.447761,
+        "total_fees_paid": 342.8611,
+        "total_slippage_cost": 158715.1319,
+        "partial_fill_events": 0
+      },
+      "random_entry_1pct": {
+        "gross_return": 1.967621,
+        "net_return": -0.020415,
+        "net_return_std": 0.122761,
+        "net_return_p05": -0.296255,
+        "net_return_p95": 0.242613,
+        "net_max_drawdown": -0.157625,
+        "trades": 88.5,
+        "seeds": 20
+      },
+      "v35_model_trail_1pct": {
+        "gross_return": 2.170089,
+        "net_return": 0.040626,
+        "gross_max_drawdown": -0.010631,
+        "net_max_drawdown": -0.092498,
+        "trades": 82,
+        "win_rate": 0.512195,
+        "total_fees_paid": 252.9516,
+        "total_slippage_cost": 119098.8722,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_2pct": {
+        "gross_return": 0.527275,
+        "net_return": -0.162305,
+        "gross_max_drawdown": -0.124647,
+        "net_max_drawdown": -0.205399,
+        "trades": 79,
+        "win_rate": 0.405063,
+        "total_fees_paid": 213.6085,
+        "total_slippage_cost": 55131.8761,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_3pct": {
+        "gross_return": 0.501529,
+        "net_return": 0.085193,
+        "gross_max_drawdown": -0.118785,
+        "net_max_drawdown": -0.142127,
+        "trades": 71,
+        "win_rate": 0.507042,
+        "total_fees_paid": 214.1507,
+        "total_slippage_cost": 33192.4976,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_5pct": {
+        "gross_return": 0.467785,
+        "net_return": 0.329954,
+        "gross_max_drawdown": -0.172178,
+        "net_max_drawdown": -0.177503,
+        "trades": 57,
+        "win_rate": 0.578947,
+        "total_fees_paid": 182.0377,
+        "total_slippage_cost": 10176.7145,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_none": {
+        "gross_return": 0.373745,
+        "net_return": 0.295277,
+        "gross_max_drawdown": -0.168582,
+        "net_max_drawdown": -0.186394,
+        "trades": 55,
+        "win_rate": 0.6,
+        "total_fees_paid": 189.7877,
+        "total_slippage_cost": 6540.0502,
+        "partial_fill_events": 0
+      },
+      "v35_model_exit_only": {
+        "gross_return": 0.448957,
+        "net_return": 0.423693,
+        "gross_max_drawdown": -0.165043,
+        "net_max_drawdown": -0.169277,
+        "trades": 53,
+        "win_rate": 0.603774,
+        "total_fees_paid": 185.6855,
+        "total_slippage_cost": 1934.3213,
+        "partial_fill_events": 0
+      },
+      "entry_expectancy": {
+        "entry_days": 126,
+        "eligible_days": 265,
+        "mean_fwd5_on_entry": 0.012502,
+        "mean_fwd5_unconditional": 0.009518,
+        "edge_fwd5": 0.002984,
+        "hit_rate_on_entry": 0.611111,
+        "hit_rate_unconditional": 0.592453
+      },
+      "moc": {
+        "v35_model_trail_1pct": {
+          "gross_return": 0.494325,
+          "net_return": 0.477984,
+          "gross_max_drawdown": -0.175267,
+          "net_max_drawdown": -0.177833,
+          "trades": 61,
+          "total_fees_paid": 208.3972,
+          "total_slippage_cost": 1085.0216,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_2pct": {
+          "gross_return": 0.504835,
+          "net_return": 0.488911,
+          "gross_max_drawdown": -0.175267,
+          "net_max_drawdown": -0.177833,
+          "trades": 59,
+          "total_fees_paid": 207.7117,
+          "total_slippage_cost": 1081.4232,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_3pct": {
+          "gross_return": 0.408364,
+          "net_return": 0.39371,
+          "gross_max_drawdown": -0.176408,
+          "net_max_drawdown": -0.178824,
+          "trades": 58,
+          "total_fees_paid": 204.1579,
+          "total_slippage_cost": 1063.005,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_5pct": {
+          "gross_return": 0.511503,
+          "net_return": 0.496847,
+          "gross_max_drawdown": -0.165043,
+          "net_max_drawdown": -0.167343,
+          "trades": 54,
+          "total_fees_paid": 191.1335,
+          "total_slippage_cost": 995.4709,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_none": {
+          "gross_return": 0.407679,
+          "net_return": 0.39403,
+          "gross_max_drawdown": -0.165043,
+          "net_max_drawdown": -0.167343,
+          "trades": 54,
+          "total_fees_paid": 189.5987,
+          "total_slippage_cost": 987.4702,
+          "partial_fill_events": 0
+        },
+        "v35_model_exit_only": {
+          "gross_return": 0.448957,
+          "net_return": 0.435165,
+          "gross_max_drawdown": -0.165043,
+          "net_max_drawdown": -0.167343,
+          "trades": 53,
+          "total_fees_paid": 186.4678,
+          "total_slippage_cost": 971.2226,
+          "partial_fill_events": 0
+        }
+      }
+    },
+    "TSLA": {
+      "buy_and_hold": {
+        "gross_return": 0.395927,
+        "net_return": 0.395717,
+        "gross_max_drawdown": -0.298863,
+        "net_max_drawdown": -0.298863,
+        "trades": 0,
+        "win_rate": 0.0,
+        "total_fees_paid": 0.0,
+        "total_slippage_cost": 14.9977,
+        "partial_fill_events": 0
+      },
+      "always_long_1pct": {
+        "gross_return": 13.096116,
+        "net_return": -0.174981,
+        "gross_max_drawdown": -0.009016,
+        "net_max_drawdown": -0.270163,
+        "trades": 135,
+        "win_rate": 0.511111,
+        "total_fees_paid": 314.4903,
+        "total_slippage_cost": 242057.8633,
+        "partial_fill_events": 0
+      },
+      "random_entry_1pct": {
+        "gross_return": 6.916083,
+        "net_return": -0.043397,
+        "net_return_std": 0.17665,
+        "net_return_p05": -0.35603,
+        "net_return_p95": 0.373318,
+        "net_max_drawdown": -0.189571,
+        "trades": 99.35,
+        "seeds": 20
+      },
+      "v35_model_trail_1pct": {
+        "gross_return": 6.183798,
+        "net_return": -0.088551,
+        "gross_max_drawdown": -0.009454,
+        "net_max_drawdown": -0.213832,
+        "trades": 97,
+        "win_rate": 0.484536,
+        "total_fees_paid": 247.5917,
+        "total_slippage_cost": 191684.3172,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_2pct": {
+        "gross_return": 1.757318,
+        "net_return": -0.311204,
+        "gross_max_drawdown": -0.025135,
+        "net_max_drawdown": -0.340685,
+        "trades": 95,
+        "win_rate": 0.378947,
+        "total_fees_paid": 213.7657,
+        "total_slippage_cost": 119384.3798,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_3pct": {
+        "gross_return": 0.440301,
+        "net_return": -0.492597,
+        "gross_max_drawdown": -0.113246,
+        "net_max_drawdown": -0.492597,
+        "trades": 91,
+        "win_rate": 0.296703,
+        "total_fees_paid": 181.4688,
+        "total_slippage_cost": 81672.6646,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_5pct": {
+        "gross_return": 0.001507,
+        "net_return": -0.360233,
+        "gross_max_drawdown": -0.194621,
+        "net_max_drawdown": -0.364537,
+        "trades": 77,
+        "win_rate": 0.402597,
+        "total_fees_paid": 171.3535,
+        "total_slippage_cost": 36223.2667,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_none": {
+        "gross_return": 0.155654,
+        "net_return": 0.081931,
+        "gross_max_drawdown": -0.222546,
+        "net_max_drawdown": -0.255034,
+        "trades": 68,
+        "win_rate": 0.485294,
+        "total_fees_paid": 226.3171,
+        "total_slippage_cost": 7354.9708,
+        "partial_fill_events": 0
+      },
+      "v35_model_exit_only": {
+        "gross_return": 0.439478,
+        "net_return": 0.410257,
+        "gross_max_drawdown": -0.205127,
+        "net_max_drawdown": -0.20733,
+        "trades": 62,
+        "win_rate": 0.516129,
+        "total_fees_paid": 247.3582,
+        "total_slippage_cost": 2632.9618,
+        "partial_fill_events": 0
+      },
+      "entry_expectancy": {
+        "entry_days": 152,
+        "eligible_days": 265,
+        "mean_fwd5_on_entry": 0.011049,
+        "mean_fwd5_unconditional": 0.009712,
+        "edge_fwd5": 0.001337,
+        "hit_rate_on_entry": 0.486842,
+        "hit_rate_unconditional": 0.490566
+      },
+      "moc": {
+        "v35_model_trail_1pct": {
+          "gross_return": -0.149203,
+          "net_return": -0.161319,
+          "gross_max_drawdown": -0.25967,
+          "net_max_drawdown": -0.26438,
+          "trades": 80,
+          "total_fees_paid": 225.132,
+          "total_slippage_cost": 1198.5038,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_2pct": {
+          "gross_return": 0.041763,
+          "net_return": 0.02821,
+          "gross_max_drawdown": -0.217218,
+          "net_max_drawdown": -0.218532,
+          "trades": 73,
+          "total_fees_paid": 220.727,
+          "total_slippage_cost": 1175.2606,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_3pct": {
+          "gross_return": 0.115268,
+          "net_return": 0.101347,
+          "gross_max_drawdown": -0.217218,
+          "net_max_drawdown": -0.218532,
+          "trades": 70,
+          "total_fees_paid": 214.9512,
+          "total_slippage_cost": 1144.6358,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_5pct": {
+          "gross_return": 0.421127,
+          "net_return": 0.403889,
+          "gross_max_drawdown": -0.232396,
+          "net_max_drawdown": -0.233685,
+          "trades": 68,
+          "total_fees_paid": 255.3432,
+          "total_slippage_cost": 1358.5073,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_none": {
+          "gross_return": 0.225848,
+          "net_return": 0.211195,
+          "gross_max_drawdown": -0.252726,
+          "net_max_drawdown": -0.254246,
+          "trades": 67,
+          "total_fees_paid": 248.5317,
+          "total_slippage_cost": 1322.4325,
+          "partial_fill_events": 0
+        },
+        "v35_model_exit_only": {
+          "gross_return": 0.439478,
+          "net_return": 0.42354,
+          "gross_max_drawdown": -0.205127,
+          "net_max_drawdown": -0.206319,
+          "trades": 62,
+          "total_fees_paid": 248.6151,
+          "total_slippage_cost": 1323.146,
+          "partial_fill_events": 0
+        }
+      }
+    },
+    "GOOGL": {
+      "buy_and_hold": {
+        "gross_return": 0.924674,
+        "net_return": 0.924385,
+        "gross_max_drawdown": -0.204048,
+        "net_max_drawdown": -0.204048,
+        "trades": 0,
+        "win_rate": 0.0,
+        "total_fees_paid": 0.0,
+        "total_slippage_cost": 14.9977,
+        "partial_fill_events": 0
+      },
+      "always_long_1pct": {
+        "gross_return": 2.222082,
+        "net_return": -0.06797,
+        "gross_max_drawdown": -0.027443,
+        "net_max_drawdown": -0.187999,
+        "trades": 134,
+        "win_rate": 0.402985,
+        "total_fees_paid": 379.0995,
+        "total_slippage_cost": 123403.5676,
+        "partial_fill_events": 0
+      },
+      "random_entry_1pct": {
+        "gross_return": 0.858182,
+        "net_return": 0.01412,
+        "net_return_std": 0.10101,
+        "net_return_p05": -0.121532,
+        "net_return_p95": 0.284578,
+        "net_max_drawdown": -0.091939,
+        "trades": 68.25,
+        "seeds": 20
+      },
+      "v35_model_trail_1pct": {
+        "gross_return": 0.853646,
+        "net_return": -0.090414,
+        "gross_max_drawdown": -0.012644,
+        "net_max_drawdown": -0.141682,
+        "trades": 60,
+        "win_rate": 0.333333,
+        "total_fees_paid": 161.6131,
+        "total_slippage_cost": 67588.8637,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_2pct": {
+        "gross_return": 0.227225,
+        "net_return": -0.173548,
+        "gross_max_drawdown": -0.077023,
+        "net_max_drawdown": -0.187565,
+        "trades": 56,
+        "win_rate": 0.357143,
+        "total_fees_paid": 146.533,
+        "total_slippage_cost": 36745.2401,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_3pct": {
+        "gross_return": 0.26269,
+        "net_return": 0.030534,
+        "gross_max_drawdown": -0.097815,
+        "net_max_drawdown": -0.103147,
+        "trades": 48,
+        "win_rate": 0.4375,
+        "total_fees_paid": 137.9586,
+        "total_slippage_cost": 19600.4642,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_5pct": {
+        "gross_return": 0.253336,
+        "net_return": 0.146704,
+        "gross_max_drawdown": -0.108638,
+        "net_max_drawdown": -0.134276,
+        "trades": 41,
+        "win_rate": 0.487805,
+        "total_fees_paid": 119.5186,
+        "total_slippage_cost": 8341.1505,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_none": {
+        "gross_return": 0.281813,
+        "net_return": 0.264691,
+        "gross_max_drawdown": -0.123612,
+        "net_max_drawdown": -0.125244,
+        "trades": 38,
+        "win_rate": 0.605263,
+        "total_fees_paid": 122.2263,
+        "total_slippage_cost": 1370.7125,
+        "partial_fill_events": 0
+      },
+      "v35_model_exit_only": {
+        "gross_return": 0.256989,
+        "net_return": 0.241192,
+        "gross_max_drawdown": -0.136918,
+        "net_max_drawdown": -0.13818,
+        "trades": 38,
+        "win_rate": 0.605263,
+        "total_fees_paid": 121.7925,
+        "total_slippage_cost": 1281.3705,
+        "partial_fill_events": 0
+      },
+      "entry_expectancy": {
+        "entry_days": 86,
+        "eligible_days": 265,
+        "mean_fwd5_on_entry": 0.015095,
+        "mean_fwd5_unconditional": 0.013298,
+        "edge_fwd5": 0.001797,
+        "hit_rate_on_entry": 0.686047,
+        "hit_rate_unconditional": 0.622642
+      },
+      "moc": {
+        "v35_model_trail_1pct": {
+          "gross_return": 0.29351,
+          "net_return": 0.283504,
+          "gross_max_drawdown": -0.1195,
+          "net_max_drawdown": -0.120508,
+          "trades": 43,
+          "total_fees_paid": 138.9732,
+          "total_slippage_cost": 730.3809,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_2pct": {
+          "gross_return": 0.310025,
+          "net_return": 0.300357,
+          "gross_max_drawdown": -0.1195,
+          "net_max_drawdown": -0.120508,
+          "trades": 41,
+          "total_fees_paid": 135.1454,
+          "total_slippage_cost": 710.6771,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_3pct": {
+          "gross_return": 0.318954,
+          "net_return": 0.309688,
+          "gross_max_drawdown": -0.115545,
+          "net_max_drawdown": -0.116401,
+          "trades": 39,
+          "total_fees_paid": 128.0863,
+          "total_slippage_cost": 673.6722,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_5pct": {
+          "gross_return": 0.261175,
+          "net_return": 0.252538,
+          "gross_max_drawdown": -0.134044,
+          "net_max_drawdown": -0.134727,
+          "trades": 38,
+          "total_fees_paid": 122.1775,
+          "total_slippage_cost": 642.6968,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_none": {
+          "gross_return": 0.261175,
+          "net_return": 0.252538,
+          "gross_max_drawdown": -0.134044,
+          "net_max_drawdown": -0.134727,
+          "trades": 38,
+          "total_fees_paid": 122.1775,
+          "total_slippage_cost": 642.6968,
+          "partial_fill_events": 0
+        },
+        "v35_model_exit_only": {
+          "gross_return": 0.256989,
+          "net_return": 0.248381,
+          "gross_max_drawdown": -0.136918,
+          "net_max_drawdown": -0.137599,
+          "trades": 38,
+          "total_fees_paid": 122.167,
+          "total_slippage_cost": 642.6403,
+          "partial_fill_events": 0
+        }
+      }
+    },
+    "XOM": {
+      "buy_and_hold": {
+        "gross_return": 0.410445,
+        "net_return": 0.410233,
+        "gross_max_drawdown": -0.160266,
+        "net_max_drawdown": -0.160266,
+        "trades": 0,
+        "win_rate": 0.0,
+        "total_fees_paid": 0.0,
+        "total_slippage_cost": 14.9977,
+        "partial_fill_events": 0
+      },
+      "always_long_1pct": {
+        "gross_return": 1.11365,
+        "net_return": -0.103733,
+        "gross_max_drawdown": -0.018085,
+        "net_max_drawdown": -0.184552,
+        "trades": 133,
+        "win_rate": 0.458647,
+        "total_fees_paid": 344.8842,
+        "total_slippage_cost": 76103.9531,
+        "partial_fill_events": 0
+      },
+      "random_entry_1pct": {
+        "gross_return": 1.005734,
+        "net_return": -0.130132,
+        "net_return_std": 0.055174,
+        "net_return_p05": -0.207036,
+        "net_return_p95": -0.007215,
+        "net_max_drawdown": -0.167856,
+        "trades": 112.7,
+        "seeds": 20
+      },
+      "v35_model_trail_1pct": {
+        "gross_return": 0.862279,
+        "net_return": -0.140923,
+        "gross_max_drawdown": -0.01945,
+        "net_max_drawdown": -0.161553,
+        "trades": 112,
+        "win_rate": 0.401786,
+        "total_fees_paid": 313.4135,
+        "total_slippage_cost": 72612.0081,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_2pct": {
+        "gross_return": 0.440296,
+        "net_return": 0.080629,
+        "gross_max_drawdown": -0.066914,
+        "net_max_drawdown": -0.108816,
+        "trades": 85,
+        "win_rate": 0.376471,
+        "total_fees_paid": 254.9888,
+        "total_slippage_cost": 29254.2795,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_3pct": {
+        "gross_return": 0.275997,
+        "net_return": 0.019924,
+        "gross_max_drawdown": -0.064377,
+        "net_max_drawdown": -0.150256,
+        "trades": 68,
+        "win_rate": 0.426471,
+        "total_fees_paid": 206.6382,
+        "total_slippage_cost": 23416.8361,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_5pct": {
+        "gross_return": 0.260424,
+        "net_return": 0.117245,
+        "gross_max_drawdown": -0.114923,
+        "net_max_drawdown": -0.173014,
+        "trades": 54,
+        "win_rate": 0.425926,
+        "total_fees_paid": 151.4689,
+        "total_slippage_cost": 12343.6191,
+        "partial_fill_events": 0
+      },
+      "v35_model_trail_none": {
+        "gross_return": 0.136673,
+        "net_return": 0.117403,
+        "gross_max_drawdown": -0.174181,
+        "net_max_drawdown": -0.180535,
+        "trades": 49,
+        "win_rate": 0.44898,
+        "total_fees_paid": 135.4437,
+        "total_slippage_cost": 1463.5264,
+        "partial_fill_events": 0
+      },
+      "v35_model_exit_only": {
+        "gross_return": 0.084542,
+        "net_return": 0.068065,
+        "gross_max_drawdown": -0.212055,
+        "net_max_drawdown": -0.216717,
+        "trades": 46,
+        "win_rate": 0.456522,
+        "total_fees_paid": 121.9295,
+        "total_slippage_cost": 1253.068,
+        "partial_fill_events": 0
+      },
+      "entry_expectancy": {
+        "entry_days": 194,
+        "eligible_days": 265,
+        "mean_fwd5_on_entry": 0.005546,
+        "mean_fwd5_unconditional": 0.007483,
+        "edge_fwd5": -0.001937,
+        "hit_rate_on_entry": 0.57732,
+        "hit_rate_unconditional": 0.622642
+      },
+      "moc": {
+        "v35_model_trail_1pct": {
+          "gross_return": 0.165812,
+          "net_return": 0.152081,
+          "gross_max_drawdown": -0.160275,
+          "net_max_drawdown": -0.161331,
+          "trades": 66,
+          "total_fees_paid": 190.5113,
+          "total_slippage_cost": 967.7993,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_2pct": {
+          "gross_return": 0.157418,
+          "net_return": 0.145342,
+          "gross_max_drawdown": -0.156518,
+          "net_max_drawdown": -0.158486,
+          "trades": 58,
+          "total_fees_paid": 166.7645,
+          "total_slippage_cost": 854.8852,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_3pct": {
+          "gross_return": 0.170062,
+          "net_return": 0.158686,
+          "gross_max_drawdown": -0.177517,
+          "net_max_drawdown": -0.180615,
+          "trades": 54,
+          "total_fees_paid": 150.87,
+          "total_slippage_cost": 773.9055,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_5pct": {
+          "gross_return": 0.115666,
+          "net_return": 0.105216,
+          "gross_max_drawdown": -0.172294,
+          "net_max_drawdown": -0.175411,
+          "trades": 52,
+          "total_fees_paid": 144.887,
+          "total_slippage_cost": 743.4443,
+          "partial_fill_events": 0
+        },
+        "v35_model_trail_none": {
+          "gross_return": 0.072428,
+          "net_return": 0.062954,
+          "gross_max_drawdown": -0.220857,
+          "net_max_drawdown": -0.223791,
+          "trades": 49,
+          "total_fees_paid": 128.6552,
+          "total_slippage_cost": 660.4139,
+          "partial_fill_events": 0
+        },
+        "v35_model_exit_only": {
+          "gross_return": 0.084542,
+          "net_return": 0.07554,
+          "gross_max_drawdown": -0.212055,
+          "net_max_drawdown": -0.2146,
+          "trades": 46,
+          "total_fees_paid": 122.3612,
+          "total_slippage_cost": 628.7348,
+          "partial_fill_events": 0
+        }
+      }
+    }
+  },
+  "aggregate": {
+    "buy_and_hold": {
+      "mean_gross_return": 0.640869,
+      "mean_net_return": 0.640623,
+      "mean_net_max_drawdown": -0.23483,
+      "mean_trades": 0.0,
+      "total_partial_fills": 0
+    },
+    "always_long_1pct": {
+      "mean_gross_return": 6.006301,
+      "mean_net_return": -0.09484,
+      "mean_net_max_drawdown": -0.212032,
+      "mean_trades": 134.2,
+      "total_partial_fills": 0
+    },
+    "random_entry_1pct": {
+      "mean_gross_return": 3.660895,
+      "mean_net_return": -0.015825,
+      "mean_net_max_drawdown": -0.154844,
+      "mean_trades": 98.75,
+      "total_partial_fills": 0
+    },
+    "v35_model_trail_1pct": {
+      "mean_gross_return": 3.119158,
+      "mean_net_return": -0.040281,
+      "mean_net_max_drawdown": -0.154207,
+      "mean_trades": 94.6,
+      "total_partial_fills": 0
+    },
+    "v35_model_trail_2pct": {
+      "mean_gross_return": 0.768799,
+      "mean_net_return": -0.173598,
+      "mean_net_max_drawdown": -0.239489,
+      "mean_trades": 87.0,
+      "total_partial_fills": 0
+    },
+    "v35_model_trail_3pct": {
+      "mean_gross_return": 0.360343,
+      "mean_net_return": -0.130827,
+      "mean_net_max_drawdown": -0.246775,
+      "mean_trades": 76.0,
+      "total_partial_fills": 0
+    },
+    "v35_model_trail_5pct": {
+      "mean_gross_return": 0.207738,
+      "mean_net_return": 0.014908,
+      "mean_net_max_drawdown": -0.257808,
+      "mean_trades": 59.4,
+      "total_partial_fills": 0
+    },
+    "v35_model_trail_none": {
+      "mean_gross_return": 0.380237,
+      "mean_net_return": 0.335918,
+      "mean_net_max_drawdown": -0.19822,
+      "mean_trades": 49.2,
+      "total_partial_fills": 0
+    },
+    "v35_model_exit_only": {
+      "mean_gross_return": 0.459822,
+      "mean_net_return": 0.438754,
+      "mean_net_max_drawdown": -0.197776,
+      "mean_trades": 45.2,
+      "total_partial_fills": 0
+    }
+  },
+  "moc_aggregate": {
+    "v35_model_trail_1pct": {
+      "mean_gross_return": 0.287206,
+      "mean_net_return": 0.272576,
+      "mean_net_max_drawdown": -0.18233,
+      "mean_trades": 64.4
+    },
+    "v35_model_trail_2pct": {
+      "mean_gross_return": 0.286053,
+      "mean_net_return": 0.27302,
+      "mean_net_max_drawdown": -0.191522,
+      "mean_trades": 57.2
+    },
+    "v35_model_trail_3pct": {
+      "mean_gross_return": 0.355738,
+      "mean_net_return": 0.342979,
+      "mean_net_max_drawdown": -0.186106,
+      "mean_trades": 53.4
+    },
+    "v35_model_trail_5pct": {
+      "mean_gross_return": 0.463549,
+      "mean_net_return": 0.450607,
+      "mean_net_max_drawdown": -0.186556,
+      "mean_trades": 50.0
+    },
+    "v35_model_trail_none": {
+      "mean_gross_return": 0.45699,
+      "mean_net_return": 0.445114,
+      "mean_net_max_drawdown": -0.196998,
+      "mean_trades": 47.8
+    },
+    "v35_model_exit_only": {
+      "mean_gross_return": 0.459822,
+      "mean_net_return": 0.448333,
+      "mean_net_max_drawdown": -0.196491,
+      "mean_trades": 45.2
+    }
+  },
+  "execution_comparison": {
+    "v35_model_trail_1pct": {
+      "stop_market_net": -0.040281,
+      "moc_close_net": 0.272576,
+      "stop_market_trades": 94.6,
+      "moc_trades": 64.4
+    },
+    "v35_model_trail_2pct": {
+      "stop_market_net": -0.173598,
+      "moc_close_net": 0.27302,
+      "stop_market_trades": 87.0,
+      "moc_trades": 57.2
+    },
+    "v35_model_trail_3pct": {
+      "stop_market_net": -0.130827,
+      "moc_close_net": 0.342979,
+      "stop_market_trades": 76.0,
+      "moc_trades": 53.4
+    },
+    "v35_model_trail_5pct": {
+      "stop_market_net": 0.014908,
+      "moc_close_net": 0.450607,
+      "stop_market_trades": 59.4,
+      "moc_trades": 50.0
+    },
+    "v35_model_trail_none": {
+      "stop_market_net": 0.335918,
+      "moc_close_net": 0.445114,
+      "stop_market_trades": 49.2,
+      "moc_trades": 47.8
+    },
+    "v35_model_exit_only": {
+      "stop_market_net": 0.438754,
+      "moc_close_net": 0.448333,
+      "stop_market_trades": 45.2,
+      "moc_trades": 45.2
+    }
+  },
+  "moc_cost_profile": {
+    "quoted_spread_bps": 0.5,
+    "market_impact_bps": 0.5,
+    "stop_extra_slippage_bps": 0.0,
+    "note": "close-to-close decisions, fills at the close auction, no intraday stop-gap"
+  },
+  "entry_expectancy_aggregate": {
+    "mean_edge_fwd5": 0.000531,
+    "symbols_with_positive_edge": 3,
+    "per_symbol_edge": {
+      "AVGO": -0.001528,
+      "NVDA": 0.002984,
+      "TSLA": 0.001337,
+      "GOOGL": 0.001797,
+      "XOM": -0.001937
+    }
+  },
+  "no_same_day_reentry_check": {
+    "AVGO": {
+      "net_return_with_flag": 0.077858,
+      "net_return_without_flag": 0.077858,
+      "trades_with_flag": 122,
+      "trades_without_flag": 122,
+      "identical": true
+    },
+    "NVDA": {
+      "net_return_with_flag": 0.040626,
+      "net_return_without_flag": 0.040626,
+      "trades_with_flag": 82,
+      "trades_without_flag": 82,
+      "identical": true
+    },
+    "TSLA": {
+      "net_return_with_flag": -0.088551,
+      "net_return_without_flag": -0.088551,
+      "trades_with_flag": 97,
+      "trades_without_flag": 97,
+      "identical": true
+    },
+    "GOOGL": {
+      "net_return_with_flag": -0.090414,
+      "net_return_without_flag": -0.090414,
+      "trades_with_flag": 60,
+      "trades_without_flag": 60,
+      "identical": true
+    },
+    "XOM": {
+      "net_return_with_flag": -0.140923,
+      "net_return_without_flag": -0.140923,
+      "trades_with_flag": 112,
+      "trades_without_flag": 112,
+      "identical": true
+    }
+  },
+  "interpretation": {
+    "v35_1pct_gross_vs_net": [
+      3.119158,
+      -0.040281
+    ],
+    "model_beats_random_net": false,
+    "model_beats_buy_and_hold_net": false,
+    "model_beats_always_long_net": true,
+    "gross_best_trailing": "v35_model_trail_1pct",
+    "net_best_trailing": "v35_model_trail_none",
+    "entry_edge_positive": true,
+    "no_same_day_reentry_is_noop_on_daily": true
+  }
+}

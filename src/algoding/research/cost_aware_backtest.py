@@ -49,7 +49,8 @@ def run_execution_aware_replay(
         for event in events_by_ts.get(bar.timestamp, []):
             reason = str(event.get("reason", ""))
             if event["event"] == "buy" and qty <= 0:
-                desired_cash = cash
+                # buy_fraction (default 1.0) supports conviction sizing -- deploy only part of cash.
+                desired_cash = cash * float(event.get("buy_fraction", 1.0))
                 base_slippage_bps = (assumptions.quoted_spread_bps / 2.0) + assumptions.market_impact_bps
                 reference_price = float(event["price"])
                 fill_price = reference_price * (1 + (base_slippage_bps / 10_000.0))

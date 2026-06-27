@@ -42,9 +42,10 @@ class AlpacaNewsHistoricalClient:
         end: datetime,
         include_content: bool = False,
         limit: int = 50,
+        use_cache: bool = True,
     ) -> list[NewsArticle]:
         cache_path = self._cache_path(symbol=symbol, start=start, end=end, include_content=include_content)
-        if cache_path.exists():
+        if use_cache and cache_path.exists():
             raw = json.loads(cache_path.read_text(encoding="utf-8"))
             return [NewsArticle(**item) for item in raw]
 
@@ -85,10 +86,11 @@ class AlpacaNewsHistoricalClient:
             cursor_end = next_cursor_end
 
         articles = sorted(articles_by_id.values(), key=lambda item: item.created_at)
-        cache_path.write_text(
-            json.dumps([article.__dict__ for article in articles], indent=2),
-            encoding="utf-8",
-        )
+        if use_cache:
+            cache_path.write_text(
+                json.dumps([article.__dict__ for article in articles], indent=2),
+                encoding="utf-8",
+            )
         return articles
 
     def _cache_path(self, *, symbol: str, start: datetime, end: datetime, include_content: bool) -> Path:

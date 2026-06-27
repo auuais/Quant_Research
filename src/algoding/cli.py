@@ -13,6 +13,8 @@ from algoding.execution.deepseek_directional_v3_hourly import DeepseekDirectiona
 from algoding.execution.deepseek_directional_v3_variants import run_v3_top5_trailing_no_same_day_reentry
 from algoding.execution.deepseek_directional_v4_research import DeepseekDirectionalV4ResearchLab
 from algoding.execution.deepseek_strict_compare import DeepseekStrictComparisonLab
+from algoding.execution.qwen_embedding_directional_research import QwenEmbeddingDirectionalResearchLab
+from algoding.execution.v35_execution_controls import run_v35_execution_controls
 from algoding.execution.dl_research import DlResearchLab
 from algoding.execution.historical_research import HistoricalResearchLab
 from algoding.execution.llm_research import LlmNewsResearchLab
@@ -513,6 +515,60 @@ def cmd_deepseek_directional_v35_variant_run() -> int:
     return 0
 
 
+def cmd_qwen_embedding_v3_q3e_run(
+    output_root: str,
+    model_name: str,
+    max_bars: int,
+    max_train_samples: int,
+    max_length: int,
+    batch_size: int,
+    quantization: str,
+    embargo_days: int,
+    v35_scores_path: str,
+    end_date: str,
+    training_symbols: list[str],
+    evaluation_symbols: list[str],
+) -> int:
+    context = build_app_context()
+    lab = QwenEmbeddingDirectionalResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        model_name=model_name,
+        max_bars=max_bars,
+        max_train_samples=max_train_samples,
+        max_length=max_length,
+        batch_size=batch_size,
+        quantization=quantization,
+        embargo_days=embargo_days,
+        v35_scores_path=v35_scores_path,
+        end_date=end_date or None,
+        training_symbols=training_symbols or None,
+        evaluation_symbols=evaluation_symbols or None,
+    )
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+def cmd_v35_execution_controls_run(
+    output_root: str,
+    v35_scores_path: str,
+    end_date: str,
+    seeds: int,
+    evaluation_symbols: list[str],
+) -> int:
+    context = build_app_context()
+    result = run_v35_execution_controls(
+        context.settings,
+        output_root=output_root,
+        v35_scores_path=v35_scores_path,
+        symbols=evaluation_symbols or None,
+        end_date=end_date or None,
+        seeds=seeds,
+    )
+    print(json.dumps(result, indent=2))
+    return 0
+
+
 def cmd_deepseek_directional_v35_hourly_run(
     training_symbols: list[str],
     evaluation_symbols: list[str],
@@ -563,6 +619,7 @@ def cmd_v35_intraday_run(
     lookback_bars: int,
     max_cycles: int,
     sleep_seconds: int,
+    news_check_seconds: int,
 ) -> int:
     context = build_app_context()
     trader = V35IntradayTrader(context.settings)
@@ -572,6 +629,7 @@ def cmd_v35_intraday_run(
         lookback_bars=lookback_bars,
         max_cycles=max_cycles,
         sleep_seconds=sleep_seconds,
+        news_check_seconds=news_check_seconds,
     )
     print(json.dumps(result, indent=2))
     return 0
@@ -983,6 +1041,35 @@ def main() -> int:
     deepseek_directional_v35_hourly_parser.add_argument("--max-eval-samples", type=int, default=300)
     deepseek_directional_v35_hourly_parser.add_argument("--scoring-batch-size", type=int, default=4)
     subparsers.add_parser("deepseek-directional-v35-variant-run")
+    qwen_q3e_parser = subparsers.add_parser("qwen-embedding-v3-q3e-run")
+    qwen_q3e_parser.add_argument("--output-root", default="reports/research/qwen_embedding_v3_q3e")
+    qwen_q3e_parser.add_argument("--model-name", default="Qwen/Qwen3-Embedding-4B")
+    qwen_q3e_parser.add_argument("--max-bars", type=int, default=1400)
+    qwen_q3e_parser.add_argument("--max-train-samples", type=int, default=10000)
+    qwen_q3e_parser.add_argument("--max-length", type=int, default=768)
+    qwen_q3e_parser.add_argument("--batch-size", type=int, default=4)
+    qwen_q3e_parser.add_argument("--quantization", default="4bit", choices=["4bit", "8bit", "none"])
+    qwen_q3e_parser.add_argument("--embargo-days", type=int, default=5)
+    qwen_q3e_parser.add_argument(
+        "--v35-scores-path",
+        default="reports/research/deepseek_directional_v3/finetuned_directional_scores.jsonl",
+    )
+    qwen_q3e_parser.add_argument(
+        "--end-date",
+        default="",
+        help="Cap the evaluation window (YYYY-MM-DD). Defaults to the last day in the V3-5 score cache.",
+    )
+    qwen_q3e_parser.add_argument("--training-symbols", default="")
+    qwen_q3e_parser.add_argument("--evaluation-symbols", default="")
+    v35_controls_parser = subparsers.add_parser("v35-execution-controls-run")
+    v35_controls_parser.add_argument("--output-root", default="reports/research/qwen_embedding_v3_q3e/controls")
+    v35_controls_parser.add_argument(
+        "--v35-scores-path",
+        default="reports/research/deepseek_directional_v3/finetuned_directional_scores.jsonl",
+    )
+    v35_controls_parser.add_argument("--end-date", default="")
+    v35_controls_parser.add_argument("--seeds", type=int, default=25)
+    v35_controls_parser.add_argument("--evaluation-symbols", default="")
     v35_paper_run_parser = subparsers.add_parser("v35-paper-run")
     v35_paper_run_parser.add_argument("--submit", action="store_true")
     v35_paper_run_parser.add_argument("--target-capital", type=float, default=60000.0)
@@ -993,6 +1080,7 @@ def main() -> int:
     v35_intraday_run_parser.add_argument("--lookback-bars", type=int, default=180)
     v35_intraday_run_parser.add_argument("--max-cycles", type=int, default=1)
     v35_intraday_run_parser.add_argument("--sleep-seconds", type=int, default=60)
+    v35_intraday_run_parser.add_argument("--news-check-seconds", type=int, default=600)
     deepseek_strict_compare_parser = subparsers.add_parser("deepseek-strict-compare-run")
     deepseek_strict_compare_parser.add_argument("--previous-report-path", default="reports/research/llm_news_sentiment_deepseek_stocks_report_full.json")
     deepseek_strict_compare_parser.add_argument("--meta-artifact-path", default="reports/research/deepseek_news_price_meta_full/deepseek_news_price_meta_run.json")
@@ -1226,6 +1314,29 @@ def main() -> int:
         )
     if args.command == "deepseek-directional-v35-variant-run":
         return cmd_deepseek_directional_v35_variant_run()
+    if args.command == "qwen-embedding-v3-q3e-run":
+        return cmd_qwen_embedding_v3_q3e_run(
+            args.output_root,
+            args.model_name,
+            args.max_bars,
+            args.max_train_samples,
+            args.max_length,
+            args.batch_size,
+            args.quantization,
+            args.embargo_days,
+            args.v35_scores_path,
+            args.end_date,
+            [value.strip().upper() for value in args.training_symbols.split(",") if value.strip()],
+            [value.strip().upper() for value in args.evaluation_symbols.split(",") if value.strip()],
+        )
+    if args.command == "v35-execution-controls-run":
+        return cmd_v35_execution_controls_run(
+            args.output_root,
+            args.v35_scores_path,
+            args.end_date,
+            args.seeds,
+            [value.strip().upper() for value in args.evaluation_symbols.split(",") if value.strip()],
+        )
     if args.command == "v35-paper-run":
         return cmd_v35_paper_run(args.submit, args.target_capital)
     if args.command == "v35-paper-report":
@@ -1237,6 +1348,7 @@ def main() -> int:
             args.lookback_bars,
             args.max_cycles,
             args.sleep_seconds,
+            args.news_check_seconds,
         )
     if args.command == "deepseek-strict-compare-run":
         return cmd_deepseek_strict_compare_run(

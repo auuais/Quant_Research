@@ -1,0 +1,113 @@
+{
+  "source_artifact": "reports\\research\\deepseek_directional_v3\\v3_5_top5_20260326_20260626.json",
+  "version": "V3-5",
+  "window_requested": "2026-03-26 -> 2026-06-26",
+  "policy": {
+    "minimum_strength": "medium",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.01,
+    "no_same_day_reentry": true
+  },
+  "assumptions": {
+    "returns_already_compounded_by_replay_engine": true,
+    "start_capital_per_symbol_case": 10000.0,
+    "equal_weight_total_start_capital_case": 10000.0
+  },
+  "rows": [
+    {
+      "symbol": "TSLA",
+      "effective_period": "2026-03-26 -> 2026-06-25 (63 days)",
+      "total_return": 0.844283,
+      "max_drawdown": -0.005301,
+      "trades": 29,
+      "win_rate": 0.965517,
+      "latest_signal": "long",
+      "start_capital_per_symbol": 10000.0,
+      "final_equity_per_symbol": 18442.83,
+      "profit_per_symbol": 8442.83,
+      "max_drawdown_dollars_per_symbol_basis": 53.01,
+      "equal_weight_start_capital": 2000.0,
+      "equal_weight_final_equity": 3688.57,
+      "equal_weight_profit": 1688.57
+    },
+    {
+      "symbol": "AVGO",
+      "effective_period": "2026-03-26 -> 2026-06-25 (63 days)",
+      "total_return": 0.634794,
+      "max_drawdown": -0.006012,
+      "trades": 29,
+      "win_rate": 0.793103,
+      "latest_signal": "flat",
+      "start_capital_per_symbol": 10000.0,
+      "final_equity_per_symbol": 16347.94,
+      "profit_per_symbol": 6347.94,
+      "max_drawdown_dollars_per_symbol_basis": 60.12,
+      "equal_weight_start_capital": 2000.0,
+      "equal_weight_final_equity": 3269.59,
+      "equal_weight_profit": 1269.59
+    },
+    {
+      "symbol": "NVDA",
+      "effective_period": "2026-03-26 -> 2026-06-25 (63 days)",
+      "total_return": 0.423285,
+      "max_drawdown": -0.021713,
+      "trades": 28,
+      "win_rate": 0.75,
+      "latest_signal": "long",
+      "start_capital_per_symbol": 10000.0,
+      "final_equity_per_symbol": 14232.85,
+      "profit_per_symbol": 4232.85,
+      "max_drawdown_dollars_per_symbol_basis": 217.13,
+      "equal_weight_start_capital": 2000.0,
+      "equal_weight_final_equity": 2846.57,
+      "equal_weight_profit": 846.57
+    },
+    {
+      "symbol": "GOOGL",
+      "effective_period": "2026-03-26 -> 2026-06-25 (63 days)",
+      "total_return": 0.405177,
+      "max_drawdown": -0.010164,
+      "trades": 30,
+      "win_rate": 0.6,
+      "latest_signal": "flat",
+      "start_capital_per_symbol": 10000.0,
+      "final_equity_per_symbol": 14051.77,
+      "profit_per_symbol": 4051.77,
+      "max_drawdown_dollars_per_symbol_basis": 101.64,
+      "equal_weight_start_capital": 2000.0,
+      "equal_weight_final_equity": 2810.35,
+      "equal_weight_profit": 810.35
+    },
+    {
+      "symbol": "XOM",
+      "effective_period": "2026-03-26 -> 2026-06-25 (63 days)",
+      "total_return": 0.290332,
+      "max_drawdown": -0.007334,
+      "trades": 30,
+      "win_rate": 0.7,
+      "latest_signal": "flat",
+      "start_capital_per_symbol": 10000.0,
+      "final_equity_per_symbol": 12903.32,
+      "profit_per_symbol": 2903.32,
+      "max_drawdown_dollars_per_symbol_basis": 73.34,
+      "equal_weight_start_capital": 2000.0,
+      "equal_weight_final_equity": 2580.66,
+      "equal_weight_profit": 580.66
+    }
+  ],
+  "aggregate": {
+    "per_symbol_case_start_capital": 50000.0,
+    "per_symbol_case_final_equity": 75978.71,
+    "per_symbol_case_profit": 25978.71,
+    "per_symbol_case_return": 0.519574,
+    "equal_weight_start_capital": 10000.0,
+    "equal_weight_final_equity": 15195.74,
+    "equal_weight_profit": 5195.74,
+    "equal_weight_return": 0.519574,
+    "mean_return": 0.519574,
+    "mean_max_drawdown": -0.010105,
+    "mean_trades": 29.2
+  }
+}

@@ -16,6 +16,11 @@ from algoding.research.deepseek_directional_model import DirectionalPrediction
 from algoding.research.llm_sentiment import DailySentimentScore, LocalLlmNewsSentimentEngine
 
 
+DEFAULT_RISK_CHECK_SECONDS = 60
+DEFAULT_NEWS_CHECK_SECONDS = 600
+MAX_NEWS_STALENESS_SECONDS = 1800
+
+
 class V35IntradayTrader(V35PaperTrader):
     def __init__(self, settings) -> None:
         super().__init__(settings)
@@ -27,7 +32,11 @@ class V35IntradayTrader(V35PaperTrader):
         sentiment_settings.llm_news_cache_dir = Path("cache/llm_news_deepseek_intraday")
         sentiment_settings.llm_news_force_gpu = settings.llm_news_force_gpu
         sentiment_settings.llm_news_quantization = settings.llm_news_quantization
-        self._sentiment_engine = LocalLlmNewsSentimentEngine(sentiment_settings)
+        self._sentiment_settings = sentiment_settings
+        self._sentiment_engine: LocalLlmNewsSentimentEngine | None = None
+        self._intraday_sentiment_cache: dict[str, DailySentimentScore | None] = {}
+        self._intraday_sentiment_meta: dict[str, dict[str, object]] = {}
+        self._intraday_sentiment_refreshed_at: datetime | None = None
 
     def run_intraday_cycle(
         self,
@@ -35,6 +44,7 @@ class V35IntradayTrader(V35PaperTrader):
         submit: bool,
         target_capital: float = 60000.0,
         lookback_bars: int = 180,
+        news_check_seconds: int = DEFAULT_NEWS_CHECK_SECONDS,
     ) -> dict[str, object]:
         portfolio = self.ensure_portfolio(target_capital=target_capital)
         clock = self._trading_client.get_clock()
@@ -56,7 +66,10 @@ class V35IntradayTrader(V35PaperTrader):
 
         daily_predictions = self._latest_daily_predictions(portfolio.symbols)
         minute_bars_by_symbol = self._history.get_recent_minute_bars(portfolio.symbols, lookback_bars)
-        intraday_sentiment = self._latest_intraday_sentiment(portfolio.symbols)
+        intraday_sentiment, sentiment_meta = self._latest_intraday_sentiment(
+            portfolio.symbols,
+            news_check_seconds=news_check_seconds,
+        )
         positions = {
             position.symbol: position
             for position in self._trading_client.get_all_positions()
@@ -77,8 +90,11 @@ class V35IntradayTrader(V35PaperTrader):
             minute_bars = minute_bars_by_symbol.get(symbol, [])
             latest_prediction = daily_predictions.get(symbol)
             latest_sentiment = intraday_sentiment.get(symbol)
+            latest_sentiment_meta = sentiment_meta.get(symbol, {"stale": True, "status": "missing"})
             model_long = _prediction_is_long(latest_prediction)
-            sentiment_long = _sentiment_is_bullish(latest_sentiment)
+            sentiment_stale = bool(latest_sentiment_meta.get("stale", True))
+            sentiment_long = _sentiment_is_bullish(latest_sentiment) and not sentiment_stale
+            sentiment_exit = _sentiment_is_exit(latest_sentiment) and not sentiment_stale
             current_position = positions.get(symbol)
             current_price = (
                 float(current_position.current_price)
@@ -99,7 +115,7 @@ class V35IntradayTrader(V35PaperTrader):
             same_day_reentry_block = _same_day_reentry_blocked(state, now)
             should_exit_for_signal = (
                 position_state.qty > 0
-                and (not model_long or not sentiment_long)
+                and (not model_long or sentiment_exit)
             )
             should_enter = (
                 position_state.qty <= 0
@@ -190,8 +206,10 @@ class V35IntradayTrader(V35PaperTrader):
                     "symbol": symbol,
                     "prediction": asdict(latest_prediction) if latest_prediction is not None else None,
                     "sentiment": _sentiment_payload(latest_sentiment),
+                    "sentiment_meta": latest_sentiment_meta,
                     "model_long": model_long,
                     "sentiment_long": sentiment_long,
+                    "sentiment_exit": sentiment_exit,
                     "same_day_reentry_block": same_day_reentry_block,
                     "status": status,
                     "target_notional": round(target_per_symbol, 2),
@@ -213,6 +231,11 @@ class V35IntradayTrader(V35PaperTrader):
             "submitted": submit,
             "market_open": True,
             "timestamp": now.isoformat(),
+            "cadence": {
+                "risk_check_seconds": DEFAULT_RISK_CHECK_SECONDS,
+                "news_check_seconds": news_check_seconds,
+                "max_news_staleness_seconds": MAX_NEWS_STALENESS_SECONDS,
+            },
             "portfolio": asdict(portfolio),
             "target_total_notional": round(target_total_notional, 2),
             "target_per_symbol": round(target_per_symbol, 2),
@@ -228,7 +251,8 @@ class V35IntradayTrader(V35PaperTrader):
         target_capital: float = 60000.0,
         lookback_bars: int = 180,
         max_cycles: int = 1,
-        sleep_seconds: int = 60,
+        sleep_seconds: int = DEFAULT_RISK_CHECK_SECONDS,
+        news_check_seconds: int = DEFAULT_NEWS_CHECK_SECONDS,
         output_dir: str = "reports/paper/v35_intraday",
     ) -> dict[str, object]:
         output_path = Path(output_dir)
@@ -239,6 +263,7 @@ class V35IntradayTrader(V35PaperTrader):
                 submit=submit,
                 target_capital=target_capital,
                 lookback_bars=lookback_bars,
+                news_check_seconds=news_check_seconds,
             )
             cycles.append(cycle)
             stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
@@ -267,12 +292,39 @@ class V35IntradayTrader(V35PaperTrader):
             latest_predictions[symbol] = predictions_by_symbol[symbol][latest_key]
         return latest_predictions
 
-    def _latest_intraday_sentiment(self, symbols: list[str]) -> dict[str, DailySentimentScore | None]:
+    def _latest_intraday_sentiment(
+        self,
+        symbols: list[str],
+        *,
+        news_check_seconds: int = DEFAULT_NEWS_CHECK_SECONDS,
+    ) -> tuple[dict[str, DailySentimentScore | None], dict[str, dict[str, object]]]:
         now = datetime.now(timezone.utc)
-        start = now - timedelta(days=3)
+        return self._refresh_intraday_sentiment(
+            symbols=symbols,
+            now=now,
+            news_check_seconds=news_check_seconds,
+        )
+
+    def _refresh_intraday_sentiment(
+        self,
+        *,
+        symbols: list[str],
+        now: datetime,
+        news_check_seconds: int | None = None,
+    ) -> tuple[dict[str, DailySentimentScore | None], dict[str, dict[str, object]]]:
+        news_interval = DEFAULT_NEWS_CHECK_SECONDS if news_check_seconds is None else max(60, news_check_seconds)
+        last_refresh = self._intraday_sentiment_refreshed_at
+        age_seconds = None if last_refresh is None else (now - last_refresh).total_seconds()
+        refresh_due = last_refresh is None or age_seconds is None or age_seconds >= news_interval
+        if not refresh_due:
+            meta = self._sentiment_meta_for_symbols(symbols=symbols, now=now, refreshed=False)
+            return {symbol: self._intraday_sentiment_cache.get(symbol) for symbol in symbols}, meta
+
         market_tz = ZoneInfo("America/New_York")
         trading_day = now.astimezone(market_tz).date()
+        start = now - timedelta(days=3)
         results: dict[str, DailySentimentScore | None] = {}
+        meta: dict[str, dict[str, object]] = {}
         for symbol in symbols:
             articles = self._news_client.get_news_articles(
                 symbol=symbol,
@@ -280,23 +332,75 @@ class V35IntradayTrader(V35PaperTrader):
                 end=now,
                 include_content=False,
                 limit=50,
+                use_cache=False,
             )
             today_articles = [
                 article
                 for article in articles
                 if datetime.fromisoformat(article.created_at).astimezone(market_tz).date() == trading_day
             ]
-            bundles = self._sentiment_engine.build_trading_day_bundles(
+            sentiment_engine = self._get_sentiment_engine()
+            bundles = sentiment_engine.build_trading_day_bundles(
                 symbol=symbol,
                 articles=today_articles,
                 trading_days=[trading_day],
             )
-            if not bundles:
-                results[symbol] = None
-                continue
-            scores = self._sentiment_engine.score_bundles(bundles, batch_size=4)
-            results[symbol] = scores.get(trading_day.isoformat())
-        return results
+            score = None
+            if bundles:
+                scores = sentiment_engine.score_bundles(bundles, batch_size=4)
+                score = scores.get(trading_day.isoformat())
+            results[symbol] = score
+            article_ids = list(score.article_ids) if score is not None else [article.article_id for article in today_articles]
+            meta[symbol] = {
+                "status": "scored" if score is not None else "no_today_news",
+                "refreshed": True,
+                "refreshed_at": now.isoformat(),
+                "age_seconds": 0,
+                "stale": score is None,
+                "article_count": len(today_articles),
+                "article_ids": article_ids,
+            }
+        self._intraday_sentiment_refreshed_at = now
+        self._intraday_sentiment_cache = results
+        self._intraday_sentiment_meta = meta
+        return results, meta
+
+    def _get_sentiment_engine(self) -> LocalLlmNewsSentimentEngine:
+        if self._sentiment_engine is None:
+            self._sentiment_engine = LocalLlmNewsSentimentEngine(self._sentiment_settings)
+        return self._sentiment_engine
+
+    def _sentiment_meta_for_symbols(
+        self,
+        *,
+        symbols: list[str],
+        now: datetime,
+        refreshed: bool,
+    ) -> dict[str, dict[str, object]]:
+        age_seconds = (
+            None
+            if self._intraday_sentiment_refreshed_at is None
+            else (now - self._intraday_sentiment_refreshed_at).total_seconds()
+        )
+        meta: dict[str, dict[str, object]] = {}
+        for symbol in symbols:
+            prior = dict(self._intraday_sentiment_meta.get(symbol, {}))
+            stale = age_seconds is None or age_seconds > MAX_NEWS_STALENESS_SECONDS or self._intraday_sentiment_cache.get(symbol) is None
+            prior.update(
+                {
+                    "status": prior.get("status", "missing"),
+                    "refreshed": refreshed,
+                    "refreshed_at": (
+                        self._intraday_sentiment_refreshed_at.isoformat()
+                        if self._intraday_sentiment_refreshed_at is not None
+                        else None
+                    ),
+                    "age_seconds": age_seconds,
+                    "stale": stale,
+                }
+            )
+            meta[symbol] = prior
+        return meta
 
     def _ensure_intraday_protection(
         self,
@@ -404,6 +508,12 @@ def _sentiment_is_bullish(sentiment: DailySentimentScore | None) -> bool:
     if sentiment is None:
         return False
     return sentiment.label == "bullish" and float(sentiment.score) > 0
+
+
+def _sentiment_is_exit(sentiment: DailySentimentScore | None) -> bool:
+    if sentiment is None:
+        return False
+    return sentiment.label == "bearish" or float(sentiment.score) < 0
 
 
 def _sentiment_payload(sentiment: DailySentimentScore | None) -> dict[str, object] | None:

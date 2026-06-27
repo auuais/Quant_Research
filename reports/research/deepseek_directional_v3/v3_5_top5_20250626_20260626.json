@@ -1,0 +1,87 @@
+{
+  "version": "V3-5",
+  "window_requested": "2025-06-26 -> 2026-06-26",
+  "policy": {
+    "minimum_strength": "medium",
+    "require_relative_confirmation": false,
+    "require_momentum_confirmation": false,
+    "stop_loss_pct": 0.05,
+    "trailing_stop_pct": 0.01,
+    "no_same_day_reentry": true
+  },
+  "symbols": [
+    "AVGO",
+    "NVDA",
+    "TSLA",
+    "GOOGL",
+    "XOM"
+  ],
+  "rows": [
+    {
+      "symbol": "TSLA",
+      "effective_period": "2025-06-26 -> 2026-06-25 (251 days)",
+      "total_return": 4.70913,
+      "max_drawdown": -0.010812,
+      "trades": 100,
+      "win_rate": 0.87,
+      "latest_signal": "long",
+      "exit_reasons": {
+        "risk_exit": 100
+      }
+    },
+    {
+      "symbol": "AVGO",
+      "effective_period": "2025-06-26 -> 2026-06-25 (251 days)",
+      "total_return": 3.962166,
+      "max_drawdown": -0.010398,
+      "trades": 111,
+      "win_rate": 0.81982,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 111
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "effective_period": "2025-06-26 -> 2026-06-25 (251 days)",
+      "total_return": 1.771856,
+      "max_drawdown": -0.021713,
+      "trades": 82,
+      "win_rate": 0.829268,
+      "latest_signal": "long",
+      "exit_reasons": {
+        "risk_exit": 82
+      }
+    },
+    {
+      "symbol": "XOM",
+      "effective_period": "2025-06-26 -> 2026-06-25 (251 days)",
+      "total_return": 0.801391,
+      "max_drawdown": -0.01945,
+      "trades": 107,
+      "win_rate": 0.635514,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 106,
+        "prediction_exit": 1
+      }
+    },
+    {
+      "symbol": "GOOGL",
+      "effective_period": "2025-06-26 -> 2026-06-25 (251 days)",
+      "total_return": 0.57808,
+      "max_drawdown": -0.012644,
+      "trades": 55,
+      "win_rate": 0.618182,
+      "latest_signal": "flat",
+      "exit_reasons": {
+        "risk_exit": 55
+      }
+    }
+  ],
+  "aggregate": {
+    "mean_return": 2.364525,
+    "mean_max_drawdown": -0.015003,
+    "mean_trades": 91.0
+  }
+}
