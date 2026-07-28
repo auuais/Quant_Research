@@ -157,7 +157,8 @@ class AlphaFactoryResearchLab:
             validation_end=validation_end,
         )
         decay = _decay_analysis(accepted)
-        decision = _decide(decay=decay, ensemble=ensemble, accepted=accepted)
+        regime = _validation_regime_note(baseline_scores)
+        decision = _decide(decay=decay, ensemble=ensemble, accepted=accepted, regime=regime)
 
         result: dict[str, object] = {
             "version": "ALPHA-FACTORY-V1",
@@ -205,6 +206,7 @@ class AlphaFactoryResearchLab:
             "search": {key: value for key, value in search.items() if key != "survivors"},
             "accepted_factors": [factor.as_dict() for factor in accepted],
             "baseline_scores": baseline_scores,
+            "validation_regime": regime,
             "ensemble": ensemble,
             "decay_analysis": decay,
             "decision": decision,
@@ -531,6 +533,50 @@ def _metrics(returns: pd.Series, benchmark: pd.Series | None = None) -> dict[str
     return out
 
 
+def _validation_regime_note(baseline_scores: dict[str, object]) -> dict[str, object]:
+    """Did the incumbent factors themselves work during validation?
+
+    If the hand-built winners have negative IC over the validation window, then 'no mined factor passed
+    validation' cannot be attributed to the mining alone -- the window was hostile to the whole factor
+    family, and a single contiguous validation year cannot separate the two explanations.
+    """
+    rows = {}
+    for name, scores in baseline_scores.items():
+        validation = scores.get("validation", {}) if isinstance(scores, dict) else {}
+        test = scores.get("test", {}) if isinstance(scores, dict) else {}
+        rows[name] = {
+            "validation_rank_ic": validation.get("rank_ic"),
+            "validation_icir": validation.get("icir"),
+            "test_rank_ic": test.get("rank_ic"),
+            "test_icir": test.get("icir"),
+        }
+    validation_ics = [
+        row["validation_rank_ic"] for row in rows.values() if row["validation_rank_ic"] is not None
+    ]
+    all_negative = bool(validation_ics) and all(value <= 0 for value in validation_ics)
+    would_pass = [
+        name
+        for name, row in rows.items()
+        if row["validation_rank_ic"] is not None and row["validation_rank_ic"] >= ACCEPT_RANK_IC
+    ]
+    return {
+        "baselines": rows,
+        "all_baselines_negative_in_validation": all_negative,
+        "baselines_clearing_acceptance_in_validation": would_pass,
+        "interpretation": (
+            "the incumbent factors also fail the acceptance bar over this validation window, so the window "
+            "is hostile to the entire cross-sectional price/volume family; a single contiguous validation "
+            "year cannot distinguish 'mining produces nothing' from 'nothing worked that year'"
+            if all_negative
+            else "at least one incumbent factor works in validation, so the window discriminates between factors"
+        ),
+        "required_fix_for_next_registration": (
+            "replace the single contiguous validation year with purged multi-fold walk-forward validation so "
+            "acceptance is not decided by one regime"
+        ),
+    }
+
+
 def _decay_analysis(accepted: list[AcceptedFactor]) -> dict[str, object]:
     rows = [
         {
@@ -567,17 +613,28 @@ def _decide(
     decay: dict[str, object],
     ensemble: dict[str, object],
     accepted: list[AcceptedFactor],
+    regime: dict[str, object] | None = None,
 ) -> dict[str, object]:
+    regime = regime or {}
     if not accepted:
+        hostile = bool(regime.get("all_baselines_negative_in_validation"))
         return {
             "status": "KILLED",
             "reason": "no candidate passed validation acceptance",
             "promoted": False,
             "kill_rule_fired": True,
             "accepted_factor_count": 0,
+            "decay_test_reached": False,
+            "validation_window_hostile_to_all_baselines": hostile,
             "note": (
-                "nothing survived validation acceptance, which is itself the answer: the search space over "
-                "this panel does not contain a factor that clears RankIC 0.02 with ICIR 0.25 out of sample"
+                "Nothing survived validation acceptance, so the validation->test decay test never ran; the "
+                "factory is frozen either way. But the incumbent factors are ALSO negative over this "
+                "validation window, so this run cannot separate 'the search finds nothing real' from 'this "
+                "one validation year was hostile to every cross-sectional price/volume factor'. The fix is a "
+                "new registration with purged multi-fold validation -- not looser thresholds on this one."
+                if hostile
+                else "Nothing survived validation acceptance while at least one incumbent factor did, so the "
+                "search genuinely produced no out-of-sample factor: the null in the D3 registration holds."
             ),
         }
     books = ensemble.get("books", {}) if isinstance(ensemble, dict) else {}
@@ -642,6 +699,25 @@ def _summary_md(result: dict[str, object]) -> str:
         f"- best absolute train RankIC: `{search['best_train_rank_ic']}`",
         f"- generator mix: `{search['origin_counts']}`",
         f"- LLM proposer: `{search['llm'].get('status')}`",
+        "",
+        "## Validation-Period Context (read this before the factor table)",
+        "",
+        "Whether the acceptance stage can discriminate at all depends on whether the *incumbent* factors work "
+        "over the validation window. Rebuilt on this same panel:",
+        "",
+        "| Baseline | Validation IC | Validation ICIR | Test IC | Test ICIR |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for name, row in result.get("validation_regime", {}).get("baselines", {}).items():
+        lines.append(
+            f"| `{name}` | `{row['validation_rank_ic']}` | `{row['validation_icir']}` | "
+            f"`{row['test_rank_ic']}` | `{row['test_icir']}` |"
+        )
+    lines += [
+        "",
+        result.get("validation_regime", {}).get("interpretation", ""),
+        "",
+        f"Required fix for the next registration: {result.get('validation_regime', {}).get('required_fix_for_next_registration', '')}",
         "",
         "## Accepted Factors (validation-accepted, then scored once on test)",
         "",

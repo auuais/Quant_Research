@@ -1,0 +1,539 @@
+{
+  "version": "ALPHA-FACTORY-V1",
+  "direction": "D3",
+  "thesis": "automated search over a formulaic price/volume DSL finds factor ensembles with higher validation RankIC than the hand-built winners, and they survive a once-run test period",
+  "pre_registration": {
+    "registry": "reports/research/frontier_hypotheses.md#d3",
+    "declared_budget": 4000,
+    "realized_evaluations": 4000,
+    "acceptance": {
+      "rank_ic": 0.02,
+      "icir": 0.25,
+      "max_turnover": 0.45,
+      "dedupe_correlation": 0.7
+    },
+    "kill_rule": "freeze the factory if validation->test RankIC decays more than 50%",
+    "test_runs": 1,
+    "panel_note": "the panel is UNIVERSE_100 loaded from Yahoo over ~21 years, which is far longer than the ~3.5-year Alpaca panel the registry's null assumed; it is also a currently-listed mega-cap set, so survivorship bias is SEVERE over this span and any accepted factor partly encodes 'these particular names went up'"
+  },
+  "config": {
+    "start": "2005-01-01",
+    "panel_range": "2005-01-03 -> 2026-07-27",
+    "panel_days": 5424,
+    "panel_symbols": 100,
+    "forward_horizon": 5,
+    "splits": {
+      "train": "2005-01-03 -> 2024-06-30",
+      "train_forward_cut": "2024-06-20",
+      "validation": "2024-07-01 -> 2025-06-30",
+      "test": "2025-07-01 -> 2026-07-27",
+      "embargo_days": 5
+    },
+    "book": {
+      "size": 20,
+      "rebalance_days": 5
+    },
+    "costs": {
+      "primary_bps": 1.0,
+      "stress_bps": 3.0
+    },
+    "seed": 11
+  },
+  "search": {
+    "evaluations": 4000,
+    "scored": 3778,
+    "origin_counts": {
+      "seed": 17,
+      "mutation": 1701,
+      "random": 1678,
+      "crossover": 604
+    },
+    "train_passing": 482,
+    "llm": {
+      "status": "not requested"
+    },
+    "best_train_rank_ic": 0.02677
+  },
+  "accepted_factors": [
+    {
+      "expression": "cs_rank(mul(mul(abs(low), ts_rank(open, 20)), sub(close, low)))",
+      "origin": "crossover",
+      "direction": -1.0,
+      "train": {
+        "expression": "cs_rank(mul(mul(abs(low), ts_rank(open, 20)), sub(close, low)))",
+        "origin": "crossover",
+        "rank_ic": -0.025692,
+        "icir": -2.6465,
+        "ic_positive_fraction": 0.4389,
+        "turnover": 0.1332,
+        "coverage": 0.9638,
+        "days": 4880
+      },
+      "validation": {
+        "expression": "cs_rank(mul(mul(abs(low), ts_rank(open, 20)), sub(close, low)))",
+        "origin": "crossover",
+        "rank_ic": 0.024858,
+        "icir": 2.183,
+        "ic_positive_fraction": 0.516,
+        "turnover": 0.1181,
+        "coverage": 1.0,
+        "days": 250
+      },
+      "test": {
+        "expression": "cs_rank(mul(mul(abs(low), ts_rank(open, 20)), sub(close, low)))",
+        "origin": "crossover",
+        "rank_ic": 0.018989,
+        "icir": 1.6323,
+        "ic_positive_fraction": 0.5152,
+        "turnover": 0.1283,
+        "coverage": 1.0,
+        "days": 264
+      }
+    }
+  ],
+  "baseline_scores": {
+    "baseline_ret_20d": {
+      "validation": {
+        "rank_ic": -0.03834,
+        "icir": -2.5596,
+        "days": 250
+      },
+      "test": {
+        "rank_ic": 0.002304,
+        "icir": 0.1749,
+        "days": 264
+      }
+    },
+    "baseline_resid_mom_60d": {
+      "validation": {
+        "rank_ic": -0.008793,
+        "icir": -0.5897,
+        "days": 250
+      },
+      "test": {
+        "rank_ic": 0.032616,
+        "icir": 2.3346,
+        "days": 264
+      }
+    }
+  },
+  "validation_regime": {
+    "baselines": {
+      "baseline_ret_20d": {
+        "validation_rank_ic": -0.03834,
+        "validation_icir": -2.5596,
+        "test_rank_ic": 0.002304,
+        "test_icir": 0.1749
+      },
+      "baseline_resid_mom_60d": {
+        "validation_rank_ic": -0.008793,
+        "validation_icir": -0.5897,
+        "test_rank_ic": 0.032616,
+        "test_icir": 2.3346
+      }
+    },
+    "all_baselines_negative_in_validation": true,
+    "baselines_clearing_acceptance_in_validation": [],
+    "interpretation": "the incumbent factors also fail the acceptance bar over this validation window, so the window is hostile to the entire cross-sectional price/volume family; a single contiguous validation year cannot distinguish 'mining produces nothing' from 'nothing worked that year'",
+    "required_fix_for_next_registration": "replace the single contiguous validation year with purged multi-fold walk-forward validation so acceptance is not decided by one regime"
+  },
+  "ensemble": {
+    "ensemble_members": [
+      "cs_rank(mul(mul(abs(low), ts_rank(open, 20)), sub(close, low)))"
+    ],
+    "ensemble_size": 1,
+    "books": {
+      "ensemble_rank_average|validation|primary": {
+        "net_metrics": {
+          "total_return": 0.135219,
+          "cagr": 0.136372,
+          "ann_vol": 0.228041,
+          "sharpe": 0.6734,
+          "max_drawdown": -0.161812,
+          "days": 250,
+          "beta_vs_equal_weight": 1.1549
+        },
+        "gross_metrics": {
+          "total_return": 0.139619,
+          "cagr": 0.140811,
+          "ann_vol": 0.227999,
+          "sharpe": 0.6906,
+          "max_drawdown": -0.161438,
+          "days": 250,
+          "beta_vs_equal_weight": 1.1547
+        },
+        "mean_turnover": 0.772,
+        "rebalances": 50,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.167084,
+          "cagr": 0.168527,
+          "ann_vol": 0.179947,
+          "sharpe": 0.9554,
+          "max_drawdown": -0.166602,
+          "days": 250
+        }
+      },
+      "ensemble_rank_average|validation|stress": {
+        "net_metrics": {
+          "total_return": 0.12647,
+          "cagr": 0.127544,
+          "ann_vol": 0.228128,
+          "sharpe": 0.6391,
+          "max_drawdown": -0.162561,
+          "days": 250,
+          "beta_vs_equal_weight": 1.1554
+        },
+        "gross_metrics": {
+          "total_return": 0.139619,
+          "cagr": 0.140811,
+          "ann_vol": 0.227999,
+          "sharpe": 0.6906,
+          "max_drawdown": -0.161438,
+          "days": 250,
+          "beta_vs_equal_weight": 1.1547
+        },
+        "mean_turnover": 0.772,
+        "rebalances": 50,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.167084,
+          "cagr": 0.168527,
+          "ann_vol": 0.179947,
+          "sharpe": 0.9554,
+          "max_drawdown": -0.166602,
+          "days": 250
+        }
+      },
+      "ensemble_rank_average|test|primary": {
+        "net_metrics": {
+          "total_return": 0.285214,
+          "cagr": 0.264994,
+          "ann_vol": 0.128235,
+          "sharpe": 1.898,
+          "max_drawdown": -0.068006,
+          "days": 269,
+          "beta_vs_equal_weight": 0.9178
+        },
+        "gross_metrics": {
+          "total_return": 0.290952,
+          "cagr": 0.270285,
+          "ann_vol": 0.12817,
+          "sharpe": 1.9315,
+          "max_drawdown": -0.067761,
+          "days": 269,
+          "beta_vs_equal_weight": 0.9174
+        },
+        "mean_turnover": 0.8241,
+        "rebalances": 54,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.285744,
+          "cagr": 0.265483,
+          "ann_vol": 0.101975,
+          "sharpe": 2.361,
+          "max_drawdown": -0.060628,
+          "days": 269
+        }
+      },
+      "ensemble_rank_average|test|stress": {
+        "net_metrics": {
+          "total_return": 0.273813,
+          "cagr": 0.254479,
+          "ann_vol": 0.128373,
+          "sharpe": 1.831,
+          "max_drawdown": -0.068495,
+          "days": 269,
+          "beta_vs_equal_weight": 0.9186
+        },
+        "gross_metrics": {
+          "total_return": 0.290952,
+          "cagr": 0.270285,
+          "ann_vol": 0.12817,
+          "sharpe": 1.9315,
+          "max_drawdown": -0.067761,
+          "days": 269,
+          "beta_vs_equal_weight": 0.9174
+        },
+        "mean_turnover": 0.8241,
+        "rebalances": 54,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.285744,
+          "cagr": 0.265483,
+          "ann_vol": 0.101975,
+          "sharpe": 2.361,
+          "max_drawdown": -0.060628,
+          "days": 269
+        }
+      },
+      "baseline_ret_20d|validation|primary": {
+        "net_metrics": {
+          "total_return": 0.128025,
+          "cagr": 0.129113,
+          "ann_vol": 0.17643,
+          "sharpe": 0.7768,
+          "max_drawdown": -0.14679,
+          "days": 250,
+          "beta_vs_equal_weight": 0.7608
+        },
+        "gross_metrics": {
+          "total_return": 0.132484,
+          "cagr": 0.133612,
+          "ann_vol": 0.176449,
+          "sharpe": 0.7993,
+          "max_drawdown": -0.146352,
+          "days": 250,
+          "beta_vs_equal_weight": 0.7606
+        },
+        "mean_turnover": 0.79,
+        "rebalances": 50,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.167084,
+          "cagr": 0.168527,
+          "ann_vol": 0.179947,
+          "sharpe": 0.9554,
+          "max_drawdown": -0.166602,
+          "days": 250
+        }
+      },
+      "baseline_ret_20d|validation|stress": {
+        "net_metrics": {
+          "total_return": 0.119159,
+          "cagr": 0.120167,
+          "ann_vol": 0.176397,
+          "sharpe": 0.7318,
+          "max_drawdown": -0.147666,
+          "days": 250,
+          "beta_vs_equal_weight": 0.7612
+        },
+        "gross_metrics": {
+          "total_return": 0.132484,
+          "cagr": 0.133612,
+          "ann_vol": 0.176449,
+          "sharpe": 0.7993,
+          "max_drawdown": -0.146352,
+          "days": 250,
+          "beta_vs_equal_weight": 0.7606
+        },
+        "mean_turnover": 0.79,
+        "rebalances": 50,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.167084,
+          "cagr": 0.168527,
+          "ann_vol": 0.179947,
+          "sharpe": 0.9554,
+          "max_drawdown": -0.166602,
+          "days": 250
+        }
+      },
+      "baseline_ret_20d|test|primary": {
+        "net_metrics": {
+          "total_return": 0.52263,
+          "cagr": 0.482705,
+          "ann_vol": 0.177759,
+          "sharpe": 2.3064,
+          "max_drawdown": -0.075967,
+          "days": 269,
+          "beta_vs_equal_weight": 1.0645
+        },
+        "gross_metrics": {
+          "total_return": 0.529075,
+          "cagr": 0.488584,
+          "ann_vol": 0.177758,
+          "sharpe": 2.3288,
+          "max_drawdown": -0.075903,
+          "days": 269,
+          "beta_vs_equal_weight": 1.0643
+        },
+        "mean_turnover": 0.7833,
+        "rebalances": 54,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.285744,
+          "cagr": 0.265483,
+          "ann_vol": 0.101975,
+          "sharpe": 2.361,
+          "max_drawdown": -0.060628,
+          "days": 269
+        }
+      },
+      "baseline_ret_20d|test|stress": {
+        "net_metrics": {
+          "total_return": 0.509819,
+          "cagr": 0.471016,
+          "ann_vol": 0.177767,
+          "sharpe": 2.2618,
+          "max_drawdown": -0.076094,
+          "days": 269,
+          "beta_vs_equal_weight": 1.065
+        },
+        "gross_metrics": {
+          "total_return": 0.529075,
+          "cagr": 0.488584,
+          "ann_vol": 0.177758,
+          "sharpe": 2.3288,
+          "max_drawdown": -0.075903,
+          "days": 269,
+          "beta_vs_equal_weight": 1.0643
+        },
+        "mean_turnover": 0.7833,
+        "rebalances": 54,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.285744,
+          "cagr": 0.265483,
+          "ann_vol": 0.101975,
+          "sharpe": 2.361,
+          "max_drawdown": -0.060628,
+          "days": 269
+        }
+      },
+      "baseline_resid_mom_60d|validation|primary": {
+        "net_metrics": {
+          "total_return": 0.24389,
+          "cagr": 0.246064,
+          "ann_vol": 0.161064,
+          "sharpe": 1.4475,
+          "max_drawdown": -0.145529,
+          "days": 250,
+          "beta_vs_equal_weight": 0.6945
+        },
+        "gross_metrics": {
+          "total_return": 0.246676,
+          "cagr": 0.248876,
+          "ann_vol": 0.161074,
+          "sharpe": 1.4614,
+          "max_drawdown": -0.145305,
+          "days": 250,
+          "beta_vs_equal_weight": 0.6944
+        },
+        "mean_turnover": 0.448,
+        "rebalances": 50,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.167084,
+          "cagr": 0.168527,
+          "ann_vol": 0.179947,
+          "sharpe": 0.9554,
+          "max_drawdown": -0.166602,
+          "days": 250
+        }
+      },
+      "baseline_resid_mom_60d|validation|stress": {
+        "net_metrics": {
+          "total_return": 0.238338,
+          "cagr": 0.240458,
+          "ann_vol": 0.161047,
+          "sharpe": 1.4196,
+          "max_drawdown": -0.145977,
+          "days": 250,
+          "beta_vs_equal_weight": 0.6946
+        },
+        "gross_metrics": {
+          "total_return": 0.246676,
+          "cagr": 0.248876,
+          "ann_vol": 0.161074,
+          "sharpe": 1.4614,
+          "max_drawdown": -0.145305,
+          "days": 250,
+          "beta_vs_equal_weight": 0.6944
+        },
+        "mean_turnover": 0.448,
+        "rebalances": 50,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.167084,
+          "cagr": 0.168527,
+          "ann_vol": 0.179947,
+          "sharpe": 0.9554,
+          "max_drawdown": -0.166602,
+          "days": 250
+        }
+      },
+      "baseline_resid_mom_60d|test|primary": {
+        "net_metrics": {
+          "total_return": 0.683267,
+          "cagr": 0.628773,
+          "ann_vol": 0.199717,
+          "sharpe": 2.545,
+          "max_drawdown": -0.071627,
+          "days": 269,
+          "beta_vs_equal_weight": 1.1098
+        },
+        "gross_metrics": {
+          "total_return": 0.686684,
+          "cagr": 0.631871,
+          "ann_vol": 0.199708,
+          "sharpe": 2.5546,
+          "max_drawdown": -0.071478,
+          "days": 269,
+          "beta_vs_equal_weight": 1.1097
+        },
+        "mean_turnover": 0.3759,
+        "rebalances": 54,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.285744,
+          "cagr": 0.265483,
+          "ann_vol": 0.101975,
+          "sharpe": 2.361,
+          "max_drawdown": -0.060628,
+          "days": 269
+        }
+      },
+      "baseline_resid_mom_60d|test|stress": {
+        "net_metrics": {
+          "total_return": 0.676452,
+          "cagr": 0.622596,
+          "ann_vol": 0.199735,
+          "sharpe": 2.5257,
+          "max_drawdown": -0.071926,
+          "days": 269,
+          "beta_vs_equal_weight": 1.1101
+        },
+        "gross_metrics": {
+          "total_return": 0.686684,
+          "cagr": 0.631871,
+          "ann_vol": 0.199708,
+          "sharpe": 2.5546,
+          "max_drawdown": -0.071478,
+          "days": 269,
+          "beta_vs_equal_weight": 1.1097
+        },
+        "mean_turnover": 0.3759,
+        "rebalances": 54,
+        "benchmark_equal_weight_metrics": {
+          "total_return": 0.285744,
+          "cagr": 0.265483,
+          "ann_vol": 0.101975,
+          "sharpe": 2.361,
+          "max_drawdown": -0.060628,
+          "days": 269
+        }
+      }
+    },
+    "construction": "per-factor cross-sectional percentile rank, sign-corrected by the train-period IC sign, averaged; long-only top 20, rebalanced every 5 sessions"
+  },
+  "decay_analysis": {
+    "rows": [
+      {
+        "expression": "cs_rank(mul(mul(abs(low), ts_rank(open, 20)), sub(close, low)))",
+        "train_rank_ic": -0.025691990004053127,
+        "validation_rank_ic": 0.02485762037062412,
+        "test_rank_ic": 0.018989370392819033
+      }
+    ],
+    "accepted_count": 1,
+    "mean_validation_rank_ic": 0.024858,
+    "mean_test_rank_ic": 0.018989,
+    "median_test_rank_ic": 0.018989,
+    "validation_to_test_decay": 0.2361,
+    "kill_threshold": 0.5,
+    "kill_rule_fired": false,
+    "test_positive_fraction": 1.0
+  },
+  "decision": {
+    "status": "WATCHLIST",
+    "promoted": false,
+    "kill_rule_fired": false,
+    "validation_to_test_decay": 0.2361,
+    "ensemble_test_sharpe": 1.898,
+    "incumbent_resid_mom_60d_test_sharpe": 2.545,
+    "ret_20d_test_sharpe": 2.3064,
+    "beats_incumbent_by_0_05": false,
+    "accepted_factor_count": 1,
+    "note": "the kill rule is evaluated first and overrides a favourable book comparison: an ensemble whose component ICs decayed more than 50% is not a finding, it is an overfit on too small a panel"
+  }
+}

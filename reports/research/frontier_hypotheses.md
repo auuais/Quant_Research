@@ -158,7 +158,7 @@ magnitude. Treated as the highest-value frontier follow-up, not a result.
 ## D3 — Automated alpha factory (formulaic factor search)
 
 - **Registered:** 2026-07-28
-- **Status:** `PRE-REGISTERED`
+- **Status:** `RUN` (2026-07-28) → [alpha_factory_v1/](alpha_factory_v1/)
 - **Hypothesis (H-D3):** Automated search over a formulaic price/volume factor DSL finds factor ensembles with higher validation RankIC than the hand-built winners (`resid_mom_60d`, `ret_20d`), and the ensemble survives to a once-run test period.
 - **Null:** Search finds only overfitted expressions whose IC decays to zero out of sample — the expected outcome if the 100-name / ~3.5-year panel is too small for mining.
 
@@ -177,9 +177,88 @@ Embargo: 5 trading days between splits. Dedupe: reject any candidate with |Spear
 Standard challenger rule: +0.05 mean Sharpe vs incumbent at equal-or-better DD, on the once-run test period and the multi-window harness.
 **Kill:** if validation→test RankIC decays > 50% across the accepted pool, freeze the factory until the point-in-time panel (PMP P2-1) exists. Do not iterate against the test period.
 
-### Result
+### Result — `WATCHLIST`, not promoted (authoritative run 2026-07-28)
 
-_Empty — not yet run._
+Panel: `UNIVERSE_100` from Yahoo, 2005-01-03 → 2026-07-27 (5,424 sessions × 100 symbols) — far longer than the
+~3.5-year Alpaca panel this registration's null assumed. Search: **4,000 evaluations** as declared (3,778
+scored; generator mix 1,701 mutation / 1,678 random / 604 crossover / 17 seed), ~26 minutes wall clock. The
+local-LLM proposer was available but **not enabled**, so every candidate came from evolutionary search —
+recorded so this cannot be read as an LLM result.
+
+| Stage | Outcome |
+|---|---:|
+| Passed train thresholds (RankIC ≥ 0.02, ICIR ≥ 0.25 annualized, turnover ≤ 0.45) | 482 |
+| Passed validation acceptance + dedupe | **1** |
+| Best absolute train RankIC | 0.0268 |
+
+The single accepted factor, `cs_rank(mul(mul(abs(low), ts_rank(open, 20)), sub(close, low)))` (crossover
+origin, direction −1), actually held up out of sample: validation IC +0.0249 → test IC +0.0190, a 23.6% decay
+that is **below** the 50% kill threshold. So the pre-registered kill rule did *not* fire.
+
+It fails on the thing that matters — the book:
+
+| Book (test period, top-20 long only, net of 1 bps/side) | CAGR | Sharpe | Worst DD | Beta |
+|---|---:|---:|---:|---:|
+| `baseline_resid_mom_60d` (incumbent) | 62.9% | **2.545** | −7.2% | 1.11 |
+| `baseline_ret_20d` | 48.3% | 2.306 | −7.6% | 1.06 |
+| `ensemble_rank_average` (mined) | 26.5% | 1.898 | −6.8% | 0.92 |
+
+The mined ensemble loses to the incumbent by 0.65 Sharpe, so the +0.05 challenger rule fails decisively.
+**Not promoted.** Note also that a factor whose IC survives out of sample still produced a materially worse
+book — IC persistence is necessary, not sufficient.
+
+### Three caveats, in order of importance
+
+**1. The search outcome was not reproducible until a bug was fixed mid-investigation, and it is chaotic.**
+The OHLC cache key concatenated all 100 tickers into a ~600-character filename, exceeding the Windows path
+limit; `to_parquet` raised, a bare `except: pass` discarded the error, and every run silently re-downloaded
+from Yahoo — which returns marginally different adjusted prices per fetch. Measured directly: two processes
+loaded panels whose total close differed in the third decimal (44779147.757 vs .759). The evolutionary search
+amplified that noise dramatically across three runs of the *same* nominal configuration:
+
+| Run | Panel | Train-passers | Accepted | Status |
+|---|---|---:|---:|---|
+| 1 (pre-fix) | fresh download | 316 | 0 | would have read `KILLED` |
+| 2 (pre-fix) | fresh download | 212 | 1 | `WATCHLIST` |
+| 3 (post-fix, authoritative) | cached, stable | 482 | 1 | `WATCHLIST` |
+
+The cache is fixed (hashed key, failures recorded) and the panel is now byte-stable across processes. But the
+deeper lesson stands and is the main finding of this run: **an evolutionary factor search over this panel is
+chaotic with respect to negligible data perturbations**, so any single run's factor list is not a result. A
+credible `D3-b` must report stability across seeds and data vintages, not one trajectory.
+
+**2. The validation window was hostile to the entire factor family.** Both incumbents are negative over it:
+
+| Baseline (rebuilt on the same panel) | Validation IC | Test IC |
+|---|---:|---:|
+| `baseline_resid_mom_60d` | **−0.0088** | +0.0326 |
+| `baseline_ret_20d` | **−0.0384** | +0.0023 |
+
+Neither clears the acceptance bar in validation, then the incumbent recovers to +0.0326 on test — the signature
+of a regime-specific window, not of factor quality. A single contiguous validation year cannot adjudicate
+this; `D3-b` needs **purged multi-fold walk-forward validation**.
+
+**3. The test-period book numbers are inflated by the panel.** A 62.9% CAGR at beta 1.11 for the incumbent
+reflects 21 years of *today's* 100 mega-caps in a strong 2025-26 tape. These are relative comparisons on a
+survivorship-biased universe, not deployable expectations.
+
+**Status wording:** recorded as `WATCHLIST` because the pre-registered kill rule (decay > 50%) did not fire,
+but nothing is promoted and no further search should run on this panel. Treat the factory as **paused pending
+`D3-b`**, not as an active branch.
+
+**Definitional clarification made before the full run** (recorded because it changes what the thresholds mean):
+ICIR is the *annualized* information ratio of the daily IC series. A raw per-day mean/std of 0.25 annualizes to
+roughly 4.0, which no real factor reaches, so the annualized reading is the only one consistent with the modest
+RankIC ≥ 0.02 bar registered beside it. Under the per-day reading the acceptance stage would be unreachable by
+construction and the run would have been uninformative.
+
+**Panel caveat that governs any future positive result here:** `UNIVERSE_100` is a currently-listed mega-cap
+set, so mining over 21 years of it is a survivorship-bias machine — an accepted factor would partly encode
+"these particular names went up". `D3-b` should not run before the point-in-time panel (PMP P2-1) exists.
+
+**Infrastructure is the durable deliverable:** the DSL, parser, evolutionary search, IC harness, and the
+train/validation/single-test protocol all work and re-run unchanged on a new panel via
+`python -m algoding.cli alpha-factory-run`.
 
 ---
 

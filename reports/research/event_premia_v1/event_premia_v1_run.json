@@ -124,7 +124,7 @@
         "excludes_zero": false,
         "positive_fraction": 0.5641
       },
-      "annualized_estimate": 0.011389,
+      "annualized_estimate": 0.011388,
       "confirmed_both_subperiods": false,
       "exceeds_cost_hurdle": true,
       "survives": false,
@@ -143,7 +143,7 @@
         "ci_low": 0.000141,
         "ci_high": 0.000522,
         "excludes_zero": true,
-        "positive_fraction": 0.5569
+        "positive_fraction": 0.5565
       },
       "early": {
         "label": "early_70pct",
@@ -152,7 +152,7 @@
         "ci_low": 0.000107,
         "ci_high": 0.000526,
         "excludes_zero": true,
-        "positive_fraction": 0.554
+        "positive_fraction": 0.5537
       },
       "late": {
         "label": "late_30pct",
@@ -161,7 +161,7 @@
         "ci_low": -3.1e-05,
         "ci_high": 0.000796,
         "excludes_zero": false,
-        "positive_fraction": 0.5636
+        "positive_fraction": 0.563
       },
       "annualized_estimate": 0.088133,
       "confirmed_both_subperiods": false,
@@ -182,7 +182,7 @@
         "ci_low": 0.000254,
         "ci_high": 0.000672,
         "excludes_zero": true,
-        "positive_fraction": 0.5639
+        "positive_fraction": 0.5657
       },
       "early": {
         "label": "early_70pct",
@@ -191,7 +191,7 @@
         "ci_low": 0.000224,
         "ci_high": 0.000667,
         "excludes_zero": true,
-        "positive_fraction": 0.5653
+        "positive_fraction": 0.568
       },
       "late": {
         "label": "late_30pct",
@@ -354,13 +354,13 @@
       "late": {
         "label": "late_30pct",
         "n": 78,
-        "mean": -0.002438,
+        "mean": -0.002437,
         "ci_low": -0.00878,
         "ci_high": 0.003251,
         "excludes_zero": false,
         "positive_fraction": 0.4359
       },
-      "annualized_estimate": 0.009305,
+      "annualized_estimate": 0.009306,
       "confirmed_both_subperiods": false,
       "exceeds_cost_hurdle": true,
       "survives": false,
@@ -399,7 +399,7 @@
         "excludes_zero": false,
         "positive_fraction": 0.4231
       },
-      "annualized_estimate": -0.002116,
+      "annualized_estimate": -0.002115,
       "confirmed_both_subperiods": false,
       "exceeds_cost_hurdle": false,
       "survives": false,
@@ -424,7 +424,7 @@
         "n": 60,
         "mean": 0.001359,
         "ci_low": -0.000944,
-        "ci_high": 0.003892,
+        "ci_high": 0.003891,
         "excludes_zero": false,
         "positive_fraction": 0.5333
       },
@@ -652,17 +652,17 @@
     "E2_overnight_QQQ|primary": {
       "rule": "buy at the close every day, sell at the next open, cash overnight otherwise",
       "gross_metrics": {
-        "total_return": 9.365065,
+        "total_return": 9.36507,
         "cagr": 0.114788,
         "ann_vol": 0.125115,
         "sharpe": 0.9316,
-        "max_drawdown": -0.274317,
+        "max_drawdown": -0.274318,
         "days": 5423,
         "beta_vs_spy": 0.3825,
         "annualized_alpha_vs_spy": 0.070433
       },
       "net_metrics": {
-        "total_return": 2.504914,
+        "total_return": 2.504916,
         "cagr": 0.060011,
         "ann_vol": 0.125115,
         "sharpe": 0.5288,
@@ -678,11 +678,11 @@
     "E2_overnight_QQQ|stress": {
       "rule": "buy at the close every day, sell at the next open, cash overnight otherwise",
       "gross_metrics": {
-        "total_return": 9.365065,
+        "total_return": 9.36507,
         "cagr": 0.114788,
         "ann_vol": 0.125115,
         "sharpe": 0.9316,
-        "max_drawdown": -0.274317,
+        "max_drawdown": -0.274318,
         "days": 5423,
         "beta_vs_spy": 0.3825,
         "annualized_alpha_vs_spy": 0.070433
@@ -704,7 +704,7 @@
     "E2_overnight_panel|primary": {
       "rule": "buy at the close every day, sell at the next open, cash overnight otherwise",
       "gross_metrics": {
-        "total_return": 4.353535,
+        "total_return": 4.353537,
         "cagr": 0.081083,
         "ann_vol": 0.113699,
         "sharpe": 0.743,
@@ -714,7 +714,7 @@
         "annualized_alpha_vs_spy": 0.038656
       },
       "net_metrics": {
-        "total_return": 0.810053,
+        "total_return": 0.810054,
         "cagr": 0.027956,
         "ann_vol": 0.113699,
         "sharpe": 0.2997,
@@ -730,7 +730,7 @@
     "E2_overnight_panel|stress": {
       "rule": "buy at the close every day, sell at the next open, cash overnight otherwise",
       "gross_metrics": {
-        "total_return": 4.353535,
+        "total_return": 4.353537,
         "cagr": 0.081083,
         "ann_vol": 0.113699,
         "sharpe": 0.743,
@@ -756,21 +756,21 @@
     "E3_turn_of_month_base_last4_first3": {
       "rule": "hold only on flagged days, cash otherwise, position set from the prior close",
       "gross_metrics": {
-        "total_return": 1.721789,
+        "total_return": 1.721804,
         "cagr": 0.047628,
         "ann_vol": 0.105675,
         "sharpe": 0.4935,
-        "max_drawdown": -0.333685,
+        "max_drawdown": -0.333686,
         "days": 5423,
         "beta_vs_spy": 0.3112,
         "annualized_alpha_vs_spy": 0.014621
       },
       "net_metrics": {
-        "total_return": 1.584181,
-        "cagr": 0.045105,
+        "total_return": 1.584195,
+        "cagr": 0.045106,
         "ann_vol": 0.10567,
         "sharpe": 0.4707,
-        "max_drawdown": -0.335814,
+        "max_drawdown": -0.335815,
         "days": 5423,
         "beta_vs_spy": 0.3111,
         "annualized_alpha_vs_spy": 0.012211
@@ -781,7 +781,7 @@
     "E5_gap_pead_5d|primary": {
       "rule": "buy every name whose earnings gap exceeded the expanding 90th percentile, at the reaction-day close, equal-weighted, hold 5 sessions",
       "gross_metrics": {
-        "total_return": 21.393252,
+        "total_return": 21.393293,
         "cagr": 0.155385,
         "ann_vol": 0.244228,
         "sharpe": 0.7123,
@@ -791,7 +791,7 @@
         "annualized_alpha_vs_spy": 0.110844
       },
       "net_metrics": {
-        "total_return": 18.792856,
+        "total_return": 18.792893,
         "cagr": 0.148778,
         "ann_vol": 0.244231,
         "sharpe": 0.6889,
@@ -809,7 +809,7 @@
     "E5_gap_pead_5d|stress": {
       "rule": "buy every name whose earnings gap exceeded the expanding 90th percentile, at the reaction-day close, equal-weighted, hold 5 sessions",
       "gross_metrics": {
-        "total_return": 21.393252,
+        "total_return": 21.393293,
         "cagr": 0.155385,
         "ann_vol": 0.244228,
         "sharpe": 0.7123,
@@ -819,11 +819,11 @@
         "annualized_alpha_vs_spy": 0.110844
       },
       "net_metrics": {
-        "total_return": 14.462293,
+        "total_return": 14.462322,
         "cagr": 0.135675,
         "ann_vol": 0.244242,
         "sharpe": 0.6419,
-        "max_drawdown": -0.312056,
+        "max_drawdown": -0.312057,
         "days": 5424,
         "beta_vs_spy": 0.5241,
         "annualized_alpha_vs_spy": 0.093598
@@ -837,7 +837,7 @@
     "E5_gap_pead_20d|primary": {
       "rule": "buy every name whose earnings gap exceeded the expanding 90th percentile, at the reaction-day close, equal-weighted, hold 20 sessions",
       "gross_metrics": {
-        "total_return": 43.279501,
+        "total_return": 43.279537,
         "cagr": 0.192567,
         "ann_vol": 0.269975,
         "sharpe": 0.7876,
@@ -847,11 +847,11 @@
         "annualized_alpha_vs_spy": 0.094217
       },
       "net_metrics": {
-        "total_return": 39.707532,
+        "total_return": 39.707565,
         "cagr": 0.187916,
         "ann_vol": 0.269989,
         "sharpe": 0.7731,
-        "max_drawdown": -0.510556,
+        "max_drawdown": -0.510557,
         "days": 5424,
         "beta_vs_spy": 0.9823,
         "annualized_alpha_vs_spy": 0.090301
@@ -865,7 +865,7 @@
     "E5_gap_pead_20d|stress": {
       "rule": "buy every name whose earnings gap exceeded the expanding 90th percentile, at the reaction-day close, equal-weighted, hold 20 sessions",
       "gross_metrics": {
-        "total_return": 43.279501,
+        "total_return": 43.279537,
         "cagr": 0.192567,
         "ann_vol": 0.269975,
         "sharpe": 0.7876,
@@ -875,7 +875,7 @@
         "annualized_alpha_vs_spy": 0.094217
       },
       "net_metrics": {
-        "total_return": 33.404084,
+        "total_return": 33.404112,
         "cagr": 0.178667,
         "ann_vol": 0.270019,
         "sharpe": 0.7441,
@@ -965,7 +965,7 @@
         "1": -0.000369,
         "2": -0.000474,
         "3": 0.00192,
-        "4": 0.001672,
+        "4": 0.001673,
         "5": -0.00014
       },
       "cumulative_return_by_offset": {
@@ -978,7 +978,7 @@
         "1": 0.0046,
         "2": 0.004126,
         "3": 0.006046,
-        "4": 0.007718,
+        "4": 0.007719,
         "5": 0.007578
       }
     },
