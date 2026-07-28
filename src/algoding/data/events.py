@@ -6,6 +6,7 @@ refreshes itself when the Fed publishes a new year.
 
 from __future__ import annotations
 
+import hashlib
 import re
 import urllib.request
 from dataclasses import dataclass
@@ -50,6 +51,10 @@ class EventCalendarClient:
         self._cache_dir = Path(cache_dir)
         self._cache_dir.mkdir(parents=True, exist_ok=True)
         self._cache_max_age = timedelta(hours=cache_max_age_hours)
+        # Cache failures used to be swallowed silently, which let a 100-symbol panel re-download from
+        # Yahoo on every run and quietly made research non-reproducible. Failures are recorded here so
+        # callers can surface them in run provenance.
+        self.cache_errors: list[str] = []
 
     def load_fomc_calendar(self, *, start_year: int = 2011, end_year: int | None = None) -> FomcCalendar:
         end_year = end_year or datetime.now(timezone.utc).year
@@ -91,7 +96,7 @@ class EventCalendarClient:
         )
 
     def load_ohlc(self, symbols: list[str], *, start: str = "2005-01-01") -> dict[str, pd.DataFrame]:
-        cache_key = "ohlc_" + "_".join(sorted(symbol.lower().replace("/", "_") for symbol in symbols))
+        cache_key = _ohlc_cache_key(symbols, start)
         cached = self._read_cache(cache_key)
         if cached is not None:
             return {
@@ -147,8 +152,21 @@ class EventCalendarClient:
     def _write_cache(self, key: str, frame: pd.DataFrame) -> None:
         try:
             frame.to_parquet(self._cache_path(key))
-        except Exception:
-            pass
+        except Exception as error:
+            self.cache_errors.append(f"{key}: {type(error).__name__}: {str(error)[:200]}")
+
+
+def _ohlc_cache_key(symbols: list[str], start: str) -> str:
+    """Short, stable cache key.
+
+    Joining 100 tickers produced a ~600-character filename, which exceeds the Windows path limit; the
+    write then failed, the failure was swallowed, and every run silently re-downloaded from Yahoo. Yahoo
+    returns marginally different adjusted prices per fetch, so the panel was not stable between runs --
+    enough to move an evolutionary factor search from 0 to 1 accepted factors. Hash instead.
+    """
+    joined = "|".join(sorted(symbol.upper() for symbol in symbols)) + f"@{start}"
+    digest = hashlib.sha1(joined.encode("utf-8")).hexdigest()[:12]
+    return f"ohlc_{len(symbols)}_{digest}"
 
 
 def _http_get(url: str, *, timeout: float = 30.0) -> str:
