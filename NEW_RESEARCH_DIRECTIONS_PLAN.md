@@ -18,6 +18,35 @@ Design rules for everything below:
 2. **Agent-implementable.** Each direction has a numbered playbook with file paths, data sources, experiment specs, report artifacts, and decision rules that an agent can execute without further context.
 3. **Same governance.** Canonical cost model, walk-forward multi-window evaluation, pre-registered hypotheses, net-of-stress-cost promotion only.
 
+## 0.1 Implementation status (updated 2026-07-28)
+
+Wave 1 is built and run. What exists now, and where:
+
+| Component | Files | Status |
+|---|---|---|
+| I1 volatility data | [data/volatility.py](src/algoding/data/volatility.py) — CBOE index CSVs, ETP loaders, leverage-regime verification | Done |
+| I1 event data | [data/events.py](src/algoding/data/events.py) — FOMC scrape, OPEX/month-turn/quarter-end calendars, OHLC loader | Done |
+| I2 event-study harness | [research/event_study.py](src/algoding/research/event_study.py) — CAR profiles, bootstrap CIs, split-sample confirmation | Done (shared with D6 later) |
+| I4 pre-registration | [reports/research/frontier_hypotheses.md](reports/research/frontier_hypotheses.md) | Done |
+| Sleeve board | [reports/research/frontier_board_v1.md](reports/research/frontier_board_v1.md) | Done |
+| D1 vol carry | [research/vol_signals.py](src/algoding/research/vol_signals.py), [execution/vol_carry_research.py](src/algoding/execution/vol_carry_research.py) | Run → `WATCHLIST` |
+| D2 event premia | [execution/event_premia_research.py](src/algoding/execution/event_premia_research.py) | Run → `WATCHLIST` |
+| D3 alpha factory | [research/alpha_dsl.py](src/algoding/research/alpha_dsl.py), [research/alpha_search.py](src/algoding/research/alpha_search.py), [execution/alpha_factory_research.py](src/algoding/execution/alpha_factory_research.py) | Run — see board |
+
+CLI entry points: `vol-carry-research`, `event-premia-research`, `alpha-factory-run`. None require broker
+credentials; all data is free and cached under `cache/`.
+
+**Three methodology corrections from Wave 1 that apply to any future work in this repo** (details in the
+board and registry):
+
+1. **Validation windows must tile the whole sample.** The inherited `_validation_windows` helper anchors to the
+   tail; on a 12.7-year volatility sample that excluded every pre-2024 crisis and flattered always-short-vol
+   from a true 0.36 Sharpe to 0.75.
+2. **VIX cash settles at 16:15 ET, ETPs trade the 16:00 close.** A same-close decision embeds up to 15 minutes
+   of look-ahead. At lag 1 the D1 long-vol variants returned +32.0% through Volmageddon; at lag 2, −32.7%.
+3. **Synthetic leverage rescaling is unsafe in crises.** A −1x series rebuilt from VXX loses 48.7% over
+   Volmageddon where the real −1x product lost 90.4%. Use real instrument closes.
+
 ## 1. Coverage audit: what has been explored vs not
 
 ### 1.1 Universe coverage
