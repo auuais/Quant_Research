@@ -131,6 +131,11 @@ Four findings worth carrying forward:
 1. **The pre-FOMC drift did not confirm.** Positive in both index ETFs but the CI includes zero in at least one
    subperiod, consistent with post-publication decay. Dropped permanently per the pre-registered rule — no
    re-tuning. This contradicts the literature cited when the direction was written, which is the point of testing.
+   The CAR profile shows *why* the tested window failed: across 130 announcements the run-up sits in the days
+   **before** the announcement day (T−4 +27.3 bps, T−1 +14.1 bps) while the announcement day itself is flat
+   (+0.7 bps). The pre-registered proxy (T−1 close → T close) straddles the 14:00 release and so nets the drift
+   against the reaction. A window ending before the release would be a *different* hypothesis and needs its own
+   registration entry — it is not a re-tune of E1.
 2. **The overnight/intraday split is real but not monetizable.** SPY's overnight leg compounded to +435% against
    +68% intraday, and QQQ's to +936% against +93%. But capturing it needs a round trip every session: QQQ's gross
    Sharpe 0.93 becomes net 0.53 at 1 bps/side and **−0.28 at 3 bps/side**. Beta 0.38 with only ~2% alpha means it is

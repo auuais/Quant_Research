@@ -30,6 +30,7 @@ from algoding.execution.cross_asset_momentum_research import CrossAssetMomentumR
 from algoding.execution.regime_switch_research import RegimeSwitchResearchLab
 from algoding.execution.vol_carry_research import VolCarryResearchLab
 from algoding.execution.event_premia_research import EventPremiaResearchLab
+from algoding.execution.alpha_factory_research import AlphaFactoryResearchLab
 from algoding.execution.book_size_sensitivity_research import BookSizeSensitivityResearchLab
 from algoding.execution.dl_research import DlResearchLab
 from algoding.execution.historical_research import HistoricalResearchLab
@@ -869,6 +870,45 @@ def cmd_event_premia_research(output_root: str, start: str, panel_symbols: int, 
     return 0
 
 
+def cmd_alpha_factory_run(
+    output_root: str,
+    start: str,
+    search_budget: int,
+    seed: int,
+    llm_model_path: str | None,
+    llm_proposals: int,
+) -> int:
+    lab = AlphaFactoryResearchLab()
+    result = lab.run(
+        output_root=output_root,
+        start=start,
+        search_budget=search_budget,
+        seed=seed,
+        llm_model_path=llm_model_path,
+        llm_proposals=llm_proposals,
+    )
+    decision = result["decision"]
+    decay = result["decay_analysis"]
+    print(
+        json.dumps(
+            {
+                "version": result["version"],
+                "status": decision["status"],
+                "evaluations": result["search"]["evaluations"],
+                "accepted_factors": decision.get("accepted_factor_count"),
+                "validation_to_test_decay": decay.get("validation_to_test_decay"),
+                "kill_rule_fired": decision.get("kill_rule_fired"),
+                "ensemble_test_sharpe": decision.get("ensemble_test_sharpe"),
+                "incumbent_resid_mom_60d_test_sharpe": decision.get("incumbent_resid_mom_60d_test_sharpe"),
+                "output_root": output_root,
+            },
+            indent=2,
+            default=str,
+        )
+    )
+    return 0
+
+
 def cmd_long_short_corrected_run(scores_path: str, output_root: str, eval_days_count: int, book_size: int) -> int:
     context = build_app_context()
     lab = LongShortCorrectedLab(context.settings)
@@ -1542,6 +1582,13 @@ def main() -> int:
     event_premia_parser.add_argument("--start", default="2005-01-01")
     event_premia_parser.add_argument("--panel-symbols", type=int, default=100)
     event_premia_parser.add_argument("--no-panel", action="store_true")
+    alpha_factory_parser = subparsers.add_parser("alpha-factory-run")
+    alpha_factory_parser.add_argument("--output-root", default="reports/research/alpha_factory_v1")
+    alpha_factory_parser.add_argument("--start", default="2005-01-01")
+    alpha_factory_parser.add_argument("--search-budget", type=int, default=4000)
+    alpha_factory_parser.add_argument("--seed", type=int, default=11)
+    alpha_factory_parser.add_argument("--llm-model-path", default=None)
+    alpha_factory_parser.add_argument("--llm-proposals", type=int, default=0)
     ls_corrected_parser = subparsers.add_parser("long-short-corrected-run")
     ls_corrected_parser.add_argument("--scores-path", required=True)
     ls_corrected_parser.add_argument("--output-root", default="reports/research/long_short_v1_corrected")
@@ -1943,6 +1990,15 @@ def main() -> int:
             args.start,
             args.panel_symbols,
             not args.no_panel,
+        )
+    if args.command == "alpha-factory-run":
+        return cmd_alpha_factory_run(
+            args.output_root,
+            args.start,
+            args.search_budget,
+            args.seed,
+            args.llm_model_path,
+            args.llm_proposals,
         )
     if args.command == "long-short-corrected-run":
         return cmd_long_short_corrected_run(args.scores_path, args.output_root, args.eval_days_count, args.book_size)

@@ -113,6 +113,25 @@ Historical research summaries are persisted in:
 - `logs/strategy_runs.jsonl`
 - PostgreSQL table: `strategy_runs`
 
+12. Run the frontier research directions from [NEW_RESEARCH_DIRECTIONS_PLAN.md](NEW_RESEARCH_DIRECTIONS_PLAN.md):
+
+```powershell
+python -m algoding.cli vol-carry-research
+python -m algoding.cli event-premia-research
+python -m algoding.cli alpha-factory-run
+```
+
+These need no broker credentials — they pull free data (CBOE index history, federalreserve.gov, Yahoo) and
+cache it under `cache/`. Each hypothesis is pre-registered in
+[reports/research/frontier_hypotheses.md](reports/research/frontier_hypotheses.md) before it runs, and sleeve
+status is tracked in [reports/research/frontier_board_v1.md](reports/research/frontier_board_v1.md).
+
+`alpha-factory-run` can optionally ask a local LLM to propose factor expressions:
+
+```powershell
+python -m algoding.cli alpha-factory-run --llm-model-path U:\models\Qwen3-4B --llm-proposals 40
+```
+
 ## Hosted LLM models
 
 The news sentiment engine supports:

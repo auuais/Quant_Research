@@ -1,7 +1,9 @@
 # New Research Directions Plan (Frontier Plan V1)
 
-Last updated: 2026-07-03
-Status: `PROPOSED`
+Last updated: 2026-07-28
+Status: `IN PROGRESS` — Wave 1 (D1, D2, D3) implemented and run; see
+[frontier_board_v1.md](reports/research/frontier_board_v1.md) for outcomes and
+[frontier_hypotheses.md](reports/research/frontier_hypotheses.md) for the pre-registrations.
 Companion docs: [PROFIT_MAXIMIZATION_PLAN.md](PROFIT_MAXIMIZATION_PLAN.md) (exploit/harden the incumbent), [STRATEGY.md](STRATEGY.md), [research_winner_board_v1.md](reports/research/research_winner_board_v1.md), [RESEARCH_OUTCOMES.md](RESEARCH_OUTCOMES.md)
 
 ## 0. Purpose and scope boundary
