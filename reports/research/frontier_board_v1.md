@@ -167,7 +167,10 @@ transferable output is four corrections and one lead:
 3. **Never rescale leverage synthetically** through a crisis; hold the real instrument's returns.
 4. **A single contiguous validation year cannot adjudicate factor quality** — check whether your incumbents
    also fail that window before concluding anything about challengers.
-5. **The lead:** gap-PEAD, ~10.5% annualized alpha at beta 0.52 and cost-insensitive, pending a
+5. **Freeze the dataset before running an adaptive method**, and never let a cache write fail silently. Third-
+   decimal price noise moved the D3 search from 0 to 1 accepted factors while D2's event studies reproduced
+   exactly on the same unstable data.
+6. **The lead:** gap-PEAD, ~10.5% annualized alpha at beta 0.52 and cost-insensitive, pending a
    point-in-time-panel re-run.
 
 The point-in-time panel (PMP P2-1) is now the binding dependency for the two most promising threads

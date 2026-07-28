@@ -31,7 +31,7 @@ Wave 1 is built and run. What exists now, and where:
 | Sleeve board | [reports/research/frontier_board_v1.md](reports/research/frontier_board_v1.md) | Done |
 | D1 vol carry | [research/vol_signals.py](src/algoding/research/vol_signals.py), [execution/vol_carry_research.py](src/algoding/execution/vol_carry_research.py) | Run → `WATCHLIST` |
 | D2 event premia | [execution/event_premia_research.py](src/algoding/execution/event_premia_research.py) | Run → `WATCHLIST` |
-| D3 alpha factory | [research/alpha_dsl.py](src/algoding/research/alpha_dsl.py), [research/alpha_search.py](src/algoding/research/alpha_search.py), [execution/alpha_factory_research.py](src/algoding/execution/alpha_factory_research.py) | Run — see board |
+| D3 alpha factory | [research/alpha_dsl.py](src/algoding/research/alpha_dsl.py), [research/alpha_search.py](src/algoding/research/alpha_search.py), [execution/alpha_factory_research.py](src/algoding/execution/alpha_factory_research.py) | Run → `WATCHLIST`, factory paused pending `D3-b` |
 
 CLI entry points: `vol-carry-research`, `event-premia-research`, `alpha-factory-run`. None require broker
 credentials; all data is free and cached under `cache/`.
@@ -46,6 +46,14 @@ board and registry):
    of look-ahead. At lag 1 the D1 long-vol variants returned +32.0% through Volmageddon; at lag 2, −32.7%.
 3. **Synthetic leverage rescaling is unsafe in crises.** A −1x series rebuilt from VXX loses 48.7% over
    Volmageddon where the real −1x product lost 90.4%. Use real instrument closes.
+4. **Freeze the dataset before running an adaptive method.** A silent cache failure let every run re-download
+   the panel; Yahoo's marginally different adjusted prices per fetch (total close 44779147.757 vs .759) moved
+   the D3 search from 0 to 1 accepted factors and its train-passer count from 212 to 482. D2's event studies
+   reproduced exactly on the same unstable data. The more adaptive the method, the more it needs a frozen
+   dataset — and cache writes must never fail silently.
+5. **Check whether the incumbent also fails your validation window** before concluding anything about a
+   challenger. Both hand-built factors were negative over D3's validation year, which made the acceptance
+   stage unable to discriminate.
 
 ## 1. Coverage audit: what has been explored vs not
 
