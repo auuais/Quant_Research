@@ -70,7 +70,7 @@ Secondary diagnostic worth carrying forward: the HAR-RV forecast has out-of-samp
 ## D2 — Event and seasonality premia battery
 
 - **Registered:** 2026-07-28
-- **Status:** `PRE-REGISTERED`
+- **Status:** `RUN` (2026-07-28) → [event_premia_v1/](event_premia_v1/)
 - **Hypothesis (H-D2):** A set of documented calendar/announcement premia persist and are harvestable with daily MOC orders on index ETFs.
 - **Null:** Effects are in-sample artifacts, have decayed post-publication, or are smaller than round-trip cost.
 
@@ -94,9 +94,59 @@ A hypothesis survives only if **both**: (a) the bootstrap 95% CI of the mean eve
 Standalone micro-sleeve: net Sharpe ≥ 0.8 with ≤ 10% DD. Overlay: +0.03 portfolio Sharpe.
 **Kill:** any hypothesis failing two-subperiod confirmation is dropped permanently.
 
-### Result
+### Result — `WATCHLIST`, nothing promoted (run 2026-07-28)
 
-_Empty — not yet run._
+History 2005-01-03 → 2026-07-27 (5,424 SPY sessions), 14 variants as declared, FOMC dates scraped from
+federalreserve.gov (130 announcements, 8/year, with 2019/2020/2025 flagged as containing unscheduled actions).
+**5 of 14 survived** split-sample confirmation; **9 were dropped permanently.**
+
+| Hypothesis | Events | Mean effect | Verdict |
+|---|---:|---:|---|
+| `E5_gap_pead_20d` | 879 | +213.4 bps | SURVIVES |
+| `E5_gap_pead_5d` | 882 | +71.2 bps | SURVIVES |
+| `E3_turn_of_month_base` | 260 | +61.8 bps | SURVIVES |
+| `E2_overnight_QQQ` | 5,423 | +4.63 bps/day | SURVIVES |
+| `E2_overnight_panel` | 5,423 | +4.41 bps/day | SURVIVES |
+| `E1_pre_fomc_QQQ` | 130 | +14.2 bps | DROPPED — failed split-sample |
+| `E1_pre_fomc_SPY` | 130 | +0.7 bps | DROPPED — failed split-sample |
+| `E2_overnight_SPY` | 5,423 | +3.35 bps/day | DROPPED — late subperiod CI includes zero |
+| `E3_turn_of_month_wide` | 260 | +58.7 bps | DROPPED — failed split-sample |
+| `E4_opex_week` / `E4_opex_day` / `E4_quarter_end_day` | 259/259/87 | +7.7 / −1.8 / +11.8 bps | DROPPED |
+| `E6_vix_spike_p90` / `p95` | 69/56 | +35.4 / +51.7 bps | DROPPED — too few events, CI too wide |
+
+**No sleeve cleared the standalone gate** (net Sharpe ≥ 0.8 with DD ≤ 10%), so nothing is promoted. The
+per-sleeve economics, with beta and alpha against SPY, are what matter here:
+
+| Sleeve | Net Sharpe | Net CAGR | Worst DD | Beta | Ann. alpha |
+|---|---:|---:|---:|---:|---:|
+| `E5_gap_pead_5d` (1 bps/side) | 0.69 | 14.9% | −31.1% | 0.52 | **+10.5%** |
+| `E5_gap_pead_5d` (3 bps/side) | 0.64 | 13.6% | −31.2% | 0.52 | +9.4% |
+| `E5_gap_pead_20d` (1 bps/side) | 0.77 | 18.8% | −51.1% | 0.98 | +9.0% |
+| `E3_turn_of_month_base` | 0.47 | 4.5% | −33.6% | 0.31 | +1.2% |
+| `E2_overnight_QQQ` (1 bps/side) | 0.53 | 6.0% | −30.8% | 0.38 | +2.0% |
+| `E2_overnight_QQQ` (3 bps/side) | **−0.28** | −4.2% | −67.0% | 0.38 | −8.1% |
+
+Four findings worth carrying forward:
+
+1. **The pre-FOMC drift did not confirm.** Positive in both index ETFs but the CI includes zero in at least one
+   subperiod, consistent with post-publication decay. Dropped permanently per the pre-registered rule — no
+   re-tuning. This contradicts the literature cited when the direction was written, which is the point of testing.
+2. **The overnight/intraday split is real but not monetizable.** SPY's overnight leg compounded to +435% against
+   +68% intraday, and QQQ's to +936% against +93%. But capturing it needs a round trip every session: QQQ's gross
+   Sharpe 0.93 becomes net 0.53 at 1 bps/side and **−0.28 at 3 bps/side**. Beta 0.38 with only ~2% alpha means it is
+   mostly compensated overnight risk, not an edge. Its real value is as an *execution* insight — prefer closing
+   auctions for entries — not a sleeve.
+3. **Gap-PEAD is the one genuinely interesting result in the battery.** The 5-day variant earns ~10.5% annualized
+   alpha at beta 0.52 and is almost cost-insensitive (gross Sharpe 0.71 → net 0.69), because the holding period
+   amortizes the round trip. It fails the gate only on drawdown (−31% vs the 10% cap). The 20-day variant earns
+   similar alpha but at beta 0.98, so it is mostly levered market exposure — the 5-day version is the better object.
+4. **Look-ahead corrected mid-run:** the top-decile gap threshold was initially a full-sample quantile, which lets
+   the future decide which of today's gaps qualifies. Replaced with an expanding 90th percentile of prior gaps only
+   (min 200 prior events). E5 survived the fix (889 qualifying events), so the finding is not an artifact.
+
+**Caveat that gates any follow-up:** the panel is `UNIVERSE_100`, a currently-listed mega-cap set, so E5 inherits
+survivorship bias. It must be re-run on the point-in-time panel (PMP P2-1) before it can be believed at this
+magnitude. Treated as the highest-value frontier follow-up, not a result.
 
 ---
 

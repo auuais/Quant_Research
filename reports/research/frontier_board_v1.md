@@ -12,7 +12,7 @@ Every entry is pre-registered in [frontier_hypotheses.md](frontier_hypotheses.md
 | Direction | Sleeve | Status | Best net Sharpe | Worst DD | Verdict |
 |---|---|---|---:|---:|---|
 | D1 | Volatility risk premium / VIX term structure | `WATCHLIST` | 0.51 (full history) | −61.7% | Premium real, risk profile fails the gate; SPY beats it on Sharpe |
-| D2 | Event & seasonality premia battery | `PENDING` | — | — | — |
+| D2 | Event & seasonality premia battery | `WATCHLIST` | 0.69 (gap-PEAD 5d) | −31.1% | 5 of 14 effects survived; gap-PEAD gives 10.5% alpha at beta 0.52 |
 | D3 | Automated alpha factory | `PENDING` | — | — | — |
 | D4 | Futures carry + trend (CTA) | `NOT STARTED` | — | — | Wave 2 |
 | D5 | Statistical arbitrage / residual reversal | `NOT STARTED` | — | — | Wave 2 |
@@ -55,8 +55,39 @@ Two further methodology corrections came out of this run and apply repo-wide:
    flattering always-short-vol from a true 0.36 Sharpe to 0.75. Frontier runs tile windows across the whole
    sample.
 
+## D2 — Event & seasonality premia battery (run 2026-07-28)
+
+Full detail: [event_premia_v1/event_premia_v1_summary.md](event_premia_v1/event_premia_v1_summary.md).
+
+5 of 14 pre-registered variants survived split-sample confirmation. No sleeve cleared the standalone gate,
+so nothing is promoted, but one result is worth real follow-up:
+
+| Sleeve | Net Sharpe | Net CAGR | Worst DD | Beta | Ann. alpha |
+|---|---:|---:|---:|---:|---:|
+| `E5_gap_pead_5d` (1 bps/side) | 0.69 | 14.9% | −31.1% | 0.52 | **+10.5%** |
+| `E5_gap_pead_20d` (1 bps/side) | 0.77 | 18.8% | −51.1% | 0.98 | +9.0% |
+| `E2_overnight_QQQ` (1 bps/side) | 0.53 | 6.0% | −30.8% | 0.38 | +2.0% |
+| `E2_overnight_QQQ` (3 bps/side) | −0.28 | −4.2% | −67.0% | 0.38 | −8.1% |
+| `E3_turn_of_month_base` | 0.47 | 4.5% | −33.6% | 0.31 | +1.2% |
+
+**Gap-PEAD (5-day) is the best frontier finding so far**: ~10.5% annualized alpha at beta 0.52, and nearly
+cost-insensitive because the holding period amortizes the round trip. It fails the gate only on drawdown.
+It runs on the survivorship-biased `UNIVERSE_100`, so re-running it on the point-in-time panel (PMP P2-1) is
+the single highest-value frontier follow-up.
+
+**The pre-FOMC drift did not confirm** in either index ETF (CI includes zero in a subperiod) and is dropped
+permanently, contradicting the literature that motivated the direction.
+
+**The overnight effect is real but not tradeable at retail cost.** SPY's overnight leg compounded to +435%
+against +68% intraday, yet a daily round trip turns QQQ's gross 0.93 Sharpe into net −0.28 at 3 bps/side. Its
+value is an execution insight — prefer closing auctions for entries — not a sleeve.
+
 ## How to reproduce
 
 ```bash
 python -m algoding.cli vol-carry-research
+```
+
+```bash
+python -m algoding.cli event-premia-research
 ```

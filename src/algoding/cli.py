@@ -29,6 +29,7 @@ from algoding.execution.price_momentum_validation_research import PriceMomentumV
 from algoding.execution.cross_asset_momentum_research import CrossAssetMomentumResearchLab
 from algoding.execution.regime_switch_research import RegimeSwitchResearchLab
 from algoding.execution.vol_carry_research import VolCarryResearchLab
+from algoding.execution.event_premia_research import EventPremiaResearchLab
 from algoding.execution.book_size_sensitivity_research import BookSizeSensitivityResearchLab
 from algoding.execution.dl_research import DlResearchLab
 from algoding.execution.historical_research import HistoricalResearchLab
@@ -842,6 +843,32 @@ def cmd_vol_carry_research(output_root: str, window_days: int, window_count: int
     return 0
 
 
+def cmd_event_premia_research(output_root: str, start: str, panel_symbols: int, include_panel: bool) -> int:
+    lab = EventPremiaResearchLab()
+    result = lab.run(
+        output_root=output_root,
+        start=start,
+        panel_symbols=panel_symbols,
+        include_panel=include_panel,
+    )
+    decision = result["decision"]
+    print(
+        json.dumps(
+            {
+                "version": result["version"],
+                "status": decision["status"],
+                "survived_confirmation": decision["survived_confirmation"],
+                "dropped_permanently": decision["dropped_permanently"],
+                "sleeves_meeting_standalone_gate": decision["sleeves_meeting_standalone_gate"],
+                "output_root": output_root,
+            },
+            indent=2,
+            default=str,
+        )
+    )
+    return 0
+
+
 def cmd_long_short_corrected_run(scores_path: str, output_root: str, eval_days_count: int, book_size: int) -> int:
     context = build_app_context()
     lab = LongShortCorrectedLab(context.settings)
@@ -1510,6 +1537,11 @@ def main() -> int:
     vol_carry_parser.add_argument("--window-days", type=int, default=126)
     vol_carry_parser.add_argument("--window-count", type=int, default=5)
     vol_carry_parser.add_argument("--portfolio-cap", type=float, default=0.05)
+    event_premia_parser = subparsers.add_parser("event-premia-research")
+    event_premia_parser.add_argument("--output-root", default="reports/research/event_premia_v1")
+    event_premia_parser.add_argument("--start", default="2005-01-01")
+    event_premia_parser.add_argument("--panel-symbols", type=int, default=100)
+    event_premia_parser.add_argument("--no-panel", action="store_true")
     ls_corrected_parser = subparsers.add_parser("long-short-corrected-run")
     ls_corrected_parser.add_argument("--scores-path", required=True)
     ls_corrected_parser.add_argument("--output-root", default="reports/research/long_short_v1_corrected")
@@ -1904,6 +1936,13 @@ def main() -> int:
             args.window_days,
             args.window_count,
             args.portfolio_cap,
+        )
+    if args.command == "event-premia-research":
+        return cmd_event_premia_research(
+            args.output_root,
+            args.start,
+            args.panel_symbols,
+            not args.no_panel,
         )
     if args.command == "long-short-corrected-run":
         return cmd_long_short_corrected_run(args.scores_path, args.output_root, args.eval_days_count, args.book_size)

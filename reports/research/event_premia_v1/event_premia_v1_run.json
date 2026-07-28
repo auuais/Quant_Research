@@ -1,0 +1,1101 @@
+{
+  "version": "EVENT-PREMIA-V1",
+  "direction": "D2",
+  "thesis": "documented calendar/announcement premia persist and are harvestable with daily close-decision orders on index ETFs",
+  "pre_registration": {
+    "registry": "reports/research/frontier_hypotheses.md#d2",
+    "declared_variants": 14,
+    "realized_variants": 14,
+    "confirmation_rule": "bootstrap 95% CI excludes zero in the early 70% AND late 30% independently, same sign, and mean effect >= 2x round-trip cost",
+    "gate": "standalone micro-sleeve net Sharpe >= 0.8 with <= 10% DD; overlay +0.03 portfolio Sharpe"
+  },
+  "config": {
+    "start": "2005-01-01",
+    "index_symbols": [
+      "SPY",
+      "QQQ"
+    ],
+    "panel_symbols_loaded": 100,
+    "primary_cost_bps_per_side": 1.0,
+    "stress_cost_bps_per_side": 3.0,
+    "observations": 5424,
+    "history_range": "2005-01-03 -> 2026-07-27"
+  },
+  "fomc_calendar": {
+    "announcements": 130,
+    "first": "2011-01-26",
+    "last": "2026-06-17",
+    "per_year_counts": {
+      "2011": 8,
+      "2012": 8,
+      "2013": 8,
+      "2014": 8,
+      "2015": 8,
+      "2016": 8,
+      "2017": 8,
+      "2018": 8,
+      "2019": 9,
+      "2020": 12,
+      "2021": 8,
+      "2022": 8,
+      "2023": 8,
+      "2024": 8,
+      "2025": 9,
+      "2026": 4
+    },
+    "years_with_unexpected_counts": [
+      2019,
+      2020,
+      2025
+    ],
+    "unexpected_count_note": "the Fed also publishes statements for unscheduled actions, so a year with more than 8 statement dates includes non-scheduled announcements",
+    "source_urls": [
+      "cache"
+    ]
+  },
+  "tests": [
+    {
+      "name": "E1_pre_fomc_SPY",
+      "description": "SPY return from the close before an FOMC announcement to the announcement close",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 130,
+        "mean": 7.4e-05,
+        "ci_low": -0.002727,
+        "ci_high": 0.002575,
+        "excludes_zero": false,
+        "positive_fraction": 0.5
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 91,
+        "mean": -0.000547,
+        "ci_low": -0.004181,
+        "ci_high": 0.002509,
+        "excludes_zero": false,
+        "positive_fraction": 0.4945
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 39,
+        "mean": 0.001521,
+        "ci_low": -0.002539,
+        "ci_high": 0.005626,
+        "excludes_zero": false,
+        "positive_fraction": 0.5128
+      },
+      "annualized_estimate": 0.000589,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": false,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation",
+      "events": 130
+    },
+    {
+      "name": "E1_pre_fomc_QQQ",
+      "description": "QQQ return from the close before an FOMC announcement to the announcement close",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 130,
+        "mean": 0.001417,
+        "ci_low": -0.00175,
+        "ci_high": 0.004275,
+        "excludes_zero": false,
+        "positive_fraction": 0.5538
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 91,
+        "mean": 0.000284,
+        "ci_low": -0.003619,
+        "ci_high": 0.003566,
+        "excludes_zero": false,
+        "positive_fraction": 0.5495
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 39,
+        "mean": 0.00406,
+        "ci_low": -0.001236,
+        "ci_high": 0.009555,
+        "excludes_zero": false,
+        "positive_fraction": 0.5641
+      },
+      "annualized_estimate": 0.011389,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": true,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation",
+      "events": 130
+    },
+    {
+      "name": "E2_overnight_SPY",
+      "description": "SPY close-to-open (overnight) daily return",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 5423,
+        "mean": 0.000335,
+        "ci_low": 0.000141,
+        "ci_high": 0.000522,
+        "excludes_zero": true,
+        "positive_fraction": 0.5569
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 3796,
+        "mean": 0.000316,
+        "ci_low": 0.000107,
+        "ci_high": 0.000526,
+        "excludes_zero": true,
+        "positive_fraction": 0.554
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 1627,
+        "mean": 0.00038,
+        "ci_low": -3.1e-05,
+        "ci_high": 0.000796,
+        "excludes_zero": false,
+        "positive_fraction": 0.5636
+      },
+      "annualized_estimate": 0.088133,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": false,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation",
+      "leg": "overnight"
+    },
+    {
+      "name": "E2_overnight_QQQ",
+      "description": "QQQ close-to-open (overnight) daily return",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 5423,
+        "mean": 0.000463,
+        "ci_low": 0.000254,
+        "ci_high": 0.000672,
+        "excludes_zero": true,
+        "positive_fraction": 0.5639
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 3796,
+        "mean": 0.000446,
+        "ci_low": 0.000224,
+        "ci_high": 0.000667,
+        "excludes_zero": true,
+        "positive_fraction": 0.5653
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 1627,
+        "mean": 0.000501,
+        "ci_low": 2.4e-05,
+        "ci_high": 0.000987,
+        "excludes_zero": true,
+        "positive_fraction": 0.5605
+      },
+      "annualized_estimate": 0.123591,
+      "confirmed_both_subperiods": true,
+      "exceeds_cost_hurdle": true,
+      "survives": true,
+      "verdict": "SURVIVES",
+      "drop_reason": null,
+      "leg": "overnight"
+    },
+    {
+      "name": "E2_overnight_panel",
+      "description": "panel close-to-open (overnight) daily return",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 5423,
+        "mean": 0.000441,
+        "ci_low": 0.000245,
+        "ci_high": 0.000632,
+        "excludes_zero": true,
+        "positive_fraction": 0.5685
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 3796,
+        "mean": 0.000417,
+        "ci_low": 0.000206,
+        "ci_high": 0.000627,
+        "excludes_zero": true,
+        "positive_fraction": 0.5656
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 1627,
+        "mean": 0.000496,
+        "ci_low": 8e-05,
+        "ci_high": 0.000907,
+        "excludes_zero": true,
+        "positive_fraction": 0.5753
+      },
+      "annualized_estimate": 0.117487,
+      "confirmed_both_subperiods": true,
+      "exceeds_cost_hurdle": true,
+      "survives": true,
+      "verdict": "SURVIVES",
+      "drop_reason": null,
+      "leg": "overnight"
+    },
+    {
+      "name": "E3_turn_of_month_base_last4_first3",
+      "description": "SPY cumulative return over each turn-of-month window (last 4 + first 3)",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 260,
+        "mean": 0.00618,
+        "ci_low": 0.002997,
+        "ci_high": 0.009408,
+        "excludes_zero": true,
+        "positive_fraction": 0.6423
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 182,
+        "mean": 0.006497,
+        "ci_low": 0.002633,
+        "ci_high": 0.010552,
+        "excludes_zero": true,
+        "positive_fraction": 0.6648
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 78,
+        "mean": 0.005438,
+        "ci_low": 5.5e-05,
+        "ci_high": 0.010849,
+        "excludes_zero": true,
+        "positive_fraction": 0.5897
+      },
+      "annualized_estimate": 0.076727,
+      "confirmed_both_subperiods": true,
+      "exceeds_cost_hurdle": true,
+      "survives": true,
+      "verdict": "SURVIVES",
+      "drop_reason": null,
+      "windows": 260,
+      "time_in_market": 0.3343
+    },
+    {
+      "name": "E3_turn_of_month_wide_last5_first4",
+      "description": "SPY cumulative return over each turn-of-month window (last 5 + first 4)",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 260,
+        "mean": 0.005866,
+        "ci_low": 0.002281,
+        "ci_high": 0.009322,
+        "excludes_zero": true,
+        "positive_fraction": 0.6615
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 182,
+        "mean": 0.005386,
+        "ci_low": 0.001315,
+        "ci_high": 0.009569,
+        "excludes_zero": true,
+        "positive_fraction": 0.6758
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 78,
+        "mean": 0.006986,
+        "ci_low": -4.2e-05,
+        "ci_high": 0.013483,
+        "excludes_zero": false,
+        "positive_fraction": 0.6282
+      },
+      "annualized_estimate": 0.072704,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": true,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation",
+      "windows": 260,
+      "time_in_market": 0.4298
+    },
+    {
+      "name": "E4_opex_week",
+      "description": "SPY cumulative return over each monthly option-expiration week",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 259,
+        "mean": 0.000772,
+        "ci_low": -0.002116,
+        "ci_high": 0.003514,
+        "excludes_zero": false,
+        "positive_fraction": 0.5598
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 181,
+        "mean": 0.002155,
+        "ci_low": -0.001067,
+        "ci_high": 0.005145,
+        "excludes_zero": false,
+        "positive_fraction": 0.6133
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 78,
+        "mean": -0.002438,
+        "ci_low": -0.00878,
+        "ci_high": 0.003251,
+        "excludes_zero": false,
+        "positive_fraction": 0.4359
+      },
+      "annualized_estimate": 0.009305,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": true,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation",
+      "time_in_market": 0.2344
+    },
+    {
+      "name": "E4_opex_day",
+      "description": "SPY single-day return on monthly option expiration",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 259,
+        "mean": -0.000176,
+        "ci_low": -0.001375,
+        "ci_high": 0.001063,
+        "excludes_zero": false,
+        "positive_fraction": 0.5174
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 181,
+        "mean": 0.000444,
+        "ci_low": -0.000919,
+        "ci_high": 0.001847,
+        "excludes_zero": false,
+        "positive_fraction": 0.558
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 78,
+        "mean": -0.001616,
+        "ci_low": -0.003982,
+        "ci_high": 0.00066,
+        "excludes_zero": false,
+        "positive_fraction": 0.4231
+      },
+      "annualized_estimate": -0.002116,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": false,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E4_quarter_end_day",
+      "description": "SPY single-day return on the last trading day of each quarter",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 87,
+        "mean": 0.001177,
+        "ci_low": -0.000881,
+        "ci_high": 0.003245,
+        "excludes_zero": false,
+        "positive_fraction": 0.5287
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 60,
+        "mean": 0.001359,
+        "ci_low": -0.000944,
+        "ci_high": 0.003892,
+        "excludes_zero": false,
+        "positive_fraction": 0.5333
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 27,
+        "mean": 0.000772,
+        "ci_low": -0.002828,
+        "ci_high": 0.004525,
+        "excludes_zero": false,
+        "positive_fraction": 0.5185
+      },
+      "annualized_estimate": 0.004715,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": true,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E5_gap_pead_5d",
+      "description": "forward 5d return after a top-decile positive earnings gap",
+      "round_trip_cost": 0.0006,
+      "full": {
+        "label": "full",
+        "n": 882,
+        "mean": 0.007117,
+        "ci_low": 0.003665,
+        "ci_high": 0.01058,
+        "excludes_zero": true,
+        "positive_fraction": 0.5726
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 617,
+        "mean": 0.005883,
+        "ci_low": 0.001753,
+        "ci_high": 0.010062,
+        "excludes_zero": true,
+        "positive_fraction": 0.5689
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 265,
+        "mean": 0.00999,
+        "ci_low": 0.003874,
+        "ci_high": 0.016286,
+        "excludes_zero": true,
+        "positive_fraction": 0.5811
+      },
+      "annualized_estimate": null,
+      "confirmed_both_subperiods": true,
+      "exceeds_cost_hurdle": true,
+      "survives": true,
+      "verdict": "SURVIVES",
+      "drop_reason": null,
+      "events": 882,
+      "horizon": "5d"
+    },
+    {
+      "name": "E5_gap_pead_20d",
+      "description": "forward 20d return after a top-decile positive earnings gap",
+      "round_trip_cost": 0.0006,
+      "full": {
+        "label": "full",
+        "n": 879,
+        "mean": 0.021344,
+        "ci_low": 0.014562,
+        "ci_high": 0.028003,
+        "excludes_zero": true,
+        "positive_fraction": 0.5995
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 615,
+        "mean": 0.019571,
+        "ci_low": 0.011674,
+        "ci_high": 0.027515,
+        "excludes_zero": true,
+        "positive_fraction": 0.6081
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 264,
+        "mean": 0.025473,
+        "ci_low": 0.012864,
+        "ci_high": 0.038086,
+        "excludes_zero": true,
+        "positive_fraction": 0.5795
+      },
+      "annualized_estimate": null,
+      "confirmed_both_subperiods": true,
+      "exceeds_cost_hurdle": true,
+      "survives": true,
+      "verdict": "SURVIVES",
+      "drop_reason": null,
+      "events": 879,
+      "horizon": "20d"
+    },
+    {
+      "name": "E6_vix_spike_p90",
+      "description": "SPY forward 5-day return after the VIX crosses its p90 rolling percentile",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 69,
+        "mean": 0.003542,
+        "ci_low": -0.003686,
+        "ci_high": 0.010688,
+        "excludes_zero": false,
+        "positive_fraction": 0.5507
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 48,
+        "mean": 0.002304,
+        "ci_low": -0.005672,
+        "ci_high": 0.010198,
+        "excludes_zero": false,
+        "positive_fraction": 0.5208
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 21,
+        "mean": 0.006372,
+        "ci_low": -0.009352,
+        "ci_high": 0.02103,
+        "excludes_zero": false,
+        "positive_fraction": 0.619
+      },
+      "annualized_estimate": null,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": true,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation",
+      "threshold": 0.9
+    },
+    {
+      "name": "E6_vix_spike_p95",
+      "description": "SPY forward 5-day return after the VIX crosses its p95 rolling percentile",
+      "round_trip_cost": 0.0002,
+      "full": {
+        "label": "full",
+        "n": 56,
+        "mean": 0.005171,
+        "ci_low": -0.002763,
+        "ci_high": 0.012664,
+        "excludes_zero": false,
+        "positive_fraction": 0.5893
+      },
+      "early": {
+        "label": "early_70pct",
+        "n": 39,
+        "mean": 0.005596,
+        "ci_low": -0.002797,
+        "ci_high": 0.013794,
+        "excludes_zero": false,
+        "positive_fraction": 0.5897
+      },
+      "late": {
+        "label": "late_30pct",
+        "n": 17,
+        "mean": 0.004194,
+        "ci_low": -0.013789,
+        "ci_high": 0.01982,
+        "excludes_zero": false,
+        "positive_fraction": 0.5882
+      },
+      "annualized_estimate": null,
+      "confirmed_both_subperiods": false,
+      "exceeds_cost_hurdle": true,
+      "survives": false,
+      "verdict": "DROPPED",
+      "drop_reason": "failed split-sample confirmation",
+      "threshold": 0.95
+    }
+  ],
+  "survivors": [
+    "E2_overnight_QQQ",
+    "E2_overnight_panel",
+    "E3_turn_of_month_base_last4_first3",
+    "E5_gap_pead_5d",
+    "E5_gap_pead_20d"
+  ],
+  "dropped": [
+    {
+      "name": "E1_pre_fomc_SPY",
+      "reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E1_pre_fomc_QQQ",
+      "reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E2_overnight_SPY",
+      "reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E3_turn_of_month_wide_last5_first4",
+      "reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E4_opex_week",
+      "reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E4_opex_day",
+      "reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E4_quarter_end_day",
+      "reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E6_vix_spike_p90",
+      "reason": "failed split-sample confirmation"
+    },
+    {
+      "name": "E6_vix_spike_p95",
+      "reason": "failed split-sample confirmation"
+    }
+  ],
+  "sleeves": {
+    "E2_overnight_QQQ|primary": {
+      "rule": "buy at the close every day, sell at the next open, cash overnight otherwise",
+      "gross_metrics": {
+        "total_return": 9.365065,
+        "cagr": 0.114788,
+        "ann_vol": 0.125115,
+        "sharpe": 0.9316,
+        "max_drawdown": -0.274317,
+        "days": 5423,
+        "beta_vs_spy": 0.3825,
+        "annualized_alpha_vs_spy": 0.070433
+      },
+      "net_metrics": {
+        "total_return": 2.504914,
+        "cagr": 0.060011,
+        "ann_vol": 0.125115,
+        "sharpe": 0.5288,
+        "max_drawdown": -0.30826,
+        "days": 5423,
+        "beta_vs_spy": 0.3825,
+        "annualized_alpha_vs_spy": 0.020033
+      },
+      "round_trips_per_year": 252.0,
+      "cost_drag_annual": 0.0504,
+      "note": "one round trip every session; the cost drag is charged on the full notional each day, which is what makes this leg hard to monetise at retail"
+    },
+    "E2_overnight_QQQ|stress": {
+      "rule": "buy at the close every day, sell at the next open, cash overnight otherwise",
+      "gross_metrics": {
+        "total_return": 9.365065,
+        "cagr": 0.114788,
+        "ann_vol": 0.125115,
+        "sharpe": 0.9316,
+        "max_drawdown": -0.274317,
+        "days": 5423,
+        "beta_vs_spy": 0.3825,
+        "annualized_alpha_vs_spy": 0.070433
+      },
+      "net_metrics": {
+        "total_return": -0.599497,
+        "cagr": -0.041629,
+        "ann_vol": 0.125115,
+        "sharpe": -0.2769,
+        "max_drawdown": -0.670442,
+        "days": 5423,
+        "beta_vs_spy": 0.3825,
+        "annualized_alpha_vs_spy": -0.080767
+      },
+      "round_trips_per_year": 252.0,
+      "cost_drag_annual": 0.1512,
+      "note": "one round trip every session; the cost drag is charged on the full notional each day, which is what makes this leg hard to monetise at retail"
+    },
+    "E2_overnight_panel|primary": {
+      "rule": "buy at the close every day, sell at the next open, cash overnight otherwise",
+      "gross_metrics": {
+        "total_return": 4.353535,
+        "cagr": 0.081083,
+        "ann_vol": 0.113699,
+        "sharpe": 0.743,
+        "max_drawdown": -0.294135,
+        "days": 5423,
+        "beta_vs_spy": 0.38,
+        "annualized_alpha_vs_spy": 0.038656
+      },
+      "net_metrics": {
+        "total_return": 0.810053,
+        "cagr": 0.027956,
+        "ann_vol": 0.113699,
+        "sharpe": 0.2997,
+        "max_drawdown": -0.297708,
+        "days": 5423,
+        "beta_vs_spy": 0.38,
+        "annualized_alpha_vs_spy": -0.011744
+      },
+      "round_trips_per_year": 252.0,
+      "cost_drag_annual": 0.0504,
+      "note": "one round trip every session; the cost drag is charged on the full notional each day, which is what makes this leg hard to monetise at retail"
+    },
+    "E2_overnight_panel|stress": {
+      "rule": "buy at the close every day, sell at the next open, cash overnight otherwise",
+      "gross_metrics": {
+        "total_return": 4.353535,
+        "cagr": 0.081083,
+        "ann_vol": 0.113699,
+        "sharpe": 0.743,
+        "max_drawdown": -0.294135,
+        "days": 5423,
+        "beta_vs_spy": 0.38,
+        "annualized_alpha_vs_spy": 0.038656
+      },
+      "net_metrics": {
+        "total_return": -0.793219,
+        "cagr": -0.070622,
+        "ann_vol": 0.113699,
+        "sharpe": -0.5868,
+        "max_drawdown": -0.807957,
+        "days": 5423,
+        "beta_vs_spy": 0.38,
+        "annualized_alpha_vs_spy": -0.112544
+      },
+      "round_trips_per_year": 252.0,
+      "cost_drag_annual": 0.1512,
+      "note": "one round trip every session; the cost drag is charged on the full notional each day, which is what makes this leg hard to monetise at retail"
+    },
+    "E3_turn_of_month_base_last4_first3": {
+      "rule": "hold only on flagged days, cash otherwise, position set from the prior close",
+      "gross_metrics": {
+        "total_return": 1.721789,
+        "cagr": 0.047628,
+        "ann_vol": 0.105675,
+        "sharpe": 0.4935,
+        "max_drawdown": -0.333685,
+        "days": 5423,
+        "beta_vs_spy": 0.3112,
+        "annualized_alpha_vs_spy": 0.014621
+      },
+      "net_metrics": {
+        "total_return": 1.584181,
+        "cagr": 0.045105,
+        "ann_vol": 0.10567,
+        "sharpe": 0.4707,
+        "max_drawdown": -0.335814,
+        "days": 5423,
+        "beta_vs_spy": 0.3111,
+        "annualized_alpha_vs_spy": 0.012211
+      },
+      "time_in_market": 0.3341,
+      "round_trips": 259
+    },
+    "E5_gap_pead_5d|primary": {
+      "rule": "buy every name whose earnings gap exceeded the expanding 90th percentile, at the reaction-day close, equal-weighted, hold 5 sessions",
+      "gross_metrics": {
+        "total_return": 21.393252,
+        "cagr": 0.155385,
+        "ann_vol": 0.244228,
+        "sharpe": 0.7123,
+        "max_drawdown": -0.310742,
+        "days": 5424,
+        "beta_vs_spy": 0.5238,
+        "annualized_alpha_vs_spy": 0.110844
+      },
+      "net_metrics": {
+        "total_return": 18.792856,
+        "cagr": 0.148778,
+        "ann_vol": 0.244231,
+        "sharpe": 0.6889,
+        "max_drawdown": -0.31118,
+        "days": 5424,
+        "beta_vs_spy": 0.5239,
+        "annualized_alpha_vs_spy": 0.105095
+      },
+      "time_in_market": 0.4489,
+      "mean_positions_when_invested": 1.82,
+      "mean_daily_turnover": 0.2276,
+      "entries": 889,
+      "cost_bps_per_side": 1.0
+    },
+    "E5_gap_pead_5d|stress": {
+      "rule": "buy every name whose earnings gap exceeded the expanding 90th percentile, at the reaction-day close, equal-weighted, hold 5 sessions",
+      "gross_metrics": {
+        "total_return": 21.393252,
+        "cagr": 0.155385,
+        "ann_vol": 0.244228,
+        "sharpe": 0.7123,
+        "max_drawdown": -0.310742,
+        "days": 5424,
+        "beta_vs_spy": 0.5238,
+        "annualized_alpha_vs_spy": 0.110844
+      },
+      "net_metrics": {
+        "total_return": 14.462293,
+        "cagr": 0.135675,
+        "ann_vol": 0.244242,
+        "sharpe": 0.6419,
+        "max_drawdown": -0.312056,
+        "days": 5424,
+        "beta_vs_spy": 0.5241,
+        "annualized_alpha_vs_spy": 0.093598
+      },
+      "time_in_market": 0.4489,
+      "mean_positions_when_invested": 1.82,
+      "mean_daily_turnover": 0.2276,
+      "entries": 889,
+      "cost_bps_per_side": 3.0
+    },
+    "E5_gap_pead_20d|primary": {
+      "rule": "buy every name whose earnings gap exceeded the expanding 90th percentile, at the reaction-day close, equal-weighted, hold 20 sessions",
+      "gross_metrics": {
+        "total_return": 43.279501,
+        "cagr": 0.192567,
+        "ann_vol": 0.269975,
+        "sharpe": 0.7876,
+        "max_drawdown": -0.509266,
+        "days": 5424,
+        "beta_vs_spy": 0.9822,
+        "annualized_alpha_vs_spy": 0.094217
+      },
+      "net_metrics": {
+        "total_return": 39.707532,
+        "cagr": 0.187916,
+        "ann_vol": 0.269989,
+        "sharpe": 0.7731,
+        "max_drawdown": -0.510556,
+        "days": 5424,
+        "beta_vs_spy": 0.9823,
+        "annualized_alpha_vs_spy": 0.090301
+      },
+      "time_in_market": 0.8619,
+      "mean_positions_when_invested": 3.77,
+      "mean_daily_turnover": 0.155,
+      "entries": 889,
+      "cost_bps_per_side": 1.0
+    },
+    "E5_gap_pead_20d|stress": {
+      "rule": "buy every name whose earnings gap exceeded the expanding 90th percentile, at the reaction-day close, equal-weighted, hold 20 sessions",
+      "gross_metrics": {
+        "total_return": 43.279501,
+        "cagr": 0.192567,
+        "ann_vol": 0.269975,
+        "sharpe": 0.7876,
+        "max_drawdown": -0.509266,
+        "days": 5424,
+        "beta_vs_spy": 0.9822,
+        "annualized_alpha_vs_spy": 0.094217
+      },
+      "net_metrics": {
+        "total_return": 33.404084,
+        "cagr": 0.178667,
+        "ann_vol": 0.270019,
+        "sharpe": 0.7441,
+        "max_drawdown": -0.513127,
+        "days": 5424,
+        "beta_vs_spy": 0.9825,
+        "annualized_alpha_vs_spy": 0.08247
+      },
+      "time_in_market": 0.8619,
+      "mean_positions_when_invested": 3.77,
+      "mean_daily_turnover": 0.155,
+      "entries": 889,
+      "cost_bps_per_side": 3.0
+    }
+  },
+  "multiple_testing": {
+    "trials": 14,
+    "observations": 5424,
+    "sharpe_standard_error": 0.2155,
+    "expected_max_sharpe_under_null": 0.3747
+  },
+  "diagnostics": {
+    "E1_car_SPY": {
+      "events_used": 130,
+      "offsets": [
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "mean_daily_return_by_offset": {
+        "-5": 0.000185,
+        "-4": 0.002733,
+        "-3": -0.001134,
+        "-2": -0.000325,
+        "-1": 0.001407,
+        "0": 7.4e-05,
+        "1": -0.00059,
+        "2": -0.000302,
+        "3": 0.001205,
+        "4": 0.001212,
+        "5": 9.7e-05
+      },
+      "cumulative_return_by_offset": {
+        "-5": 0.000185,
+        "-4": 0.002917,
+        "-3": 0.001784,
+        "-2": 0.001459,
+        "-1": 0.002866,
+        "0": 0.00294,
+        "1": 0.00235,
+        "2": 0.002047,
+        "3": 0.003252,
+        "4": 0.004464,
+        "5": 0.00456
+      }
+    },
+    "E1_car_QQQ": {
+      "events_used": 130,
+      "offsets": [
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "mean_daily_return_by_offset": {
+        "-5": 0.00034,
+        "-4": 0.002527,
+        "-3": -0.001329,
+        "-2": 0.000112,
+        "-1": 0.001903,
+        "0": 0.001417,
+        "1": -0.000369,
+        "2": -0.000474,
+        "3": 0.00192,
+        "4": 0.001672,
+        "5": -0.00014
+      },
+      "cumulative_return_by_offset": {
+        "-5": 0.00034,
+        "-4": 0.002866,
+        "-3": 0.001537,
+        "-2": 0.001649,
+        "-1": 0.003552,
+        "0": 0.004969,
+        "1": 0.0046,
+        "2": 0.004126,
+        "3": 0.006046,
+        "4": 0.007718,
+        "5": 0.007578
+      }
+    },
+    "E2_overnight_vs_intraday": {
+      "SPY": {
+        "overnight_mean_bps": 3.352,
+        "intraday_mean_bps": 1.387,
+        "overnight_total_return": 4.3535,
+        "intraday_total_return": 0.6831,
+        "overnight_sharpe": 0.743,
+        "intraday_sharpe": 0.238,
+        "overnight_share_of_total": 0.8644
+      },
+      "QQQ": {
+        "overnight_mean_bps": 4.625,
+        "intraday_mean_bps": 1.823,
+        "overnight_total_return": 9.3651,
+        "intraday_total_return": 0.9289,
+        "overnight_sharpe": 0.932,
+        "intraday_sharpe": 0.262,
+        "overnight_share_of_total": 0.9098
+      },
+      "panel": {
+        "overnight_mean_bps": 4.409,
+        "intraday_mean_bps": 2.565,
+        "overnight_total_return": 8.4635,
+        "intraday_total_return": 2.1366,
+        "overnight_sharpe": 0.967,
+        "intraday_sharpe": 0.426,
+        "overnight_share_of_total": 0.7984
+      }
+    },
+    "E3_base_last4_first3": {
+      "mean_daily_in_window_bps": 9.023,
+      "mean_daily_outside_window_bps": 2.657
+    },
+    "E3_wide_last5_first4": {
+      "mean_daily_in_window_bps": 6.725,
+      "mean_daily_outside_window_bps": 3.323
+    },
+    "E4_counts": {
+      "opex_days": 259,
+      "quarter_ends": 87,
+      "opex_week_day_fraction": 0.2344
+    },
+    "E5": {
+      "status": "TESTED",
+      "matched_events": 8233,
+      "top_decile_events": 889,
+      "threshold_rule": "expanding 90th percentile of prior gaps only (min 200 prior events); a full-sample quantile would be look-ahead",
+      "final_threshold": 0.0504,
+      "mean_gap_in_top_decile": 0.08176,
+      "decile_monotonicity": {
+        "testable": true,
+        "decile_mean_forward_5d": {
+          "0": 0.000891,
+          "1": 0.00098,
+          "2": 0.000529,
+          "3": 0.000364,
+          "4": 0.001161,
+          "5": 0.002522,
+          "6": 0.002547,
+          "7": 0.005429,
+          "8": 0.003354,
+          "9": 0.006978
+        },
+        "monotonically_increasing": false,
+        "top_minus_bottom": 0.006087
+      },
+      "universe_caveat": "the panel is UNIVERSE_100, a currently-listed mega-cap set, so this inherits survivorship bias and must be re-run on the point-in-time panel before any deployment decision"
+    },
+    "E6": {
+      "status": "TESTED",
+      "p90": {
+        "crossings": 69,
+        "usable": 69
+      },
+      "p95": {
+        "crossings": 56,
+        "usable": 56
+      }
+    },
+    "sleeve_count": 9
+  },
+  "decision": {
+    "tested": 14,
+    "survived_confirmation": [
+      "E2_overnight_QQQ",
+      "E2_overnight_panel",
+      "E3_turn_of_month_base_last4_first3",
+      "E5_gap_pead_5d",
+      "E5_gap_pead_20d"
+    ],
+    "dropped_permanently": [
+      "E1_pre_fomc_SPY",
+      "E1_pre_fomc_QQQ",
+      "E2_overnight_SPY",
+      "E3_turn_of_month_wide_last5_first4",
+      "E4_opex_week",
+      "E4_opex_day",
+      "E4_quarter_end_day",
+      "E6_vix_spike_p90",
+      "E6_vix_spike_p95"
+    ],
+    "sleeves_meeting_standalone_gate": [],
+    "sleeves_watchlist": [
+      "E2_overnight_QQQ|primary",
+      "E2_overnight_QQQ|stress",
+      "E2_overnight_panel|primary",
+      "E2_overnight_panel|stress",
+      "E3_turn_of_month_base_last4_first3",
+      "E5_gap_pead_5d|primary",
+      "E5_gap_pead_5d|stress",
+      "E5_gap_pead_20d|primary",
+      "E5_gap_pead_20d|stress"
+    ],
+    "status": "WATCHLIST",
+    "note": "surviving an effect test is necessary but not sufficient: the sleeve must also clear the standalone Sharpe/drawdown gate net of costs"
+  }
+}
