@@ -15,6 +15,21 @@ from algoding.execution.deepseek_directional_v4_research import DeepseekDirectio
 from algoding.execution.deepseek_strict_compare import DeepseekStrictComparisonLab
 from algoding.execution.qwen_embedding_directional_research import QwenEmbeddingDirectionalResearchLab
 from algoding.execution.v35_execution_controls import run_v35_execution_controls
+from algoding.execution.long_short_research import LongShortResearchLab
+from algoding.execution.cross_sectional_retrain import CrossSectionalRetrainLab
+from algoding.execution.long_short_corrected import LongShortCorrectedLab
+from algoding.execution.hybrid_alpha_research import HybridAlphaResearchLab
+from algoding.execution.factor_ml_research import FactorMlResearchLab
+from algoding.execution.factor_validation_research import FactorValidationResearchLab
+from algoding.execution.factor_news_overlay_research import FactorNewsOverlayResearchLab
+from algoding.execution.sentiment_balanced_research import SentimentBalancedResearchLab
+from algoding.execution.embedding_sentiment_research import EmbeddingSentimentResearchLab
+from algoding.execution.portfolio_controls_research import PortfolioControlsResearchLab
+from algoding.execution.price_momentum_validation_research import PriceMomentumValidationResearchLab
+from algoding.execution.cross_asset_momentum_research import CrossAssetMomentumResearchLab
+from algoding.execution.regime_switch_research import RegimeSwitchResearchLab
+from algoding.execution.vol_carry_research import VolCarryResearchLab
+from algoding.execution.book_size_sensitivity_research import BookSizeSensitivityResearchLab
 from algoding.execution.dl_research import DlResearchLab
 from algoding.execution.historical_research import HistoricalResearchLab
 from algoding.execution.llm_research import LlmNewsResearchLab
@@ -549,6 +564,347 @@ def cmd_qwen_embedding_v3_q3e_run(
     return 0
 
 
+def cmd_hybrid_alpha_run(scores_path: str, output_root: str, max_bars: int, eval_days_count: int, retrain_every: int) -> int:
+    context = build_app_context()
+    lab = HybridAlphaResearchLab(context.settings)
+    result = lab.run(
+        scores_path=scores_path,
+        output_root=output_root,
+        max_bars=max_bars,
+        eval_days_count=eval_days_count,
+        retrain_every=retrain_every,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_factor_ml_run(output_root: str, max_bars: int, eval_days_count: int, retrain_every: int, forward_horizon: int) -> int:
+    context = build_app_context()
+    lab = FactorMlResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        max_bars=max_bars,
+        eval_days_count=eval_days_count,
+        retrain_every=retrain_every,
+        forward_horizon=forward_horizon,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_factor_validation_run(
+    output_root: str,
+    max_bars: int,
+    window_days: int,
+    window_count: int,
+    forward_horizon: int,
+) -> int:
+    context = build_app_context()
+    lab = FactorValidationResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        max_bars=max_bars,
+        window_days=window_days,
+        window_count=window_count,
+        forward_horizon=forward_horizon,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_factor_news_overlay_run(
+    scores_path: str,
+    output_root: str,
+    max_bars: int,
+    window_days: int,
+    window_count: int,
+    forward_horizon: int,
+    news_fresh_days: int,
+) -> int:
+    context = build_app_context()
+    lab = FactorNewsOverlayResearchLab(context.settings)
+    result = lab.run(
+        scores_path=scores_path,
+        output_root=output_root,
+        max_bars=max_bars,
+        window_days=window_days,
+        window_count=window_count,
+        forward_horizon=forward_horizon,
+        news_fresh_days=news_fresh_days,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_sentiment_balanced_run(
+    scores_path: str,
+    output_root: str,
+    max_bars: int,
+    window_days: int,
+    window_count: int,
+    news_fresh_days: int,
+    retrain_every: int,
+) -> int:
+    context = build_app_context()
+    lab = SentimentBalancedResearchLab(context.settings)
+    result = lab.run(
+        scores_path=scores_path,
+        output_root=output_root,
+        max_bars=max_bars,
+        window_days=window_days,
+        window_count=window_count,
+        news_fresh_days=news_fresh_days,
+        retrain_every=retrain_every,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_embedding_sentiment_run(
+    scores_path: str,
+    embedding_cache_path: str,
+    output_root: str,
+    max_bars: int,
+    window_days: int,
+    window_count: int,
+    news_fresh_days: int,
+    retrain_every: int,
+    svd_components: int,
+    book_size: int,
+) -> int:
+    context = build_app_context()
+    lab = EmbeddingSentimentResearchLab(context.settings)
+    result = lab.run(
+        scores_path=scores_path,
+        embedding_cache_path=embedding_cache_path,
+        output_root=output_root,
+        max_bars=max_bars,
+        window_days=window_days,
+        window_count=window_count,
+        news_fresh_days=news_fresh_days,
+        retrain_every=retrain_every,
+        svd_components=svd_components,
+        book_size=book_size,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_portfolio_controls_run(
+    output_root: str,
+    max_bars: int,
+    window_days: int,
+    window_count: int,
+    forward_horizon: int,
+    book_size: int,
+    rebalance_days: int,
+) -> int:
+    context = build_app_context()
+    lab = PortfolioControlsResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        max_bars=max_bars,
+        window_days=window_days,
+        window_count=window_count,
+        forward_horizon=forward_horizon,
+        book_size=book_size,
+        rebalance_days=rebalance_days,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_regime_switch_run(
+    output_root: str,
+    max_bars: int,
+    window_days: int,
+    window_count: int,
+    forward_horizon: int,
+    book_size: int,
+    rebalance_days: int,
+    train_min_samples: int,
+    embargo_days: int,
+    label_drawdown_penalty: float,
+) -> int:
+    context = build_app_context()
+    lab = RegimeSwitchResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        max_bars=max_bars,
+        window_days=window_days,
+        window_count=window_count,
+        forward_horizon=forward_horizon,
+        book_size=book_size,
+        rebalance_days=rebalance_days,
+        train_min_samples=train_min_samples,
+        embargo_days=embargo_days,
+        label_drawdown_penalty=label_drawdown_penalty,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_book_size_sensitivity_run(
+    output_root: str,
+    max_bars: int,
+    window_days: int,
+    window_count: int,
+    forward_horizon: int,
+    book_sizes: list[int],
+    rebalance_days: int,
+) -> int:
+    context = build_app_context()
+    lab = BookSizeSensitivityResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        max_bars=max_bars,
+        window_days=window_days,
+        window_count=window_count,
+        forward_horizon=forward_horizon,
+        book_sizes=tuple(book_sizes),
+        rebalance_days=rebalance_days,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_price_momentum_validation_run(
+    output_root: str,
+    max_bars: int,
+    window_days: int,
+    window_count: int,
+    forward_horizon: int,
+    book_size: int,
+    rebalance_days: int,
+) -> int:
+    context = build_app_context()
+    lab = PriceMomentumValidationResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        max_bars=max_bars,
+        window_days=window_days,
+        window_count=window_count,
+        forward_horizon=forward_horizon,
+        book_size=book_size,
+        rebalance_days=rebalance_days,
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_cross_asset_momentum_run(
+    output_root: str,
+    max_bars: int,
+    lookback_days: int,
+    rebalance_days: int,
+    window_days: int,
+    window_count: int,
+    book_sizes: list[int],
+) -> int:
+    context = build_app_context()
+    lab = CrossAssetMomentumResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        max_bars=max_bars,
+        lookback_days=lookback_days,
+        rebalance_days=rebalance_days,
+        window_days=window_days,
+        window_count=window_count,
+        book_sizes=tuple(book_sizes),
+    )
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
+def cmd_vol_carry_research(output_root: str, window_days: int, window_count: int, portfolio_cap: float) -> int:
+    lab = VolCarryResearchLab()
+    result = lab.run(
+        output_root=output_root,
+        window_days=window_days,
+        window_count=window_count,
+        portfolio_cap=portfolio_cap,
+    )
+    decision = result["decision"]
+    print(
+        json.dumps(
+            {
+                "version": result["version"],
+                "status": decision["status"],
+                "best_variant": decision.get("best_variant"),
+                "failed_checks": decision.get("failed_checks"),
+                "best_variant_full_history_metrics": decision.get("best_variant_full_history_metrics"),
+                "output_root": output_root,
+            },
+            indent=2,
+            default=str,
+        )
+    )
+    return 0
+
+
+def cmd_long_short_corrected_run(scores_path: str, output_root: str, eval_days_count: int, book_size: int) -> int:
+    context = build_app_context()
+    lab = LongShortCorrectedLab(context.settings)
+    result = lab.run(
+        scores_path=scores_path,
+        output_root=output_root,
+        eval_days_count=eval_days_count,
+        book_size=book_size,
+    )
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+def cmd_cross_sectional_retrain_run(
+    output_root: str,
+    base_model_path: str,
+    max_bars: int,
+    eval_days_count: int,
+    num_train_epochs: float,
+    max_train_samples: int,
+) -> int:
+    context = build_app_context()
+    lab = CrossSectionalRetrainLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        base_model_path=base_model_path,
+        max_bars=max_bars,
+        eval_days_count=eval_days_count,
+        num_train_epochs=num_train_epochs,
+        max_train_samples=max_train_samples,
+    )
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+def cmd_long_short_research_run(
+    output_root: str,
+    scores_path: str,
+    max_bars: int,
+    eval_days_count: int,
+    book_size: int,
+    rebalance_days: int,
+    cost_bps_per_side: float,
+    short_borrow_annual: float,
+    book_mode: str,
+) -> int:
+    context = build_app_context()
+    lab = LongShortResearchLab(context.settings)
+    result = lab.run(
+        output_root=output_root,
+        scores_path=scores_path,
+        max_bars=max_bars,
+        eval_days_count=eval_days_count,
+        book_size=book_size,
+        rebalance_days=rebalance_days,
+        cost_bps_per_side=cost_bps_per_side,
+        short_borrow_annual=short_borrow_annual,
+        book_mode=book_mode,
+    )
+    print(json.dumps(result, indent=2))
+    return 0
+
+
 def cmd_v35_execution_controls_run(
     output_root: str,
     v35_scores_path: str,
@@ -1061,6 +1417,121 @@ def main() -> int:
     )
     qwen_q3e_parser.add_argument("--training-symbols", default="")
     qwen_q3e_parser.add_argument("--evaluation-symbols", default="")
+    hybrid_parser = subparsers.add_parser("hybrid-alpha-run")
+    hybrid_parser.add_argument("--scores-path", default="reports/research/long_short_v1/broad_directional_scores.jsonl")
+    hybrid_parser.add_argument("--output-root", default="reports/research/hybrid_v1")
+    hybrid_parser.add_argument("--max-bars", type=int, default=450)
+    hybrid_parser.add_argument("--eval-days-count", type=int, default=200)
+    hybrid_parser.add_argument("--retrain-every", type=int, default=20)
+    factor_ml_parser = subparsers.add_parser("factor-ml-run")
+    factor_ml_parser.add_argument("--output-root", default="reports/research/factor_ml_v1")
+    factor_ml_parser.add_argument("--max-bars", type=int, default=900)
+    factor_ml_parser.add_argument("--eval-days-count", type=int, default=252)
+    factor_ml_parser.add_argument("--retrain-every", type=int, default=20)
+    factor_ml_parser.add_argument("--forward-horizon", type=int, default=20)
+    factor_validation_parser = subparsers.add_parser("factor-validation-run")
+    factor_validation_parser.add_argument("--output-root", default="reports/research/factor_validation_v1")
+    factor_validation_parser.add_argument("--max-bars", type=int, default=1200)
+    factor_validation_parser.add_argument("--window-days", type=int, default=126)
+    factor_validation_parser.add_argument("--window-count", type=int, default=5)
+    factor_validation_parser.add_argument("--forward-horizon", type=int, default=20)
+    factor_news_parser = subparsers.add_parser("factor-news-overlay-run")
+    factor_news_parser.add_argument("--scores-path", default="reports/research/long_short_v1/broad_directional_scores.jsonl")
+    factor_news_parser.add_argument("--output-root", default="reports/research/factor_news_overlay_v1")
+    factor_news_parser.add_argument("--max-bars", type=int, default=1200)
+    factor_news_parser.add_argument("--window-days", type=int, default=126)
+    factor_news_parser.add_argument("--window-count", type=int, default=3)
+    factor_news_parser.add_argument("--forward-horizon", type=int, default=20)
+    factor_news_parser.add_argument("--news-fresh-days", type=int, default=3)
+    sentiment_balanced_parser = subparsers.add_parser("sentiment-balanced-run")
+    sentiment_balanced_parser.add_argument("--scores-path", default="reports/research/long_short_v1/broad_directional_scores.jsonl")
+    sentiment_balanced_parser.add_argument("--output-root", default="reports/research/sentiment_v2_balanced")
+    sentiment_balanced_parser.add_argument("--max-bars", type=int, default=1200)
+    sentiment_balanced_parser.add_argument("--window-days", type=int, default=126)
+    sentiment_balanced_parser.add_argument("--window-count", type=int, default=3)
+    sentiment_balanced_parser.add_argument("--news-fresh-days", type=int, default=3)
+    sentiment_balanced_parser.add_argument("--retrain-every", type=int, default=20)
+    embedding_sentiment_parser = subparsers.add_parser("embedding-sentiment-run")
+    embedding_sentiment_parser.add_argument("--scores-path", default="reports/research/long_short_v1/broad_directional_scores.jsonl")
+    embedding_sentiment_parser.add_argument("--embedding-cache-path", default="reports/research/qwen_embedding_v3_q3e/qwen3_embedding_cache.jsonl")
+    embedding_sentiment_parser.add_argument("--output-root", default="reports/research/sentiment_v3_embedding")
+    embedding_sentiment_parser.add_argument("--max-bars", type=int, default=1400)
+    embedding_sentiment_parser.add_argument("--window-days", type=int, default=126)
+    embedding_sentiment_parser.add_argument("--window-count", type=int, default=3)
+    embedding_sentiment_parser.add_argument("--news-fresh-days", type=int, default=3)
+    embedding_sentiment_parser.add_argument("--retrain-every", type=int, default=20)
+    embedding_sentiment_parser.add_argument("--svd-components", type=int, default=64)
+    embedding_sentiment_parser.add_argument("--book-size", type=int, default=10)
+    portfolio_controls_parser = subparsers.add_parser("portfolio-controls-run")
+    portfolio_controls_parser.add_argument("--output-root", default="reports/research/portfolio_controls_v1")
+    portfolio_controls_parser.add_argument("--max-bars", type=int, default=1200)
+    portfolio_controls_parser.add_argument("--window-days", type=int, default=126)
+    portfolio_controls_parser.add_argument("--window-count", type=int, default=5)
+    portfolio_controls_parser.add_argument("--forward-horizon", type=int, default=20)
+    portfolio_controls_parser.add_argument("--book-size", type=int, default=20)
+    portfolio_controls_parser.add_argument("--rebalance-days", type=int, default=5)
+    regime_switch_parser = subparsers.add_parser("regime-switch-run")
+    regime_switch_parser.add_argument("--output-root", default="reports/research/regime_switch_v1")
+    regime_switch_parser.add_argument("--max-bars", type=int, default=1200)
+    regime_switch_parser.add_argument("--window-days", type=int, default=126)
+    regime_switch_parser.add_argument("--window-count", type=int, default=5)
+    regime_switch_parser.add_argument("--forward-horizon", type=int, default=20)
+    regime_switch_parser.add_argument("--book-size", type=int, default=20)
+    regime_switch_parser.add_argument("--rebalance-days", type=int, default=5)
+    regime_switch_parser.add_argument("--train-min-samples", type=int, default=60)
+    regime_switch_parser.add_argument("--embargo-days", type=int, default=5)
+    regime_switch_parser.add_argument("--label-drawdown-penalty", type=float, default=0.35)
+    book_size_parser = subparsers.add_parser("book-size-sensitivity-run")
+    book_size_parser.add_argument("--output-root", default="reports/research/book_size_sensitivity_v1")
+    book_size_parser.add_argument("--max-bars", type=int, default=1200)
+    book_size_parser.add_argument("--window-days", type=int, default=126)
+    book_size_parser.add_argument("--window-count", type=int, default=5)
+    book_size_parser.add_argument("--forward-horizon", type=int, default=20)
+    book_size_parser.add_argument("--book-sizes", default="5,10,15,20,25,30,40")
+    book_size_parser.add_argument("--rebalance-days", type=int, default=5)
+    price_momentum_parser = subparsers.add_parser("price-momentum-validation-run")
+    price_momentum_parser.add_argument("--output-root", default="reports/research/price_momentum_validation_v1")
+    price_momentum_parser.add_argument("--max-bars", type=int, default=1200)
+    price_momentum_parser.add_argument("--window-days", type=int, default=126)
+    price_momentum_parser.add_argument("--window-count", type=int, default=5)
+    price_momentum_parser.add_argument("--forward-horizon", type=int, default=20)
+    price_momentum_parser.add_argument("--book-size", type=int, default=20)
+    price_momentum_parser.add_argument("--rebalance-days", type=int, default=5)
+    cross_asset_momentum_parser = subparsers.add_parser("cross-asset-momentum-run")
+    cross_asset_momentum_parser.add_argument("--output-root", default="reports/research/cross_asset_momentum_v1")
+    cross_asset_momentum_parser.add_argument("--max-bars", type=int, default=1600)
+    cross_asset_momentum_parser.add_argument("--lookback-days", type=int, default=20)
+    cross_asset_momentum_parser.add_argument("--rebalance-days", type=int, default=5)
+    cross_asset_momentum_parser.add_argument("--window-days", type=int, default=126)
+    cross_asset_momentum_parser.add_argument("--window-count", type=int, default=6)
+    cross_asset_momentum_parser.add_argument("--book-sizes", default="20,5")
+    vol_carry_parser = subparsers.add_parser("vol-carry-research")
+    vol_carry_parser.add_argument("--output-root", default="reports/research/vol_carry_v1")
+    vol_carry_parser.add_argument("--window-days", type=int, default=126)
+    vol_carry_parser.add_argument("--window-count", type=int, default=5)
+    vol_carry_parser.add_argument("--portfolio-cap", type=float, default=0.05)
+    ls_corrected_parser = subparsers.add_parser("long-short-corrected-run")
+    ls_corrected_parser.add_argument("--scores-path", required=True)
+    ls_corrected_parser.add_argument("--output-root", default="reports/research/long_short_v1_corrected")
+    ls_corrected_parser.add_argument("--eval-days-count", type=int, default=280)
+    ls_corrected_parser.add_argument("--book-size", type=int, default=20)
+    xs_retrain_parser = subparsers.add_parser("cross-sectional-retrain-run")
+    xs_retrain_parser.add_argument("--output-root", default="reports/research/long_short_v1")
+    xs_retrain_parser.add_argument("--base-model-path", default=r"E:\Deepseek\models\DeepSeek-R1-Distill-Qwen-1.5B")
+    xs_retrain_parser.add_argument("--max-bars", type=int, default=600)
+    xs_retrain_parser.add_argument("--eval-days-count", type=int, default=280)
+    xs_retrain_parser.add_argument("--num-train-epochs", type=float, default=1.0)
+    xs_retrain_parser.add_argument("--max-train-samples", type=int, default=6000)
+    long_short_parser = subparsers.add_parser("long-short-research-run")
+    long_short_parser.add_argument("--output-root", default="reports/research/long_short_v1")
+    long_short_parser.add_argument("--scores-path", default="reports/research/long_short_v1/broad_directional_scores.jsonl")
+    long_short_parser.add_argument("--max-bars", type=int, default=450)
+    long_short_parser.add_argument("--eval-days-count", type=int, default=280)
+    long_short_parser.add_argument("--book-size", type=int, default=20)
+    long_short_parser.add_argument("--rebalance-days", type=int, default=5)
+    long_short_parser.add_argument("--cost-bps-per-side", type=float, default=1.0)
+    long_short_parser.add_argument("--short-borrow-annual", type=float, default=0.01)
+    long_short_parser.add_argument("--book-mode", default="sign", choices=["sign", "rank"])
     v35_controls_parser = subparsers.add_parser("v35-execution-controls-run")
     v35_controls_parser.add_argument("--output-root", default="reports/research/qwen_embedding_v3_q3e/controls")
     v35_controls_parser.add_argument(
@@ -1328,6 +1799,134 @@ def main() -> int:
             args.end_date,
             [value.strip().upper() for value in args.training_symbols.split(",") if value.strip()],
             [value.strip().upper() for value in args.evaluation_symbols.split(",") if value.strip()],
+        )
+    if args.command == "hybrid-alpha-run":
+        return cmd_hybrid_alpha_run(args.scores_path, args.output_root, args.max_bars, args.eval_days_count, args.retrain_every)
+    if args.command == "factor-ml-run":
+        return cmd_factor_ml_run(args.output_root, args.max_bars, args.eval_days_count, args.retrain_every, args.forward_horizon)
+    if args.command == "factor-validation-run":
+        return cmd_factor_validation_run(
+            args.output_root,
+            args.max_bars,
+            args.window_days,
+            args.window_count,
+            args.forward_horizon,
+        )
+    if args.command == "factor-news-overlay-run":
+        return cmd_factor_news_overlay_run(
+            args.scores_path,
+            args.output_root,
+            args.max_bars,
+            args.window_days,
+            args.window_count,
+            args.forward_horizon,
+            args.news_fresh_days,
+        )
+    if args.command == "sentiment-balanced-run":
+        return cmd_sentiment_balanced_run(
+            args.scores_path,
+            args.output_root,
+            args.max_bars,
+            args.window_days,
+            args.window_count,
+            args.news_fresh_days,
+            args.retrain_every,
+        )
+    if args.command == "embedding-sentiment-run":
+        return cmd_embedding_sentiment_run(
+            args.scores_path,
+            args.embedding_cache_path,
+            args.output_root,
+            args.max_bars,
+            args.window_days,
+            args.window_count,
+            args.news_fresh_days,
+            args.retrain_every,
+            args.svd_components,
+            args.book_size,
+        )
+    if args.command == "portfolio-controls-run":
+        return cmd_portfolio_controls_run(
+            args.output_root,
+            args.max_bars,
+            args.window_days,
+            args.window_count,
+            args.forward_horizon,
+            args.book_size,
+            args.rebalance_days,
+        )
+    if args.command == "regime-switch-run":
+        return cmd_regime_switch_run(
+            args.output_root,
+            args.max_bars,
+            args.window_days,
+            args.window_count,
+            args.forward_horizon,
+            args.book_size,
+            args.rebalance_days,
+            args.train_min_samples,
+            args.embargo_days,
+            args.label_drawdown_penalty,
+        )
+    if args.command == "book-size-sensitivity-run":
+        return cmd_book_size_sensitivity_run(
+            args.output_root,
+            args.max_bars,
+            args.window_days,
+            args.window_count,
+            args.forward_horizon,
+            [int(value.strip()) for value in args.book_sizes.split(",") if value.strip()],
+            args.rebalance_days,
+        )
+    if args.command == "price-momentum-validation-run":
+        return cmd_price_momentum_validation_run(
+            args.output_root,
+            args.max_bars,
+            args.window_days,
+            args.window_count,
+            args.forward_horizon,
+            args.book_size,
+            args.rebalance_days,
+        )
+    if args.command == "cross-asset-momentum-run":
+        return cmd_cross_asset_momentum_run(
+            args.output_root,
+            args.max_bars,
+            args.lookback_days,
+            args.rebalance_days,
+            args.window_days,
+            args.window_count,
+            [int(value.strip()) for value in args.book_sizes.split(",") if value.strip()],
+        )
+    if args.command == "vol-carry-research":
+        return cmd_vol_carry_research(
+            args.output_root,
+            args.window_days,
+            args.window_count,
+            args.portfolio_cap,
+        )
+    if args.command == "long-short-corrected-run":
+        return cmd_long_short_corrected_run(args.scores_path, args.output_root, args.eval_days_count, args.book_size)
+    if args.command == "cross-sectional-retrain-run":
+        return cmd_cross_sectional_retrain_run(
+            args.output_root,
+            args.base_model_path,
+            args.max_bars,
+            args.eval_days_count,
+            args.num_train_epochs,
+            args.max_train_samples,
+        )
+    if args.command == "long-short-research-run":
+        return cmd_long_short_research_run(
+            args.output_root,
+            args.scores_path,
+            args.max_bars,
+            args.eval_days_count,
+            args.book_size,
+            args.rebalance_days,
+            args.cost_bps_per_side,
+            args.short_borrow_annual,
+            args.book_mode,
         )
     if args.command == "v35-execution-controls-run":
         return cmd_v35_execution_controls_run(
